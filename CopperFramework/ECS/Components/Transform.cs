@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 
-namespace CopperFramework.Data;
+namespace CopperFramework.ECS.Components;
 
-public class Transform
+public class Transform : Component
 {
     public Vector3 Position { get; set; } = Vector3.Zero;
 
