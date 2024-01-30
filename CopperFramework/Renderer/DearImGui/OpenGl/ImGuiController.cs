@@ -56,7 +56,7 @@ internal class ImGuiController : IDisposable
         {
             fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes(
                        "CopperFramework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
-                io.Fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 16);
+                io.Fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
         }
         catch (Exception e)
         {

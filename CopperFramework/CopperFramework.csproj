@@ -10,13 +10,44 @@
 
     <ItemGroup>
         <PackageReference Include="Silk.NET.Core" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.Input" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input.Common" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input.Extensions" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.Input.Glfw" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.Input.Sdl" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Maths" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Windowing.Common" Version="2.20.0" />
         <PackageReference Include="ImGui.NET" Version="1.89.9.3" />
         <PackageReference Include="Silk.NET.OpenGL" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.Windowing.Glfw" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.Windowing.Sdl" Version="2.20.0" />
     </ItemGroup>
+
+
+    <ItemGroup>
+      <None Remove="Resources\Fonts\Inter\static\Inter-Black.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Black.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-Bold.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Bold.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-ExtraBold.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-ExtraBold.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-ExtraLight.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-ExtraLight.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-Light.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Light.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-Medium.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Medium.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-Regular.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Regular.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-SemiBold.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-SemiBold.ttf" />
+      <None Remove="Resources\Fonts\Inter\static\Inter-Thin.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Thin.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
+    </ItemGroup>
+
+
 
 
 </Project>

@@ -1,8 +1,10 @@
-﻿namespace CopperFramework.Renderer.DearImGui;
+﻿using Silk.NET.Windowing;
+
+namespace CopperFramework.Renderer.DearImGui;
 
 public interface IImGuiRenderer : IDisposable
 {
-    public void Setup();
+    public void Setup(CopperWindow window);
     public void Shutdown();
     public void Begin();
     public void End();
