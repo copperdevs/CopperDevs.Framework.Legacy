@@ -17,7 +17,7 @@ public class CopperImGui<TRenderer> : IDisposable where TRenderer : IImGuiRender
         LoadStyle();
     }
 
-    public void Shutdown() => currentRenderer.Shutdown();
+    private void Shutdown() => currentRenderer.Shutdown();
 
     public void Begin()
     {

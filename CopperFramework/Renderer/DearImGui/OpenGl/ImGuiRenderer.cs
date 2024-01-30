@@ -11,7 +11,7 @@ public class ImGuiRenderer : IImGuiRenderer
     {
         controller = new ImGuiController(
             window.gl,
-            window.silkWindow,
+            CopperWindow.silkWindow,
             window.input
         );
     }

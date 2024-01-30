@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Numerics;
 using CopperFramework.Info;
 using Silk.NET.Input;
 using Silk.NET.Maths;
@@ -12,7 +13,9 @@ namespace CopperFramework;
 
 public class CopperWindow : IDisposable
 {
-    public SilkWindow silkWindow { get; }
+    public static Vector2D<int> windowSize => silkWindow.Size; 
+    
+    public static SilkWindow silkWindow { get; private set; }
     public SilkOpenGlContext gl { get; private set; } = null!;
     public SilkInputContext input { get; private set; } = null!;
 
@@ -23,10 +26,7 @@ public class CopperWindow : IDisposable
 
     public CopperWindow()
     {
-        var options = WindowOptions.Default;
-        options.Title = "CopperWindow";
-        options.Size = new Vector2D<int>(650, 450);
-        silkWindow = Window.Create(options);
+        silkWindow = Window.Create(WindowOptions.Default);
 
         silkWindow.Load += () =>
         {
@@ -54,8 +54,9 @@ public class CopperWindow : IDisposable
         {
             Time.DeltaTime = (float)delta;
 
-            gl.ClearColor(Color.FromArgb(255, (int)(.45f * 255), (int)(.55f * 255), (int)(.60f * 255)));
-            gl.Clear((uint)ClearBufferMask.ColorBufferBit);
+            gl.ClearColor(Color.FromArgb(255, 245, 245, 245));
+            gl.Enable(EnableCap.DepthTest);
+            gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             OnRender?.Invoke();
         };

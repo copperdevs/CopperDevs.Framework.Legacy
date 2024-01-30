@@ -9,18 +9,25 @@
 
 
     <ItemGroup>
+        <PackageReference Include="Silk.NET.Assimp" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Core" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.GLFW" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input.Common" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input.Extensions" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input.Glfw" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Input.Sdl" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Maths" Version="2.20.0" />
+        <PackageReference Include="Silk.NET.SDL" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Windowing.Common" Version="2.20.0" />
         <PackageReference Include="ImGui.NET" Version="1.89.9.3" />
         <PackageReference Include="Silk.NET.OpenGL" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Windowing.Glfw" Version="2.20.0" />
         <PackageReference Include="Silk.NET.Windowing.Sdl" Version="2.20.0" />
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
+        <PackageReference Include="Ultz.Native.Assimp" Version="5.3.1" />
+        <PackageReference Include="Ultz.Native.GLFW" Version="3.3.9.2" />
+        <PackageReference Include="Ultz.Native.SDL" Version="2.28.4" />
     </ItemGroup>
 
 
@@ -45,7 +52,13 @@
       <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Thin.ttf" />
       <None Remove="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
       <EmbeddedResource Include="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
+
+
+
+
     </ItemGroup>
+
+
 
 
 
