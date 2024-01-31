@@ -10,11 +10,11 @@ public static class SystemManager
     internal static void Initialize()
     {
         systems = LoadSystems().ToList();
-        
+
         foreach (var system in systems)
         {
             system.LoadSystem();
-            
+
             if (SystemActions.TryGetValue(system.GetUpdateType(), out var value))
                 value.Add(system.UpdateSystem);
             else
@@ -32,9 +32,9 @@ public static class SystemManager
 
     internal static void Update(SystemUpdateType type)
     {
-        if (!SystemActions.TryGetValue(type, out var actions)) 
+        if (!SystemActions.TryGetValue(type, out var actions))
             return;
-        
+
         foreach (var action in actions)
             action?.Invoke();
     }
@@ -47,10 +47,9 @@ public static class SystemManager
             .Where(p => targetType.IsAssignableFrom(p)).ToList();
 
         types.Remove(typeof(ISystem));
+
         foreach (var type in types)
-        {
-            Log.Info(type.FullName);
-        }
+            Log.Info($"Loading new {nameof(ISystem)}. Name: {type.FullName}");
 
         return types.Select(type => (ISystem)Activator.CreateInstance(type)!).ToList();
     }

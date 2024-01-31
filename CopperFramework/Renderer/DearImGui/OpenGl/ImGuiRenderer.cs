@@ -1,11 +1,10 @@
 ﻿using CopperFramework.Info;
-using Silk.NET.Windowing;
 
 namespace CopperFramework.Renderer.DearImGui.OpenGl;
 
 public class ImGuiRenderer : IImGuiRenderer
 {
-    private ImGuiController controller;
+    private ImGuiController controller = null!;
 
     public void Setup(CopperWindow window)
     {

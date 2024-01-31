@@ -54,4 +54,11 @@
       <EmbeddedResource Include="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
     </ItemGroup>
 
+
+
+
+    <ItemGroup>
+      <Folder Include="Systems\Systems\" />
+    </ItemGroup>
+
 </Project>
