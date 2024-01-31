@@ -1,4 +1,5 @@
-﻿using CopperFramework.Renderer.DearImGui;
+﻿using CopperFramework.Components;
+using CopperFramework.Renderer.DearImGui;
 using CopperFramework.Renderer.DearImGui.OpenGl;
 using CopperFramework.Util;
 using ImGuiNET;
@@ -16,10 +17,10 @@ public class ImGuiSystem : ISystem
     public void UpdateSystem()
     {
         imGuiRenderer.Begin();
-
-        ImGui.ShowDemoWindow();
-
-        foreach (var window in windows)
+        
+        ImGui.DockSpaceOverViewport(ImGui.GetMainViewport(), ImGuiDockNodeFlags.AutoHideTabBar | ImGuiDockNodeFlags.PassthruCentralNode);
+        
+        foreach (var window in windows.Where(window => window.IsOpen))
         {
             window.PreRender();
 
@@ -30,6 +31,25 @@ public class ImGuiSystem : ISystem
             }
 
             window.PostRender();
+        }
+
+        foreach (var window in windows)
+        {
+            if (!ImGui.BeginMainMenuBar()) 
+                continue;
+            
+            if (ImGui.BeginMenu("Windows"))
+            {
+                ImGui.MenuItem(window.GetWindowName(), null, ref window.IsOpen);
+                ImGui.EndMenu();
+            }
+
+            ImGui.EndMainMenuBar();
+        }
+        
+        foreach (var component in ComponentRegistry.GameComponents.ToList())
+        {
+            component.UiUpdate();
         }
 
         imGuiRenderer.End();

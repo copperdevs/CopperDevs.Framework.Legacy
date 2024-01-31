@@ -3,20 +3,18 @@ using CopperFramework.Data;
 using Silk.NET.Assimp;
 using Silk.NET.OpenGL;
 using AssimpMesh = Silk.NET.Assimp.Mesh;
+using Scene = Silk.NET.Assimp.Scene;
 
 namespace CopperFramework.Renderer.Internal;
 
 internal class Model : IDisposable
 {
-    internal Guid Id;
-    
     public Model(GL gl, string path, bool gamma = false)
     {
         var assimp = Silk.NET.Assimp.Assimp.GetApi();
         _assimp = assimp;
         _gl = gl;
         LoadModel(path);
-        Id = Guid.NewGuid();
     }
 
     private readonly GL _gl;

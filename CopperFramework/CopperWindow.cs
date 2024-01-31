@@ -15,8 +15,8 @@ public class CopperWindow : IDisposable
     public static Vector2D<int> windowSize => silkWindow.Size; 
     
     public static SilkWindow silkWindow { get; private set; }
-    public SilkOpenGlContext gl { get; private set; } = null!;
-    public SilkInputContext input { get; private set; } = null!;
+    public static SilkOpenGlContext gl { get; private set; } = null!;
+    public static SilkInputContext input { get; private set; } = null!;
 
     public Action OnLoad;
     public Action OnRender;

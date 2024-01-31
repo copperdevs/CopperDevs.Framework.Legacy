@@ -2,11 +2,18 @@
 
 namespace CopperFramework.Data;
 
-public class Transform
+public struct Transform
 {
+    public Transform()
+    {
+        Position = Vector3.Zero;
+        Scale = Vector3.One;
+        Rotation = Quaternion.Identity;
+    }
+
     public Vector3 Position { get; set; } = Vector3.Zero;
 
-    public Vector3 Scale { get; set; } = Vector3.Zero;
+    public Vector3 Scale { get; set; } = Vector3.One;
 
     public Quaternion Rotation { get; set; } = Quaternion.Identity;
 

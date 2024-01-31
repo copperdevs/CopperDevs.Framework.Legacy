@@ -9,9 +9,9 @@ public class ImGuiRenderer : IImGuiRenderer
     public void Setup(CopperWindow window)
     {
         controller = new ImGuiController(
-            window.gl,
+            CopperWindow.gl,
             CopperWindow.silkWindow,
-            window.input
+            CopperWindow.input
         );
     }
 

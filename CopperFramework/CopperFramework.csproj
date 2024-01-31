@@ -52,13 +52,23 @@
       <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Thin.ttf" />
       <None Remove="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
       <EmbeddedResource Include="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
+      <None Remove="Resources\Shaders\shader.frag" />
+      <EmbeddedResource Include="Resources\Shaders\shader.frag" />
+      <None Remove="Resources\Shaders\shader.vert" />
+      <EmbeddedResource Include="Resources\Shaders\shader.vert" />
     </ItemGroup>
 
 
 
 
+
+
+
+
+
+
     <ItemGroup>
-      <Folder Include="Systems\Systems\" />
+      <Folder Include="Resources\Models\" />
     </ItemGroup>
 
 </Project>

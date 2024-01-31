@@ -1,6 +1,8 @@
-﻿using CopperFramework.Renderer.DearImGui;
+﻿using CopperFramework.Renderer;
+using CopperFramework.Renderer.DearImGui;
 using CopperFramework.Renderer.DearImGui.OpenGl;
 using CopperFramework.Systems;
+using CopperFramework.Util;
 
 namespace CopperFramework;
 
@@ -8,7 +10,11 @@ public static class Framework
 {
     internal static CopperWindow Window = null!;
 
-    public static void Load()
+    internal static Shader Shader = null!;
+
+    public static void Load() => Load(() => { });
+
+    public static void Load(Action loadAction)
     {
         Window = new CopperWindow();
 
@@ -16,6 +22,12 @@ public static class Framework
         {
             SystemManager.Initialize();
             SystemManager.Update(SystemUpdateType.Load);
+
+            Shader = new Shader(CopperWindow.gl,
+                ResourceLoader.LoadTextResource("CopperFramework.Resources.Shaders.shader.vert"),
+                ResourceLoader.LoadTextResource("CopperFramework.Resources.Shaders.shader.frag"));
+
+            loadAction.Invoke();
         };
 
         Window.OnUpdate += () => { SystemManager.Update(SystemUpdateType.Update); };

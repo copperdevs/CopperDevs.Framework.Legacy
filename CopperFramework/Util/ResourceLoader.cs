@@ -15,4 +15,11 @@ public static class ResourceLoader
     {
         return typeof(ResourceLoader).Assembly.GetManifestResourceNames();
     }
+
+    public static string LoadTextResource(string path)
+    {
+        using var stream = typeof(ResourceLoader).Assembly.GetManifestResourceStream(path);
+        using var reader = new StreamReader(stream!);
+        return reader.ReadToEnd();
+    }
 }

@@ -8,12 +8,12 @@ internal class Shader : IDisposable
     private readonly uint handle;
     private readonly GL gl;
 
-    public Shader(GL gl, string vertexPath, string fragmentPath)
+    public Shader(GL gl, string vertexData, string fragmentData)
     {
         this.gl = gl;
 
-        var vertex = LoadShader(ShaderType.VertexShader, vertexPath);
-        var fragment = LoadShader(ShaderType.FragmentShader, fragmentPath);
+        var vertex = LoadShader(ShaderType.VertexShader, vertexData);
+        var fragment = LoadShader(ShaderType.FragmentShader, fragmentData);
         handle = this.gl.CreateProgram();
         this.gl.AttachShader(handle, vertex);
         this.gl.AttachShader(handle, fragment);
@@ -72,11 +72,10 @@ internal class Shader : IDisposable
         gl.DeleteProgram(handle);
     }
 
-    private uint LoadShader(ShaderType type, string path)
+    private uint LoadShader(ShaderType type, string data)
     {
-        var src = File.ReadAllText(path);
         var loadedShader = gl.CreateShader(type);
-        gl.ShaderSource(loadedShader, src);
+        gl.ShaderSource(loadedShader, data);
         gl.CompileShader(loadedShader);
         var infoLog = gl.GetShaderInfoLog(loadedShader);
 
