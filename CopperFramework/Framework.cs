@@ -1,49 +1,37 @@
 ﻿using CopperFramework.Renderer.DearImGui;
 using CopperFramework.Renderer.DearImGui.OpenGl;
+using CopperFramework.Systems;
 
 namespace CopperFramework;
 
 public static class Framework
 {
-    private static CopperWindow window = null!;
-    private static CopperImGui<ImGuiRenderer> imGuiRenderer = null!;
-    
-    public static Action? OnLoad;
-    public static Action? OnRender;
-    public static Action? OnUpdate;
-    public static Action? OnClose;
-    public static Action? OnUiRender;
+    internal static CopperWindow Window = null!;
 
     public static void Load()
     {
-        window = new CopperWindow();
-        imGuiRenderer = new CopperImGui<ImGuiRenderer>();
-        
-        window.OnLoad += () =>
+        Window = new CopperWindow();
+
+        Window.OnLoad += () =>
         {
-            imGuiRenderer.Setup(window);
-            OnLoad?.Invoke();
+            SystemManager.Initialize();
+            SystemManager.Update(SystemUpdateType.Load);
         };
 
-        window.OnUpdate += OnUpdate;
-        
-        window.OnRender += () =>
+        Window.OnUpdate += () => { SystemManager.Update(SystemUpdateType.Update); };
+
+        Window.OnRender += () => { SystemManager.Update(SystemUpdateType.Renderer); };
+
+        Window.OnClose += () =>
         {
-            OnRender?.Invoke();
-            
-            imGuiRenderer.Begin();
-
-            OnUiRender?.Invoke();
-
-            imGuiRenderer.End();
+            SystemManager.Shutdown();
+            SystemManager.Update(SystemUpdateType.Close);
         };
-
-        window.OnClose += OnClose;
     }
 
     public static void Run()
     {
-        window.Run();
-        window.Dispose();
+        Window.Run();
+        Window.Dispose();
     }
 }

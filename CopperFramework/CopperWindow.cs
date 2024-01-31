@@ -1,6 +1,4 @@
 ﻿using System.Drawing;
-using System.Numerics;
-using CopperFramework.ECS;
 using CopperFramework.Info;
 using Silk.NET.Input;
 using Silk.NET.Maths;

@@ -52,23 +52,6 @@
       <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Thin.ttf" />
       <None Remove="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
       <EmbeddedResource Include="Resources\Fonts\Inter\Inter-VariableFont_slnt,wght.ttf" />
-
-
-
-
-
-
-
-
-
-
-
-
     </ItemGroup>
-
-
-
-
-
 
 </Project>
