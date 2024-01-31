@@ -1,10 +1,10 @@
 ﻿using System.Numerics;
 using CopperFramework.Util;
 
-namespace CopperFramework.ECS.Components;
+namespace CopperFramework.Data;
 
 // TODO: Make a high level camera component
-public class Camera : Component
+public class Camera
 {
     private static Vector3 position = new(0.0f, 0.0f, 3.0f);
     private static Vector3 front = new(0.0f, 0.0f, -1.0f);

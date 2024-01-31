@@ -21,4 +21,18 @@ public static class Extensions
     public static Vector4 WithY(this Vector4 vector, float value) => vector with { Y = value };
     public static Vector4 WithZ(this Vector4 vector, float value) => vector with { Z = value };
     public static Vector4 WithW(this Vector4 vector, float value) => vector with { W = value };
+
+    /// <summary>
+    /// https://stackoverflow.com/a/32515159
+    /// </summary>
+    public static T[] Add<T>(this T[]? target, params T[]? items)
+    {
+        target ??= Array.Empty<T>();
+        items ??= Array.Empty<T>();
+
+        var result = new T[target.Length + items.Length];
+        target.CopyTo(result, 0);
+        items.CopyTo(result, target.Length);
+        return result;
+    }
 }
