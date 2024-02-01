@@ -9,7 +9,7 @@ public static class SystemManager
 
     internal static void Initialize()
     {
-        systems = LoadSystems().ToList();
+        systems = LoadSystems().OrderBy(s => s.GetPriority()).ToList();
 
         foreach (var system in systems)
         {
@@ -36,7 +36,7 @@ public static class SystemManager
             return;
 
         foreach (var action in actions)
-            action?.Invoke();
+            action.Invoke();
     }
 
     private static IEnumerable<ISystem> LoadSystems()
@@ -49,7 +49,7 @@ public static class SystemManager
         types.Remove(typeof(ISystem));
 
         foreach (var type in types)
-            Log.Info($"Loading new {nameof(ISystem)}. Name: {type.FullName}");
+            Log.Info($"Loading new {nameof(ISystem)} | Name: {type.FullName}");
 
         return types.Select(type => (ISystem)Activator.CreateInstance(type)!).ToList();
     }

@@ -20,7 +20,7 @@ internal class Texture : IDisposable
         Type = type;
         handle = this.gl.GenTexture();
         Bind();
-
+        
         using (var img = Image.Load<Rgba32>(path))
         {
             gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba8, (uint)img.Width, (uint)img.Height, 0,

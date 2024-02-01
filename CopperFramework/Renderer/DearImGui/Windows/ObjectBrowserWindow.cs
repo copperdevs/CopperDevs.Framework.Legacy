@@ -65,7 +65,7 @@ public class ObjectBrowser : DearImGuiWindow
                 {
                     using (new Indent())
                     {
-                        ImGuiReflection.RenderValues(CurrentObjectBrowserTarget, i);
+                        ImGuiReflection.RenderValues(component, i);
                     }
                 }
             }

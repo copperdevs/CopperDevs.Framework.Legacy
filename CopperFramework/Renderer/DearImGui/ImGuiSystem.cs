@@ -1,10 +1,10 @@
 ﻿using CopperFramework.Components;
-using CopperFramework.Renderer.DearImGui;
 using CopperFramework.Renderer.DearImGui.OpenGl;
+using CopperFramework.Systems;
 using CopperFramework.Util;
 using ImGuiNET;
 
-namespace CopperFramework.Systems.Systems;
+namespace CopperFramework.Renderer.DearImGui;
 
 public class ImGuiSystem : ISystem
 {
@@ -13,6 +13,7 @@ public class ImGuiSystem : ISystem
     private readonly List<DearImGuiWindow> windows = LoadDearImGuiWindows();
 
     public SystemUpdateType GetUpdateType() => SystemUpdateType.Renderer;
+    public int GetPriority() => 100;
 
     public void UpdateSystem()
     {

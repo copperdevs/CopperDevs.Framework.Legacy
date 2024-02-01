@@ -56,6 +56,18 @@
       <EmbeddedResource Include="Resources\Shaders\shader.frag" />
       <None Remove="Resources\Shaders\shader.vert" />
       <EmbeddedResource Include="Resources\Shaders\shader.vert" />
+      <None Remove="Resources\Textures\silk.png" />
+      <EmbeddedResource Include="Resources\Textures\silk.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Resources\Models\Cube.obj" />
+      <EmbeddedResource Include="Resources\Models\Cube.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Resources\Models\Cube.mtl" />
+      <EmbeddedResource Include="Resources\Models\Cube.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 

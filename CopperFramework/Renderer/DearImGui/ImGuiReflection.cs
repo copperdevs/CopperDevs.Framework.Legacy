@@ -17,7 +17,7 @@ internal static class ImGuiReflection
     private static HideInInspectorAttribute? currentHideInInspectorAttribute;
     private static SpaceAttribute? currentSpaceAttribute;
     private static SeperatorAttribute? currentSeperatorAttribute;
-    
+
     internal static void RenderValues(object component, int id = 0)
     {
         var fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
@@ -55,15 +55,16 @@ internal static class ImGuiReflection
                     {
                         try
                         {
-                            if (ImGui.CollapsingHeader($"{info.Name}##{id+1}"))
+                            if (ImGui.CollapsingHeader($"{info.Name}##{id + 1}"))
                             {
                                 ImGui.Indent();
                                 var subComponent = info.GetValue(component);
                                 if (subComponent is not null)
                                 {
-                                    RenderValues(subComponent, id+1);
+                                    RenderValues(subComponent, id + 1);
                                     info.SetValue(component, subComponent);
                                 }
+
                                 ImGui.Unindent();
                             }
                         }
@@ -112,6 +113,7 @@ internal static class ImGuiReflection
         { typeof(float), new FloatFieldRenderer() },
         { typeof(int), new IntFieldRenderer() },
         { typeof(bool), new BoolFieldRenderer() },
+        { typeof(string), new StringFieldRenderer() },
         { typeof(Vector2), new Vector2FieldRenderer() },
         { typeof(Vector3), new Vector3FieldRenderer() },
         { typeof(Vector4), new Vector4FieldRenderer() },
@@ -136,16 +138,16 @@ internal static class ImGuiReflection
             ImGui.Indent();
 
             ImGui.Text($"{value.Count} Items");
-            
+
             ImGui.SameLine();
 
             if (ImGui.Button($"+##{fieldInfo.Name}{id}"))
                 value.Add(value[^1]);
-            
+
             ImGui.SameLine();
-            
+
             if (ImGui.Button($"-##{fieldInfo.Name}{id}"))
-                value.RemoveAt(value.Count-1);
+                value.RemoveAt(value.Count - 1);
 
             ImGui.Separator();
 
@@ -184,7 +186,6 @@ internal static class ImGuiReflection
 
         fieldInfo.SetValue(component, value);
     }
-
 
     private class FloatFieldRenderer : IFieldRenderer
     {
@@ -259,6 +260,23 @@ internal static class ImGuiReflection
             var boolValue = (bool)value;
             if (ImGui.Checkbox($"{value.GetType().Name}##{id}", ref boolValue))
                 value = boolValue;
+        }
+    }
+
+    private class StringFieldRenderer : IFieldRenderer
+    {
+        public void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+        {
+            var value = (string)(fieldInfo.GetValue(component) ?? false);
+            if (ImGui.InputText($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, uint.MaxValue-1))
+                fieldInfo.SetValue(component, value);
+        }
+
+        public void ValueRenderer(ref object value, int id)
+        {
+            var stringValue = (string)value;
+            if (ImGui.InputText($"{value.GetType().Name}##{id}", ref stringValue, uint.MaxValue-1))
+                value = stringValue;
         }
     }
 
@@ -383,10 +401,10 @@ internal static class ImGuiReflection
                     fieldInfo.SetValue(component, value);
                 }
 
-                var rotation = value.Rotation.ToVector();
-                if (ImGui.DragFloat4($"Rotation##{fieldInfo.Name}{id}", ref rotation, 0.1f))
+                var rotation = value.Rotation.ToEulerAngles();
+                if (ImGui.DragFloat3($"Rotation##{fieldInfo.Name}{id}", ref rotation, 0.1f))
                 {
-                    value.Rotation = rotation.ToQuaternion();
+                    value.Rotation = rotation.FromEulerAngles();
                     fieldInfo.SetValue(component, value);
                 }
 
@@ -416,10 +434,10 @@ internal static class ImGuiReflection
                     value = transformValue;
                 }
 
-                var rotation = transformValue.Rotation.ToVector();
-                if (ImGui.DragFloat4($"Rotation##{id}", ref rotation, 0.1f))
+                var rotation = transformValue.Rotation.ToEulerAngles();
+                if (ImGui.DragFloat3($"Rotation##{id}", ref rotation, 0.1f))
                 {
-                    transformValue.Rotation = rotation.ToQuaternion();
+                    transformValue.Rotation = rotation.FromEulerAngles();
                     value = transformValue;
                 }
 

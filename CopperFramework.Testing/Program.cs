@@ -1,4 +1,6 @@
-﻿using CopperFramework.Data;
+﻿using CopperFramework.Components;
+using CopperFramework.Data;
+using CopperFramework.Renderer;
 
 namespace CopperFramework.Testing;
 
@@ -10,8 +12,9 @@ public static class Program
         {
             var scene = new Scene("Test Scene")
             {
-                new("Object One")
+                new GameObject("Object One")
                 {
+                    new Model("Resources/Textures/silk.png", "Resources/Models/Cube.obj")
                 }
             };
         });

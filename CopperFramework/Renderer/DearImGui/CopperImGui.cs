@@ -22,8 +22,6 @@ public class CopperImGui<TRenderer> : IDisposable where TRenderer : IImGuiRender
     public void Begin()
     {
         currentRenderer.Begin();
-
-        ImGui.DockSpaceOverViewport();
     }
 
     public void End() => currentRenderer.End();

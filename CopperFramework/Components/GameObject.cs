@@ -20,6 +20,7 @@ public sealed class GameObject : IEnumerable<GameComponent>
     public void Add(GameComponent gameComponent)
     {
         Components.Add(gameComponent);
+        gameComponent.Parent = this;
         ComponentRegistry.RegisterObject(gameComponent);
     }
 

@@ -5,6 +5,7 @@ namespace CopperFramework.Components.Systems;
 public class ComponentStopSystem : ISystem
 {
     public SystemUpdateType GetUpdateType() => SystemUpdateType.Close;
+    public int GetPriority() => 0;
 
     public void UpdateSystem()
     {

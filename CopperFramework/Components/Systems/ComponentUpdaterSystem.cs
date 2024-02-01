@@ -5,6 +5,7 @@ namespace CopperFramework.Components.Systems;
 public class ComponentUpdaterSystem : ISystem
 {
     public SystemUpdateType GetUpdateType() => SystemUpdateType.Update;
+    public int GetPriority() => 0;
 
     public void UpdateSystem()
     {

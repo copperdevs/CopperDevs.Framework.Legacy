@@ -9,6 +9,7 @@ public class ComponentFixedUpdaterSystem : ISystem
     private const float FixedFrameTime = 0.02f;
     
     public SystemUpdateType GetUpdateType() => SystemUpdateType.Update;
+    public int GetPriority() => 0;
 
     public void UpdateSystem()
     {

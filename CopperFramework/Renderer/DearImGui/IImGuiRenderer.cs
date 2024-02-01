@@ -1,6 +1,4 @@
-﻿using Silk.NET.Windowing;
-
-namespace CopperFramework.Renderer.DearImGui;
+﻿namespace CopperFramework.Renderer.DearImGui;
 
 public interface IImGuiRenderer : IDisposable
 {

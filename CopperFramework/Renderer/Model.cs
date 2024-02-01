@@ -1,33 +1,39 @@
 ﻿using System.Numerics;
-using CopperFramework;
 using CopperFramework.Components;
 using CopperFramework.Data;
+using CopperFramework.Renderer.DearImGui.Attributes;
 using CopperFramework.Renderer.Internal;
-using ImGuiNET;
 using Silk.NET.OpenGL;
 using InternalShader = CopperFramework.Renderer.Shader;
 using InternalTexture = CopperFramework.Renderer.Texture;
 using InternalModel = CopperFramework.Renderer.Internal.Model;
 
-namespace CopperEngine.Rendering;
+namespace CopperFramework.Renderer;
 
 public class Model : GameComponent
 {
-    private Matrix4x4 TransformViewMatrix => Transform.Matrix;
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    private Matrix4x4 TransformViewMatrix => Parent is not null ? Transform.Matrix : Matrix4x4.Identity;
+
     private static InternalShader? Shader => Framework.Shader;
-    private InternalModel? LoadedModel { get; set; }
-    private readonly InternalTexture? texture;
+    [HideInInspector] private readonly InternalModel? loadedModel;
+    [HideInInspector] private readonly InternalTexture? texture;
     private static GL Gl => CopperWindow.gl;
+
+    [ReadOnly] private string texturePath;
+    [ReadOnly] private string modelPath;
 
     private List<Mesh> LoadedMeshes
     {
-        get => LoadedModel?.Meshes ?? Array.Empty<Mesh>().ToList();
-        set => LoadedModel!.Meshes = value;
+        get => loadedModel?.Meshes ?? Array.Empty<Mesh>().ToList();
+        set => loadedModel!.Meshes = value;
     }
 
     public Model(string texturePath, string modelPath)
     {
-        LoadedModel = new InternalModel(Gl, modelPath);
+        this.texturePath = texturePath;
+        this.modelPath = modelPath;
+        loadedModel = new InternalModel(Gl, modelPath);
         texture = new InternalTexture(Gl, texturePath);
     }
 
@@ -40,7 +46,7 @@ public class Model : GameComponent
 
     private void RenderModel(Matrix4x4 modelMatrix)
     {
-        foreach (var mesh in LoadedModel?.Meshes!)
+        foreach (var mesh in loadedModel?.Meshes!)
         {
             mesh.Bind();
             Shader?.Use();
@@ -61,7 +67,7 @@ public class Model : GameComponent
 
     private void Dispose()
     {
-        LoadedModel?.Dispose();
+        loadedModel?.Dispose();
         texture?.Dispose();
     }
 }
