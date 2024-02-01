@@ -76,8 +76,14 @@ public class CopperWindow : IDisposable
         {
             Time.DeltaTime = (float)delta;
 
-            gl.ClearColor(Color.FromArgb(255, 245, 245, 245));
+            Framework.Shader.Use();
+            Framework.Shader.SetUniform("uTexture0", 0);
+            
             gl.Enable(EnableCap.DepthTest);
+            gl.Enable(EnableCap.Dither);
+            gl.Enable(EnableCap.LineSmooth);
+            gl.Enable(EnableCap.Blend);
+            gl.ClearColor(Color.FromArgb(255, 245, 245, 245));
             gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             OnRender?.Invoke();
