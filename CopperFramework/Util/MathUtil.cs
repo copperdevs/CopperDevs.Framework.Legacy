@@ -11,7 +11,22 @@ public static class MathUtil
 
     public static float DegreesToRadians(float degrees)
     {
-        return MathF.PI / 180f * degrees;
+        return degrees * (MathF.PI / 180);
+    }
+
+    public static float RadiansToDegrees(float radians)
+    {
+        return radians * (180 / MathF.PI);
+    }
+
+    public static Vector3 DegreesToRadians(Vector3 degrees)
+    {
+        return new Vector3(DegreesToRadians(degrees.X), DegreesToRadians(degrees.Y), DegreesToRadians(degrees.Z));
+    }
+
+    public static Vector3 RadiansToDegrees(Vector3 radians)
+    {
+        return new Vector3(RadiansToDegrees(radians.X), RadiansToDegrees(radians.Y), RadiansToDegrees(radians.Z));
     }
 
     /// <summary>
@@ -20,22 +35,22 @@ public static class MathUtil
     public static Vector3 ToEulerAngles(Quaternion quaternion)
     {
         Vector3 angles;
-        
+
         // roll (x-axis rotation)
         var sinr_cosp = 2 * (quaternion.W * quaternion.X + quaternion.Y * quaternion.Z);
         var cosr_cosp = 1 - 2 * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y);
         angles.X = MathF.Atan2(sinr_cosp, cosr_cosp);
-        
+
         // pitch (y-axis rotation)
         var sinp = MathF.Sqrt(1 + 2 * (quaternion.W * quaternion.Y - quaternion.X * quaternion.Z));
         var cosp = MathF.Sqrt(1 - 2 * (quaternion.W * quaternion.Y - quaternion.X * quaternion.Z));
         angles.Y = 2 * MathF.Atan2(sinp, cosp) - MathF.PI / 2;
-        
+
         // yaw (z-axis rotation)
         var siny_cosp = 2 * (quaternion.W * quaternion.Z + quaternion.X * quaternion.Y);
         var cosy_cosp = 1 - 2 * (quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z);
         angles.Z = MathF.Atan2(siny_cosp, cosy_cosp);
-        
+
         return angles;
     }
 
@@ -50,13 +65,13 @@ public static class MathUtil
         var sp = MathF.Sin(euler.Y * 0.5f);
         var cy = MathF.Cos(euler.Z * 0.5f);
         var sy = MathF.Sin(euler.Z * 0.5f);
-        
+
         var quaternion = Quaternion.Identity;
         quaternion.W = cr * cp * cy + sr * sp * sy;
         quaternion.X = sr * cp * cy - cr * sp * sy;
         quaternion.Y = cr * sp * cy + sr * cp * sy;
         quaternion.Z = cr * cp * sy - sr * sp * cy;
-        
+
         return quaternion;
     }
 
@@ -94,5 +109,22 @@ public static class MathUtil
         var z = a.Z + distance.Z * t;
 
         return new Vector3(x, y, z);
+    }
+
+    public static Vector3 NormalizeAngles(Vector3 angles)
+    {
+        angles.X = NormalizeAngle(angles.X);
+        angles.Y = NormalizeAngle(angles.Y);
+        angles.Z = NormalizeAngle(angles.Z);
+        return angles;
+    }
+
+    public static float NormalizeAngle(float angle)
+    {
+        while (angle > 360)
+            angle -= 360;
+        while (angle < 0)
+            angle += 360;
+        return angle;
     }
 }

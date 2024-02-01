@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 using CopperFramework.Info;
+using CopperFramework.Util;
 using Silk.NET.Input;
+using Silk.NET.Input.Extensions;
 using Silk.NET.Maths;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing;
@@ -31,6 +33,27 @@ public class CopperWindow : IDisposable
         {
             gl = silkWindow.CreateOpenGL();
             input = silkWindow.CreateInput();
+            
+            Input.primaryKeyboard = input.Keyboards.FirstOrDefault();
+
+            foreach (var mouse in input.Mice)
+            {
+                mouse.MouseDown += (iMouse, button) =>
+                {   
+                    Input.IsMouseButtonDownStates[(int)button + 1] = true;
+                };
+
+                mouse.MouseUp += (iMouse, button) =>
+                {
+                    Input.IsMouseButtonDownStates[(int)button + 1] = false;
+                };
+                
+                mouse.MouseMove += (iMouse, position) =>
+                {
+                    Input.MouseMove?.Invoke(iMouse, position);
+                };
+            }
+            
             OnLoad?.Invoke();
         };
 

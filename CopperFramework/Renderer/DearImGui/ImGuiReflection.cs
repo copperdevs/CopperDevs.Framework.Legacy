@@ -401,10 +401,11 @@ internal static class ImGuiReflection
                     fieldInfo.SetValue(component, value);
                 }
 
-                var rotation = value.Rotation.ToEulerAngles();
+
+                var rotation = value.DegreesRotation;
                 if (ImGui.DragFloat3($"Rotation##{fieldInfo.Name}{id}", ref rotation, 0.1f))
                 {
-                    value.Rotation = rotation.FromEulerAngles();
+                    value.DegreesRotation = rotation;
                     fieldInfo.SetValue(component, value);
                 }
 
@@ -434,10 +435,10 @@ internal static class ImGuiReflection
                     value = transformValue;
                 }
 
-                var rotation = transformValue.Rotation.ToEulerAngles();
+                var rotation = transformValue.DegreesRotation;
                 if (ImGui.DragFloat3($"Rotation##{id}", ref rotation, 0.1f))
                 {
-                    transformValue.Rotation = rotation.FromEulerAngles();
+                    transformValue.DegreesRotation = rotation;
                     value = transformValue;
                 }
 

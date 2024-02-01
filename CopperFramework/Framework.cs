@@ -1,6 +1,4 @@
 ﻿using CopperFramework.Renderer;
-using CopperFramework.Renderer.DearImGui;
-using CopperFramework.Renderer.DearImGui.OpenGl;
 using CopperFramework.Systems;
 using CopperFramework.Util;
 

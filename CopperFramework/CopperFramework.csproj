@@ -68,6 +68,14 @@
       <EmbeddedResource Include="Resources\Models\Cube.mtl">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Resources\Models\Plane.obj" />
+      <EmbeddedResource Include="Resources\Models\Plane.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Resources\Models\Plane.mtl" />
+      <EmbeddedResource Include="Resources\Models\Plane.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 

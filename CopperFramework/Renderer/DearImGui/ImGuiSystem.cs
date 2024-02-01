@@ -77,7 +77,7 @@ public class ImGuiSystem : ISystem
         types.Remove(typeof(DearImGuiWindow));
 
         foreach (var type in types)
-            Log.Info($"Loading new {nameof(DearImGuiWindow)}. Name: {type.FullName}");
+            Log.Info($"Loading new {nameof(DearImGuiWindow)} | Name: {type.FullName}");
 
         return types.Select(type => (DearImGuiWindow)Activator.CreateInstance(type)!).ToList();
     }

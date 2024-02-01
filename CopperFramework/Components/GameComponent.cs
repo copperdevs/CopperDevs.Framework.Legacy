@@ -6,7 +6,11 @@ namespace CopperFramework.Components;
 public class GameComponent
 {
     [HideInInspector] public GameObject Parent { get; protected internal set; } = null!;
-    [HideInInspector] public Transform Transform => Parent.Transform;
+    [HideInInspector] public Transform Transform
+    {
+        get => Parent.Transform;
+        set => Parent.Transform = value;
+    }
 
     public virtual void Start()
     {

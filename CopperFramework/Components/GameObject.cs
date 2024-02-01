@@ -21,6 +21,7 @@ public sealed class GameObject : IEnumerable<GameComponent>
     {
         Components.Add(gameComponent);
         gameComponent.Parent = this;
+        gameComponent.Start();
         ComponentRegistry.RegisterObject(gameComponent);
     }
 
@@ -32,5 +33,15 @@ public sealed class GameObject : IEnumerable<GameComponent>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public T[] GetComponentsOfType<T>() where T : GameComponent
+    {
+        return Components.Where(component => component.GetType() == typeof(T)).Cast<T>().ToArray();
+    }
+
+    public T GetFirstComponentOfType<T>() where T : GameComponent
+    {
+        return GetComponentsOfType<T>()[0];
     }
 }
