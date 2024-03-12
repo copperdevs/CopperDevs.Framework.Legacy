@@ -1,37 +1,39 @@
-﻿using CopperFramework.Components;
-using CopperFramework.Util;
+﻿using CopperCore;
+using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Testing;
 
 public class LogComponent : GameComponent
 {
+    private bool shouldLog;
+
     public override void Start()
     {
-        Log.Info("Start");
+        if (shouldLog)
+            Log.Info("Start");
     }
 
     public override void Update()
     {
-        Log.Info("Update");
+        if (shouldLog)
+            Log.Info("Update");
     }
 
     public override void FixedUpdate()
     {
-        Log.Info("FixedUpdate");
+        if (shouldLog)
+            Log.Info("FixedUpdate");
     }
 
     public override void Stop()
     {
-        Log.Info("Stop");
-    }
-    
-    public override void UiUpdate()
-    {
-        Log.Info("UiUpdate");
+        if (shouldLog)
+            Log.Info("Stop");
     }
 
-    public override void Render()
+    public override void UiUpdate()
     {
-        Log.Info("Render");
+        if (shouldLog)
+            Log.Info("UiUpdate");
     }
 }

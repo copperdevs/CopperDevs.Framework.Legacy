@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using rlColor = Raylib_cs.Color;
 
 namespace CopperFramework.Data;
 
@@ -65,7 +66,18 @@ public sealed class Color
     {
         return new Color(color.R * value, color.G * value, color.B * value, color.A * value);
     }
-    
+
+    public static implicit operator rlColor(Color color)
+    {
+        return new rlColor((int)color.R, (int)color.G, (int)color.B, (int)color.A);
+    }
+
+    public static implicit operator Color(rlColor color)
+    {
+        return new Color(color.R, color.G, color.B, color.A);
+    }
+
+
     public static Color LightGray => new(200, 200, 200, 255);
     public static Color Gray => new(130, 130, 130, 255);
     public static Color DarkGray => new(80, 80, 80, 255);

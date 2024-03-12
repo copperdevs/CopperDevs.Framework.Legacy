@@ -1,32 +1,13 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics.Contracts;
+using System.Numerics;
 
-namespace CopperFramework.Util;
+namespace CopperPlatformer.Core.Utility;
 
 public static class MathUtil
 {
-    public static float Clamp(float value, float min, float max)
-    {
-        return value < min ? min : value > max ? max : value;
-    }
-
     public static float DegreesToRadians(float degrees)
     {
-        return degrees * (MathF.PI / 180);
-    }
-
-    public static float RadiansToDegrees(float radians)
-    {
-        return radians * (180 / MathF.PI);
-    }
-
-    public static Vector3 DegreesToRadians(Vector3 degrees)
-    {
-        return new Vector3(DegreesToRadians(degrees.X), DegreesToRadians(degrees.Y), DegreesToRadians(degrees.Z));
-    }
-
-    public static Vector3 RadiansToDegrees(Vector3 radians)
-    {
-        return new Vector3(RadiansToDegrees(radians.X), RadiansToDegrees(radians.Y), RadiansToDegrees(radians.Z));
+        return MathF.PI / 180f * degrees;
     }
 
     /// <summary>
@@ -75,17 +56,23 @@ public static class MathUtil
         return quaternion;
     }
 
+    [Pure]
+    public static float Clamp(float value, float min, float max)
+    {
+        return value < min ? min : value > max ? max : value;
+    }
+
     public static Vector3 Clamp(Vector3 value, Vector3 min, Vector3 max)
     {
-        return new Vector3(
-            Clamp(value.X, min.X, min.X),
-            Clamp(value.Y, min.Y, min.Y),
-            Clamp(value.Z, min.Z, min.Z));
+        value.X = Clamp(value.X, min.X, max.X);
+        value.Y = Clamp(value.Y, min.Y, max.Y);
+        value.Z = Clamp(value.Z, min.Z, max.Z);
+        return value;
     }
 
     public static float Lerp(float a, float b, float t)
     {
-        return (1.0f - t) * a + b + t;
+        return (1.0f - t) * a + b + t;  
     }
 
     public static float InverseLerp(float a, float b, float v)
@@ -111,20 +98,39 @@ public static class MathUtil
         return new Vector3(x, y, z);
     }
 
-    public static Vector3 NormalizeAngles(Vector3 angles)
+    public static Vector2 Lerp(Vector2 a, Vector2 b, float t)
     {
-        angles.X = NormalizeAngle(angles.X);
-        angles.Y = NormalizeAngle(angles.Y);
-        angles.Z = NormalizeAngle(angles.Z);
-        return angles;
+        t = Clamp(t, 0, 1);
+
+        var distance = new Vector2(b.X - a.X, b.Y - a.Y);
+
+        var x = a.X + distance.X * t;
+        var y = a.Y + distance.Y * t;
+
+        return new Vector2(x, y);
     }
 
-    public static float NormalizeAngle(float angle)
+    public static Vector2 Remap(Vector2 iMin, Vector2 iMax, Vector2 oMin, Vector2 oMax, Vector2 value)
     {
-        while (angle > 360)
-            angle -= 360;
-        while (angle < 0)
-            angle += 360;
-        return angle;
+        return new Vector2
+        (
+            Remap(iMin.X, iMax.X, oMin.X, oMax.X, value.X),
+            Remap(iMin.Y, iMax.Y, oMin.Y, oMax.Y, value.Y)
+        );
+    }
+
+    public static Vector3 Scale(Vector3 vector, float scale)
+    {
+        return Scale(vector, new Vector3(scale));
+    }
+
+    public static Vector3 Scale(Vector3 vec1, Vector3 vec2)
+    {
+        return new Vector3(vec1.X * vec2.X, vec1.Y * vec2.Y, vec1.Z * vec2.Z);
+    }
+
+    public static Vector2 RotationStuff(float rotation)
+    {
+        return new Vector2(MathF.Cos(-rotation * (MathF.PI / 180)), MathF.Sin(-rotation * (MathF.PI / 180)));
     }
 }

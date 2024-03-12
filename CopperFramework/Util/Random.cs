@@ -1,14 +1,12 @@
 ﻿using System.Numerics;
 using SystemRandom = System.Random;
 
-namespace CopperFramework.Util;
+namespace CopperPlatformer.Core.Utility;
 
 public static class Random
 {
     private static readonly SystemRandom SystemRandom = new(new Guid().GetHashCode());
 
-    private static string characters = "AaBbCcDdEeFfGgHhJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzz"; 
-    
     public static float Range(float min, float max)
     {
         if ((int)(MathF.Round(min * 1000) / 1000) == (int)(MathF.Round(max * 1000) / 1000))
@@ -49,22 +47,5 @@ public static class Random
     public static T Item<T>(List<T> items)
     {
         return items[SystemRandom.Next(items.Count - 1)];
-    }
-
-    public static string RandomCharacter()
-    {
-        return characters[Range(0, characters.Length-1)].ToString();
-    }
-
-    public static string RandomCharacters(int count)
-    {
-        var values = "";
-
-        for (var i = 0; i < count; i++)
-        {
-            values += RandomCharacter();
-        }
-
-        return values;
     }
 }

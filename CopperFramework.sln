@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperFramework", "CopperFr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperFramework.Testing", "CopperFramework.Testing\CopperFramework.Testing.csproj", "{F2FF6B05-7A56-4AF9-878C-F013191A1C0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperCore", "CopperCore\CopperCore.csproj", "{5A5BF56F-9155-4061-A169-B0366854DE98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F2FF6B05-7A56-4AF9-878C-F013191A1C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2FF6B05-7A56-4AF9-878C-F013191A1C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2FF6B05-7A56-4AF9-878C-F013191A1C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5BF56F-9155-4061-A169-B0366854DE98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5BF56F-9155-4061-A169-B0366854DE98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5BF56F-9155-4061-A169-B0366854DE98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5BF56F-9155-4061-A169-B0366854DE98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
