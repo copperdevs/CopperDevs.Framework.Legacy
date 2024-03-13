@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using CopperFramework.Elements.Systems;
+﻿using CopperFramework.Elements.Systems;
 using CopperFramework.Rendering.DearImGui;
 using ImGuiNET;
 

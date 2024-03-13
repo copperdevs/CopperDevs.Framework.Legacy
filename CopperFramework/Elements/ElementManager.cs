@@ -29,7 +29,15 @@ internal static class ElementManager
                 break;
             case ElementUpdateType.Render:
                 SystemManager.Update(SystemUpdateType.Renderer);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(component => component.Update());
+                ComponentRegistry.CurrentComponents.ToList().ForEach(component =>
+                {
+                    Rlgl.PushMatrix();
+                    Rlgl.Translatef(component.Transform.Position.X, component.Transform.Position.Y, 0);
+                    Rlgl.Rotatef(component.Transform.Rotation, 0, 0, -1);
+                    Rlgl.Scalef(component.Transform.Scale, component.Transform.Scale, 0);
+                    component.Update();
+                    Rlgl.PopMatrix();
+                });
                 break;
             case ElementUpdateType.Close:
                 SystemManager.Update(SystemUpdateType.Close);

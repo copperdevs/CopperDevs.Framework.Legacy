@@ -1,5 +1,4 @@
 ﻿using CopperFramework.Elements.Components;
-using CopperPlatformer.Core.Rendering.DearImGui;
 using CopperPlatformer.Core.Scenes;
 using CopperPlatformer.Core.Utility;
 using ImGuiNET;
@@ -59,8 +58,14 @@ public class ComponentBrowserWindow : BaseWindow
         CopperImGui.Group("object_browser_inspector_window",
             () =>
             {
-                if (CurrentObjectBrowserTarget is not null)
-                    ImGuiReflection.RenderValues(CurrentObjectBrowserTarget);
+                if (CurrentObjectBrowserTarget is null) 
+                    return;
+
+                var transformValue = (object)CurrentObjectBrowserTarget.Transform;
+                ImGuiReflection.GetImGuiRenderer<Transform>()?.ValueRenderer(ref transformValue, 100);
+                CurrentObjectBrowserTarget.Transform = (Transform)transformValue;
+                
+                ImGuiReflection.RenderValues(CurrentObjectBrowserTarget);
             },
             ImGuiChildFlags.Border);
     }

@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using System.Reflection;
+﻿using System.Reflection;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperPlatformer.Core.Rendering.DearImGui;
 
@@ -15,7 +14,7 @@ public class Vector3FieldRenderer: ImGuiReflection.IFieldRenderer
         {
             var value = (Vector3)(fieldInfo.GetValue(component) ?? Vector3.Zero);
             
-            CopperImGui.SliderValue($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, ImGuiReflection.currentRangeAttribute, newValue =>
+            CopperImGui.SliderValue($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, ImGuiReflection.currentRangeAttribute.Min, ImGuiReflection.currentRangeAttribute.Max, newValue =>
             {
                 fieldInfo.SetValue(component, newValue);
             });

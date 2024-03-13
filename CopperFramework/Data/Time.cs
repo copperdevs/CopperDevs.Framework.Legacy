@@ -1,6 +1,4 @@
-﻿using Raylib_cs;
-
-namespace CopperFramework.Data;
+﻿namespace CopperFramework.Data;
 
 public static class Time
 {

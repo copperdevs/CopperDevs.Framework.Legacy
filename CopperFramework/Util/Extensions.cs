@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace CopperPlatformer.Core.Utility;
+﻿namespace CopperPlatformer.Core.Utility;
 
 public static class Extensions
 {

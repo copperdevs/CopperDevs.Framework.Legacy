@@ -1,8 +1,4 @@
-﻿using System.Numerics;
-using CopperCore;
-using CopperFramework.Data;
-using CopperFramework.Rendering.DearImGui.Attributes;
-using CopperPlatformer.Core.Rendering.DearImGui;
+﻿using CopperCore;
 using ImGuiNET;
 
 namespace CopperFramework.Rendering.DearImGui;
@@ -16,6 +12,9 @@ public static class CopperImGui
     private static Vector2 tempVec = new();
 
     private static IImGuiRenderer currentRenderer = null!;
+    
+    public static bool AnyWindowHovered => ImGui.IsWindowHovered(ImGuiHoveredFlags.AnyWindow);
+    public static bool AnyElementHovered => ImGui.GetIO().WantCaptureMouse;
 
     public interface IImGuiRenderer
     {
@@ -357,9 +356,13 @@ public static class CopperImGui
             return;
         
         var vectorColor = (Vector4)(color / 255);
+
+        if (!ImGui.ColorEdit4(name, ref vectorColor)) 
+            return;
         
-        if(ImGui.ColorEdit4(name, ref vectorColor))
-            interacted?.Invoke(new Color(vectorColor * 255));
+        var newColor = new Color(vectorColor * 255);
+        color = newColor;
+        interacted?.Invoke(newColor);
     }
     
     public static void DragValue(string name, ref float value, Action<float>? interacted = null!)
@@ -370,11 +373,6 @@ public static class CopperImGui
         if(ImGui.DragFloat(name, ref value))
             interacted?.Invoke(value);
         
-    }
-
-    public static void SliderValue(string name, ref float value, RangeAttribute rangeAttribute, Action<float>? interacted = null!)
-    {
-        SliderValue(name, ref value, rangeAttribute.Min, rangeAttribute.Min, interacted);
     }
     
     public static void SliderValue(string name, ref float value, float min, float max, Action<float>? interacted = null!)
@@ -395,11 +393,6 @@ public static class CopperImGui
             interacted?.Invoke(value);
     }
     
-    public static void SliderValue(string name, ref Vector2 value, RangeAttribute rangeAttribute, Action<Vector2>? interacted = null!)
-    {
-        SliderValue(name, ref value, rangeAttribute.Min, rangeAttribute.Min, interacted);
-    }
-    
     public static void SliderValue(string name, ref Vector2 value, float min, float max, Action<Vector2>? interacted = null!)
     {
         if (!canRender)
@@ -416,11 +409,6 @@ public static class CopperImGui
         
         if(ImGui.DragFloat3(name, ref value))
             interacted?.Invoke(value);
-    }
-    
-    public static void SliderValue(string name, ref Vector3 value, RangeAttribute rangeAttribute, Action<Vector3>? interacted = null!)
-    {
-        SliderValue(name, ref value, rangeAttribute.Min, rangeAttribute.Min, interacted);
     }
     
     public static void SliderValue(string name, ref Vector3 value, float min, float max, Action<Vector3>? interacted = null!)
@@ -441,11 +429,6 @@ public static class CopperImGui
             interacted?.Invoke(value);
     }
     
-    public static void SliderValue(string name, ref Vector4 value, RangeAttribute rangeAttribute, Action<Vector4>? interacted = null!)
-    {
-        SliderValue(name, ref value, rangeAttribute.Min, rangeAttribute.Min, interacted);
-    }
-    
     public static void SliderValue(string name, ref Vector4 value, float min, float max, Action<Vector4>? interacted = null!)
     {
         if (!canRender)
@@ -462,11 +445,6 @@ public static class CopperImGui
         
         if(ImGui.DragInt(name, ref value))
             interacted?.Invoke(value);
-    }
-    
-    public static void SliderValue(string name, ref int value, RangeAttribute rangeAttribute, Action<int>? interacted = null!)
-    {
-        SliderValue(name, ref value, (int)rangeAttribute.Min, (int)rangeAttribute.Min, interacted);
     }
     
     public static void SliderValue(string name, ref int value, int min, int max, Action<int>? interacted = null!)

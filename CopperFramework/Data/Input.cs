@@ -1,8 +1,4 @@
-﻿using System.Numerics;
-using CopperPlatformer.Core;
-using Raylib_cs;
-
-namespace CopperFramework.Data;
+﻿namespace CopperFramework.Data;
 
 public static class Input
 {
@@ -13,15 +9,31 @@ public static class Input
         // first one only: 1
         // second one only: -1
         // both: 0
-        var value = IsKeyDown(upKey) + -IsKeyDown(downKey);
+        var value = KeyDown(upKey) + -KeyDown(downKey);
         return float.IsNaN(value) ? 0 : value;
+        
+        float KeyDown(KeyboardKey key)
+        {
+            // down: 1
+            // up: 0
+            var value = Raylib.IsKeyDown(key) ? 1 : 0;
+            return float.IsNaN(value) ? 0 : value;
+        }
     }
-
-    public static float IsKeyDown(KeyboardKey key)
+    
+    public static bool IsKeyDown(KeyboardKey key)
     {
-        // down: 1
-        // up: 0
-        var value = Raylib.IsKeyDown(key) ? 1 : 0;
-        return float.IsNaN(value) ? 0 : value;
+        return Raylib.IsKeyDown(key);
+    }
+    
+    public static bool IsKeyPressed(KeyboardKey key)
+    {
+        return Raylib.IsKeyPressed(key);
+    }
+    
+    
+    public static bool IsMouseButtonDown(MouseButton key)
+    {
+        return Raylib.IsMouseButtonDown(key);
     }
 }

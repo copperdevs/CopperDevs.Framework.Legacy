@@ -11,12 +11,10 @@
  *
  ********************************************************************************************/
 
-using System.Numerics;
 using System.Runtime.InteropServices;
 using CopperCore;
 using CopperPlatformer.Core.Utility;
 using ImGuiNET;
-using Raylib_cs;
 
 namespace CopperFramework.Rendering.DearImGui;
 

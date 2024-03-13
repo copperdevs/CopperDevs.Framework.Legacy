@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using System.Reflection;
+﻿using System.Reflection;
 using CopperPlatformer.Core.Rendering.DearImGui;
 using CopperPlatformer.Core.Utility;
 

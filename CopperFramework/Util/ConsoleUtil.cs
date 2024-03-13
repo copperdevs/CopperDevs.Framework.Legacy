@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 using CopperCore;
-using Raylib_cs;
 
 namespace CopperPlatformer.Core.Utility;
 

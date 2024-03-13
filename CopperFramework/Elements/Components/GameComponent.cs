@@ -1,11 +1,11 @@
-﻿using CopperFramework.Data;
+﻿using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperPlatformer.Core.Scenes;
 
 namespace CopperFramework.Elements.Components;
 
 public abstract class GameComponent
 {
-    protected Transform Transform;
+    [HideInInspector] protected internal Transform Transform;
     protected internal Scene? ParentScene { get; internal set; }
 
     public virtual void Start()

@@ -15,7 +15,7 @@ public class FloatFieldRenderer : ImGuiReflection.IFieldRenderer
         {
             var value = (float)(fieldInfo.GetValue(component) ?? 0);
 
-            CopperImGui.SliderValue($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, ImGuiReflection.currentRangeAttribute,
+            CopperImGui.SliderValue($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, ImGuiReflection.currentRangeAttribute.Min, ImGuiReflection.currentRangeAttribute.Max,
                 interactedValue => { fieldInfo.SetValue(component, interactedValue); });
         }
         else

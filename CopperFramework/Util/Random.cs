@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using SystemRandom = System.Random;
+﻿using SystemRandom = System.Random;
 
 namespace CopperPlatformer.Core.Utility;
 

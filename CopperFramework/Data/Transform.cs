@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace CopperFramework.Data;
+﻿namespace CopperFramework.Data;
 
 public struct Transform
 {

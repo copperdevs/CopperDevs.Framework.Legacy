@@ -1,7 +1,4 @@
-﻿using System.Numerics;
-using rlColor = Raylib_cs.Color;
-
-namespace CopperFramework.Data;
+﻿namespace CopperFramework.Data;
 
 public sealed class Color
 {

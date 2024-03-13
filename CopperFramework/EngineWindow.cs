@@ -1,10 +1,5 @@
-﻿using System.Numerics;
-using CopperFramework.Data;
-using CopperPlatformer.Core;
-using CopperPlatformer.Core.Utility;
-using Raylib_cs;
+﻿using CopperPlatformer.Core.Utility;
 using static Raylib_cs.Raylib;
-using Color = Raylib_cs.Color;
 
 namespace CopperFramework;
 
@@ -25,6 +20,13 @@ public class EngineWindow : Singleton<EngineWindow>
         InitWindow(Settings.WindowSize.X, Settings.WindowSize.Y, Settings.WindowTitle);
         InitAudioDevice();
         SetTargetFPS(Settings.TargetFps);
+
+        Camera = new EngineWindowCamera
+        {
+            Position = Vector2.Zero,
+            Rotation = 0,
+            Zoom = 1
+        };
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
@@ -38,11 +40,12 @@ public class EngineWindow : Singleton<EngineWindow>
         
         BeginDrawing();
         ClearBackground(Color.RayWhite);
-        // BeginMode2D(Camera);
+        
+        BeginMode2D(Camera);
         
         cameraRenderUpdate.Invoke();
         
-        // EndMode2D();
+        EndMode2D();
         
         uiRenderUpdate.Invoke();
         

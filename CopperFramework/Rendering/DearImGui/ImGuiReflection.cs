@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using CopperCore;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 using CopperPlatformer.Core.Utility;
-using Raylib_cs;
-using Color = CopperFramework.Data.Color;
-using Transform = CopperFramework.Data.Transform;
 
 namespace CopperFramework.Rendering.DearImGui;
 
@@ -114,6 +109,11 @@ internal static class ImGuiReflection
         if (currentSeperatorAttribute is not null) currentSeperatorAttribute.Render();
     }
 
+    internal static IFieldRenderer? GetImGuiRenderer<T>()
+    {
+        return ImGuiRenderers.ContainsKey(typeof(T)) ? ImGuiRenderers[typeof(T)] : null;
+    }
+    
     private static readonly Dictionary<Type, IFieldRenderer> ImGuiRenderers = new()
     {
         { typeof(float), new FloatFieldRenderer() },

@@ -15,7 +15,7 @@ public class IntFieldRenderer: ImGuiReflection.IFieldRenderer
         {
             var value = (int)(fieldInfo.GetValue(component) ?? 0);
             
-            CopperImGui.SliderValue($"{value.GetType().Name}##{id}", ref value, ImGuiReflection.currentRangeAttribute, newValue =>
+            CopperImGui.SliderValue($"{value.GetType().Name}##{id}", ref value, (int)ImGuiReflection.currentRangeAttribute.Min, (int)ImGuiReflection.currentRangeAttribute.Max, newValue =>
             {
                 fieldInfo.SetValue(component, newValue);
             });

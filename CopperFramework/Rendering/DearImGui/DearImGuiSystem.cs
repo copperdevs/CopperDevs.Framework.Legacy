@@ -13,7 +13,8 @@ public class DearImGuiSystem : ISystem
 
     public void UpdateSystem()
     {
-        CopperImGui.Render();
+        if (DebugSystem.Instance.DebugEnabled)
+            CopperImGui.Render();
     }
 
     public void LoadSystem()
@@ -25,7 +26,7 @@ public class DearImGuiSystem : ISystem
     {
         CopperImGui.Shutdown();
     }
-    
+
 
     private class CopperRlImGui : CopperImGui.IImGuiRenderer
     {

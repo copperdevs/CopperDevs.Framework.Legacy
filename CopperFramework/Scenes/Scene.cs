@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using CopperFramework.Elements.Components;
+﻿using CopperFramework.Elements.Components;
 
 namespace CopperPlatformer.Core.Scenes;
 
