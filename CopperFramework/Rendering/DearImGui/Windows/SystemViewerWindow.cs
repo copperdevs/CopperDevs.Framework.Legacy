@@ -1,8 +1,7 @@
 ﻿using CopperFramework.Elements.Systems;
-using CopperFramework.Rendering.DearImGui;
 using ImGuiNET;
 
-namespace CopperPlatformer.Core.Rendering.DearImGui.Windows;
+namespace CopperFramework.Rendering.DearImGui.Windows;
 
 public class SystemViewerWindow : BaseWindow
 {

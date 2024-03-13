@@ -1,6 +1,6 @@
 ﻿using CopperCore;
 
-namespace CopperPlatformer.Core.Utility;
+namespace CopperFramework.Util;
 
 public class Singleton<T> : ISingleton where T : class, new()
 {

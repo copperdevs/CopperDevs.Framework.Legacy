@@ -1,6 +1,6 @@
 ﻿using ImGuiNET;
 
-namespace CopperPlatformer.Core.Utility;
+namespace CopperFramework.Util;
 
 public class DisabledScope : Scope
 {

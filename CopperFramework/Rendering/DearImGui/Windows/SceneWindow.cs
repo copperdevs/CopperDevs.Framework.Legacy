@@ -1,5 +1,5 @@
-﻿using CopperPlatformer.Core.Rendering.DearImGui;
-using CopperPlatformer.Core.Scenes;
+﻿using CopperFramework.Scenes;
+using CopperPlatformer.Core.Rendering.DearImGui;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 

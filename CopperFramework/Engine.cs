@@ -4,14 +4,14 @@ global using CopperFramework.Data;
 global using Raylib_cs;
 
 global using Color = CopperFramework.Data.Color;
-global using Random = CopperPlatformer.Core.Utility.Random;
+global using Random = CopperFramework.Util.Random;
 global using rlColor = Raylib_cs.Color;
 global using Transform = CopperFramework.Data.Transform;
 
 using CopperCore;
 using CopperFramework.Elements;
 using CopperFramework.Elements.Components;
-using CopperPlatformer.Core.Utility;
+using CopperFramework.Util;
 
 namespace CopperFramework;
 

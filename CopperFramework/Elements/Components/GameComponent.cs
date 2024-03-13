@@ -1,5 +1,5 @@
 ﻿using CopperFramework.Rendering.DearImGui.Attributes;
-using CopperPlatformer.Core.Scenes;
+using CopperFramework.Scenes;
 
 namespace CopperFramework.Elements.Components;
 

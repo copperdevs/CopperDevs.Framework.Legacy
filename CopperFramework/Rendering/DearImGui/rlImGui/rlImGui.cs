@@ -13,7 +13,7 @@
 
 using System.Runtime.InteropServices;
 using CopperCore;
-using CopperPlatformer.Core.Utility;
+using CopperFramework.Util;
 using ImGuiNET;
 
 namespace CopperFramework.Rendering.DearImGui;

@@ -1,6 +1,6 @@
 ﻿using CopperFramework.Elements.Components;
 
-namespace CopperPlatformer.Core.Scenes;
+namespace CopperFramework.Scenes;
 
 public class Scene : IEnumerable<GameComponent>
 {

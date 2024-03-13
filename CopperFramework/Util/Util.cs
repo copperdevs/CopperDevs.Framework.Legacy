@@ -1,4 +1,4 @@
-﻿namespace CopperPlatformer.Core.Utility;
+﻿namespace CopperFramework.Util;
 
 public static class Util
 {

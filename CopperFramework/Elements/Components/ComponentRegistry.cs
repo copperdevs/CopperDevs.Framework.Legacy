@@ -1,4 +1,4 @@
-﻿using CopperPlatformer.Core.Scenes;
+﻿using CopperFramework.Scenes;
 
 namespace CopperFramework.Elements.Components;
 

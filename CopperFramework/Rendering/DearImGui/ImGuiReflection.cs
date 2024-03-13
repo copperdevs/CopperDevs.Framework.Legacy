@@ -3,7 +3,7 @@ using System.Reflection;
 using CopperCore;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.ReflectionRenderers;
-using CopperPlatformer.Core.Utility;
+using CopperFramework.Util;
 
 namespace CopperFramework.Rendering.DearImGui;
 

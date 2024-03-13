@@ -1,4 +1,4 @@
-﻿namespace CopperPlatformer.Core.Scenes;
+﻿namespace CopperFramework.Scenes;
 
 public static class SceneManager
 {

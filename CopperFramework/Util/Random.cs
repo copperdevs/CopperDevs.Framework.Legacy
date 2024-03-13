@@ -1,6 +1,6 @@
 ﻿using SystemRandom = System.Random;
 
-namespace CopperPlatformer.Core.Utility;
+namespace CopperFramework.Util;
 
 public static class Random
 {

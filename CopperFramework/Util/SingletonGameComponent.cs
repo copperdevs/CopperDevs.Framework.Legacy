@@ -1,7 +1,7 @@
 ﻿using CopperFramework.Elements.Components;
-using CopperPlatformer.Core.Scenes;
+using CopperFramework.Scenes;
 
-namespace CopperPlatformer.Core.Utility;
+namespace CopperFramework.Util;
 
 public class SingletonGameComponent<T> : GameComponent, ISingleton where T : GameComponent, new()
 {
