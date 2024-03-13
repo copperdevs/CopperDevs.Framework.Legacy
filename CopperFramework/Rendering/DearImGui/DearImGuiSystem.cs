@@ -1,5 +1,4 @@
 ﻿using CopperFramework.Elements.Systems;
-using CopperPlatformer.Core.Rendering.DearImGui;
 
 namespace CopperFramework.Rendering.DearImGui;
 

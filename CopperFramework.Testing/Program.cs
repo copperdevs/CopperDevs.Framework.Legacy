@@ -1,5 +1,4 @@
-﻿using CopperPlatformer.Core;
-
+﻿
 namespace CopperFramework.Testing;
 
 public static class Program

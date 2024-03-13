@@ -1,7 +1,6 @@
-﻿using CopperFramework.Elements.Systems;
-using CopperFramework.Util;
+﻿using CopperFramework.Util;
 
-namespace CopperFramework;
+namespace CopperFramework.Elements.Systems;
 
 public class DebugSystem : SystemSingleton<DebugSystem>, ISystem
 {

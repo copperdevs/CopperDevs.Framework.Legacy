@@ -10,6 +10,6 @@ public class CircleComponent : GameComponent
     
     public override void Update()
     {
-        Raylib.DrawCircle((int)Transform.Position.X, (int)Transform.Position.Y, Transform.Scale, circleColor);
+        Raylib.DrawCircle(0, 0, 1, circleColor);
     }
 }

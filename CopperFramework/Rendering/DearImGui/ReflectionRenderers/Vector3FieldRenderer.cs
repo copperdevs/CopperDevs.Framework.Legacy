@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using CopperFramework.Rendering.DearImGui.Attributes;
-using CopperPlatformer.Core.Rendering.DearImGui;
 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 

@@ -1,5 +1,4 @@
 ﻿using CopperFramework.Scenes;
-using CopperPlatformer.Core.Rendering.DearImGui;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 
@@ -23,6 +22,7 @@ public class SceneWindow : BaseWindow
             CopperImGui.Selectable(scene.Id.ToString(), scene.Id == SceneManager.ActiveScene.Id, () =>
             {
                 SceneManager.LoadScene(scene);
+                ComponentBrowserWindow.CurrentObjectBrowserTarget = null;
             });
         }
     }
