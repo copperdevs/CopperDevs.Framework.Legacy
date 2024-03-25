@@ -1,24 +1,25 @@
 ﻿using System.Reflection;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 
-public class BoolFieldRenderer : ImGuiReflection.IFieldRenderer
+public class BoolFieldRenderer : ImGuiReflection.FieldRenderer
 {
-    public void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var value = (bool)(fieldInfo.GetValue(component) ?? false);
 
-        CopperImGui.Checkbox($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, interacted =>
+        CopperImGui.Checkbox($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value, interacted =>
         {
             fieldInfo.SetValue(component, interacted);
         });
     }
 
-    public void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id)
     {
         var boolValue = (bool)value;
         
-        CopperImGui.Checkbox($"{value.GetType().Name}##{id}", ref boolValue);
+        CopperImGui.Checkbox($"{value.GetType().Name.ToTitleCase()}##{id}", ref boolValue);
         
         value = boolValue;
     }

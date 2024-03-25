@@ -1,4 +1,4 @@
-﻿using CopperFramework.Util;
+﻿using CopperFramework.Utility;
 using static Raylib_cs.Raylib;
 
 namespace CopperFramework;

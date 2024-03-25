@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
 
-namespace CopperFramework.Util;
+namespace CopperFramework.Utility;
 
 public static class MathUtil
 {

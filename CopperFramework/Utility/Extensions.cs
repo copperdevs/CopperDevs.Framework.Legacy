@@ -1,4 +1,4 @@
-﻿namespace CopperFramework.Util;
+﻿namespace CopperFramework.Utility;
 
 public static class Extensions
 {
@@ -57,5 +57,10 @@ public static class Extensions
             rowMatrix.M31, rowMatrix.M32, rowMatrix.M33, rowMatrix.M34,
             rowMatrix.M41, rowMatrix.M42, rowMatrix.M43, rowMatrix.M44
         );
+    }
+
+    public static string ToTitleCase(this string target)
+    {
+        return Util.ConvertToTitleCase(target);
     }
 }

@@ -2,7 +2,7 @@
 using CopperFramework.Rendering.DearImGui;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.Windows;
-using CopperFramework.Util;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Elements.Components;
 

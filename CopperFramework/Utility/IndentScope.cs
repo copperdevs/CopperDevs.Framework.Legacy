@@ -1,6 +1,6 @@
 ﻿using ImGuiNET;
 
-namespace CopperFramework.Util;
+namespace CopperFramework.Utility;
 
 public class IndentScope : Scope
 {

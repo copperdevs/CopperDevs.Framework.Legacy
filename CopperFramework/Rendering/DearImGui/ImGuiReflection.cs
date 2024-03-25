@@ -3,12 +3,12 @@ using System.Reflection;
 using CopperCore;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.ReflectionRenderers;
-using CopperFramework.Util;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Rendering.DearImGui;
 
 [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
-internal static class ImGuiReflection
+public static class ImGuiReflection
 {
     internal static RangeAttribute? currentRangeAttribute;
     internal static ReadOnlyAttribute? currentReadOnlyAttribute;
@@ -109,12 +109,12 @@ internal static class ImGuiReflection
         if (currentSeperatorAttribute is not null) currentSeperatorAttribute.Render();
     }
 
-    internal static IFieldRenderer? GetImGuiRenderer<T>()
+    internal static FieldRenderer? GetImGuiRenderer<T>()
     {
         return ImGuiRenderers.ContainsKey(typeof(T)) ? ImGuiRenderers[typeof(T)] : null;
     }
     
-    private static readonly Dictionary<Type, IFieldRenderer> ImGuiRenderers = new()
+    private static readonly Dictionary<Type, FieldRenderer> ImGuiRenderers = new()
     {
         { typeof(float), new FloatFieldRenderer() },
         { typeof(int), new IntFieldRenderer() },
@@ -130,17 +130,17 @@ internal static class ImGuiReflection
         { typeof(Texture2D), new Texture2DFieldRenderer() }
     };
 
-    internal interface IFieldRenderer
+    public abstract class FieldRenderer
     {
-        public void ReflectionRenderer(FieldInfo fieldInfo, object component, int id);
-        public void ValueRenderer(ref object value, int id);
+        public abstract void ReflectionRenderer(FieldInfo fieldInfo, object component, int id);
+        public abstract void ValueRenderer(ref object value, int id);
     }
 
     private static void ListRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var value = (IList)fieldInfo.GetValue(component)!;
 
-        CopperImGui.CollapsingHeader($"{fieldInfo.Name}##{fieldInfo.Name}{id}", () =>
+        CopperImGui.CollapsingHeader($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", () =>
         {
             using (new IndentScope())
             {

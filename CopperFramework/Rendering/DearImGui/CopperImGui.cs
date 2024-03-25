@@ -457,12 +457,12 @@ public static class CopperImGui
     }
     
     
-    public static void Text(string name, ref string value, Action<string>? interacted = null!)
+    public static void Text(string name, ref string value, Action<string>? interacted = null!, uint maxLength = 64)
     {
         if (!canRender)
             return;
         
-        if(ImGui.InputText(name, ref value, int.MaxValue))
+        if(ImGui.InputText(name, ref value, maxLength))
             interacted?.Invoke(value);
     }
 }
