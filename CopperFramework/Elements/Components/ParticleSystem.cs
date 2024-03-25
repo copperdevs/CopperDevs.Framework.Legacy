@@ -16,13 +16,6 @@ public class ParticleSystem : GameComponent
     private List<Color> particleColors = new() { Color.White };
     private List<Particle> particles = new();
 
-    public override void Start()
-    {
-        Transform.Position = new Vector2((float)Raylib.GetScreenWidth() / 2, (float)Raylib.GetScreenHeight() / 2);
-        Transform.Scale = 1;
-        Transform.Rotation = 0;
-    }
-
     public override void Update()
     {
         if (particles.Count < maxParticles && isActive)

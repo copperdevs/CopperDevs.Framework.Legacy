@@ -45,6 +45,6 @@ public static class Random
 
     public static T Item<T>(List<T> items)
     {
-        return items[SystemRandom.Next(items.Count - 1)];
+        return items[SystemRandom.Next(items.Count)];
     }
 }

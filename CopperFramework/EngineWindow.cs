@@ -66,7 +66,7 @@ public class EngineWindow : Singleton<EngineWindow>
         {
             camera2D = new Camera2D()
             {
-                Offset = Engine.Instance.Settings.WindowSize / 2,
+                Offset = Vector2.Zero,
                 Zoom = 1,
                 Rotation = 0,
                 Target = Vector2.Zero
