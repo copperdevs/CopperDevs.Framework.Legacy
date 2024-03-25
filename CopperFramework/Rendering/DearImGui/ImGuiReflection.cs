@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Reflection;
 using CopperCore;
 using CopperFramework.Rendering.DearImGui.Attributes;
@@ -51,10 +52,11 @@ public static class ImGuiReflection
 
             if (currentTooltipAttribute is null)
                 continue;
-            
+
             CopperImGui.Tooltip(currentTooltipAttribute.Message);
-            
+
             continue;
+
             void Render()
             {
                 var isList = info.FieldType is { IsGenericType: true } &&
@@ -111,9 +113,9 @@ public static class ImGuiReflection
 
     internal static FieldRenderer? GetImGuiRenderer<T>()
     {
-        return ImGuiRenderers.ContainsKey(typeof(T)) ? ImGuiRenderers[typeof(T)] : null;
+        return ImGuiRenderers.TryGetValue(typeof(T), out var value) ? value : null;
     }
-    
+
     private static readonly Dictionary<Type, FieldRenderer> ImGuiRenderers = new()
     {
         { typeof(float), new FloatFieldRenderer() },
@@ -127,7 +129,8 @@ public static class ImGuiReflection
         { typeof(Guid), new GuidFieldRenderer() },
         { typeof(Transform), new TransformFieldRenderer() },
         { typeof(Color), new ColorFieldRenderer() },
-        { typeof(Texture2D), new Texture2DFieldRenderer() }
+        { typeof(Texture2D), new Texture2DFieldRenderer() },
+        { typeof(Enum), new EnumFieldRenderer() }
     };
 
     public abstract class FieldRenderer
@@ -144,19 +147,12 @@ public static class ImGuiReflection
         {
             using (new IndentScope())
             {
-                CopperImGui.HorizontalGroup(() =>
-                {
-                    CopperImGui.Text($"{value.Count} Items");
-                }, () =>
-                {
-                    CopperImGui.Button($"+##{fieldInfo.Name}{id}", () => value.Add(value[^1]));   
-                }, () =>
-                {
-                    CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1));   
-                });
-                
+                CopperImGui.HorizontalGroup(() => { CopperImGui.Text($"{value.Count} Items"); },
+                    () => { CopperImGui.Button($"+##{fieldInfo.Name}{id}", () => value.Add(value[^1])); },
+                    () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
+
                 CopperImGui.Separator();
-                
+
                 for (var i = 0; i < value.Count; i++)
                 {
                     var item = value[i];
@@ -175,7 +171,7 @@ public static class ImGuiReflection
                         {
                             CopperImGui.CollapsingHeader($"{item.GetType().Name}##{value.IndexOf(item)}", () =>
                             {
-                                using (new IndentScope()) 
+                                using (new IndentScope())
                                     RenderValues(item, value.IndexOf(item));
                             });
                         }
@@ -187,7 +183,6 @@ public static class ImGuiReflection
 
                     value[i] = item;
                 }
-
             }
         });
 
