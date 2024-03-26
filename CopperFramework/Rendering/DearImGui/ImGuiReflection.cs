@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
 using System.Reflection;
 using CopperCore;
 using CopperFramework.Rendering.DearImGui.Attributes;
@@ -11,12 +10,12 @@ namespace CopperFramework.Rendering.DearImGui;
 [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
 public static class ImGuiReflection
 {
-    internal static RangeAttribute? currentRangeAttribute;
-    internal static ReadOnlyAttribute? currentReadOnlyAttribute;
-    internal static TooltipAttribute? currentTooltipAttribute;
-    internal static HideInInspectorAttribute? currentHideInInspectorAttribute;
-    internal static SpaceAttribute? currentSpaceAttribute;
-    internal static SeperatorAttribute? currentSeperatorAttribute;
+    internal static RangeAttribute? CurrentRangeAttribute;
+    internal static ReadOnlyAttribute? CurrentReadOnlyAttribute;
+    internal static TooltipAttribute? CurrentTooltipAttribute;
+    internal static HideInInspectorAttribute? CurrentHideInInspectorAttribute;
+    internal static SpaceAttribute? CurrentSpaceAttribute;
+    internal static SeperatorAttribute? CurrentSeperatorAttribute;
 
     internal static void RenderValues(object component, int id = 0)
     {
@@ -27,16 +26,16 @@ public static class ImGuiReflection
             SpaceAttributeRenderer(info);
             SeperatorAttributeRenderer(info);
 
-            currentHideInInspectorAttribute =
+            CurrentHideInInspectorAttribute =
                 (HideInInspectorAttribute?)Attribute.GetCustomAttribute(info, typeof(HideInInspectorAttribute))!;
 
-            if (currentHideInInspectorAttribute is not null)
+            if (CurrentHideInInspectorAttribute is not null)
                 continue;
 
-            currentReadOnlyAttribute =
+            CurrentReadOnlyAttribute =
                 (ReadOnlyAttribute?)Attribute.GetCustomAttribute(info, typeof(ReadOnlyAttribute))!;
 
-            if (currentReadOnlyAttribute is not null)
+            if (CurrentReadOnlyAttribute is not null)
             {
                 using (new DisabledScope())
                 {
@@ -48,12 +47,12 @@ public static class ImGuiReflection
                 Render();
             }
 
-            currentTooltipAttribute = (TooltipAttribute)Attribute.GetCustomAttribute(info, typeof(TooltipAttribute))!;
+            CurrentTooltipAttribute = (TooltipAttribute)Attribute.GetCustomAttribute(info, typeof(TooltipAttribute))!;
 
-            if (currentTooltipAttribute is null)
+            if (CurrentTooltipAttribute is null)
                 continue;
 
-            CopperImGui.Tooltip(currentTooltipAttribute.Message);
+            CopperImGui.Tooltip(CurrentTooltipAttribute.Message);
 
             continue;
 
@@ -62,7 +61,11 @@ public static class ImGuiReflection
                 var isList = info.FieldType is { IsGenericType: true } &&
                              info.FieldType.GetGenericTypeDefinition() == typeof(List<>);
 
-                if (isList)
+                if (info.FieldType.IsEnum)
+                {
+                    ImGuiRenderers[typeof(Enum)].ReflectionRenderer(info, component, id);
+                }
+                else if (isList)
                 {
                     ListRenderer(info, component, id);
                 }
@@ -98,17 +101,17 @@ public static class ImGuiReflection
         }
     }
 
-    private static void SpaceAttributeRenderer(FieldInfo info)
+    private static void SpaceAttributeRenderer(MemberInfo info)
     {
-        currentSpaceAttribute = (SpaceAttribute?)Attribute.GetCustomAttribute(info, typeof(SpaceAttribute))!;
-        if (currentSpaceAttribute is not null) currentSpaceAttribute.Render();
+        CurrentSpaceAttribute = (SpaceAttribute?)Attribute.GetCustomAttribute(info, typeof(SpaceAttribute))!;
+        if (CurrentSpaceAttribute is not null) CurrentSpaceAttribute.Render();
     }
 
-    private static void SeperatorAttributeRenderer(FieldInfo info)
+    private static void SeperatorAttributeRenderer(MemberInfo info)
     {
-        currentSeperatorAttribute =
+        CurrentSeperatorAttribute =
             (SeperatorAttribute?)Attribute.GetCustomAttribute(info, typeof(SeperatorAttribute))!;
-        if (currentSeperatorAttribute is not null) currentSeperatorAttribute.Render();
+        if (CurrentSeperatorAttribute is not null) CurrentSeperatorAttribute.Render();
     }
 
     internal static FieldRenderer? GetImGuiRenderer<T>()
@@ -148,7 +151,14 @@ public static class ImGuiReflection
             using (new IndentScope())
             {
                 CopperImGui.HorizontalGroup(() => { CopperImGui.Text($"{value.Count} Items"); },
-                    () => { CopperImGui.Button($"+##{fieldInfo.Name}{id}", () => value.Add(value[^1])); },
+                    () =>
+                    {
+                        CopperImGui.Button($"+##{fieldInfo.Name}{id}",
+                            () =>
+                            {
+                                value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType()));
+                            });
+                    },
                     () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
 
                 CopperImGui.Separator();
@@ -161,7 +171,11 @@ public static class ImGuiReflection
                     var itemType = item.GetType();
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
-                    if (ImGuiRenderers.TryGetValue(itemType, out var renderer))
+                    if (itemType.IsEnum)
+                    {
+                        ImGuiRenderers[typeof(Enum)].ValueRenderer(ref item, id);
+                    }
+                    else if (ImGuiRenderers.TryGetValue(itemType, out var renderer))
                     {
                         renderer.ValueRenderer(ref item, int.Parse($"{i}{id}"));
                     }

@@ -12,7 +12,7 @@ public static class CopperImGui
     private static Vector2 tempVec = new();
 
     private static IImGuiRenderer currentRenderer = null!;
-    
+
     public static bool AnyWindowHovered => ImGui.IsWindowHovered(ImGuiHoveredFlags.AnyWindow);
     public static bool AnyElementHovered => ImGui.GetIO().WantCaptureMouse;
 
@@ -29,7 +29,7 @@ public static class CopperImGui
         currentRenderer = new T();
 
         currentRenderer.Setup();
-        
+
         LoadConfig();
         LoadStyle();
 
@@ -221,18 +221,18 @@ public static class CopperImGui
         ImGui.EndChild();
     }
 
-    public static void Selectable(string text, Action clickEvent)
+    public static void Selectable(string text, Action? clickEvent = null)
     {
         if (canRender)
             Selectable(text, false, clickEvent);
     }
 
-    public static void Selectable(string text, bool enabled, Action clickEvent)
+    public static void Selectable(string text, bool enabled, Action? clickEvent = null)
     {
         if (!canRender)
             return;
         if (ImGui.Selectable(text, enabled))
-            clickEvent.Invoke();
+            clickEvent?.Invoke();
     }
 
     public static void Text(object value, string title)
@@ -251,7 +251,7 @@ public static class CopperImGui
     {
         if (!canRender)
             return false;
-        
+
         var matrix = matrix4X4;
         return DragValue(name, ref matrix);
     }
@@ -260,7 +260,7 @@ public static class CopperImGui
     {
         if (!canRender)
             return false;
-        
+
         var interacted = false;
 
         if (ImGui.CollapsingHeader(name))
@@ -283,12 +283,12 @@ public static class CopperImGui
         return interacted;
     }
 
-    private static bool DragMatrix4X4Row(string rowName, 
+    private static bool DragMatrix4X4Row(string rowName,
         ref float itemOne, ref float itemTwo, ref float itemThree, ref float itemFour)
     {
         if (!canRender)
             return false;
-        
+
         var interacted = false;
         var row = new Vector4(itemOne, itemTwo, itemThree, itemFour);
 
@@ -308,7 +308,7 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
+
         if (!ImGui.BeginItemTooltip())
             return;
 
@@ -325,7 +325,7 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
+
         if (ImGui.CollapsingHeader(name))
         {
             group.Invoke();
@@ -336,8 +336,8 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
-        if(ImGui.Button(name))
+
+        if (ImGui.Button(name))
             clickEvent?.Invoke();
     }
 
@@ -354,33 +354,33 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
+
         var vectorColor = (Vector4)(color / 255);
 
-        if (!ImGui.ColorEdit4(name, ref vectorColor)) 
+        if (!ImGui.ColorEdit4(name, ref vectorColor))
             return;
-        
+
         var newColor = new Color(vectorColor * 255);
         color = newColor;
         interacted?.Invoke(newColor);
     }
-    
+
     public static void DragValue(string name, ref float value, Action<float>? interacted = null!)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.DragFloat(name, ref value))
+
+        if (ImGui.DragFloat(name, ref value))
             interacted?.Invoke(value);
-        
     }
-    
-    public static void SliderValue(string name, ref float value, float min, float max, Action<float>? interacted = null!)
+
+    public static void SliderValue(string name, ref float value, float min, float max,
+        Action<float>? interacted = null!)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.SliderFloat(name, ref value, min, max))
+
+        if (ImGui.SliderFloat(name, ref value, min, max))
             interacted?.Invoke(value);
     }
 
@@ -388,17 +388,18 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
-        if(ImGui.DragFloat2(name, ref value))
+
+        if (ImGui.DragFloat2(name, ref value))
             interacted?.Invoke(value);
     }
-    
-    public static void SliderValue(string name, ref Vector2 value, float min, float max, Action<Vector2>? interacted = null!)
+
+    public static void SliderValue(string name, ref Vector2 value, float min, float max,
+        Action<Vector2>? interacted = null!)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.SliderFloat2(name, ref value, min, max))
+
+        if (ImGui.SliderFloat2(name, ref value, min, max))
             interacted?.Invoke(value);
     }
 
@@ -406,17 +407,18 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
-        if(ImGui.DragFloat3(name, ref value))
+
+        if (ImGui.DragFloat3(name, ref value))
             interacted?.Invoke(value);
     }
-    
-    public static void SliderValue(string name, ref Vector3 value, float min, float max, Action<Vector3>? interacted = null!)
+
+    public static void SliderValue(string name, ref Vector3 value, float min, float max,
+        Action<Vector3>? interacted = null!)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.SliderFloat3(name, ref value, min, max))
+
+        if (ImGui.SliderFloat3(name, ref value, min, max))
             interacted?.Invoke(value);
     }
 
@@ -424,17 +426,18 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
-        if(ImGui.DragFloat4(name, ref value))
+
+        if (ImGui.DragFloat4(name, ref value))
             interacted?.Invoke(value);
     }
-    
-    public static void SliderValue(string name, ref Vector4 value, float min, float max, Action<Vector4>? interacted = null!)
+
+    public static void SliderValue(string name, ref Vector4 value, float min, float max,
+        Action<Vector4>? interacted = null!)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.SliderFloat4(name, ref value, min, max))
+
+        if (ImGui.SliderFloat4(name, ref value, min, max))
             interacted?.Invoke(value);
     }
 
@@ -442,27 +445,27 @@ public static class CopperImGui
     {
         if (!canRender)
             return;
-        
-        if(ImGui.DragInt(name, ref value))
+
+        if (ImGui.DragInt(name, ref value))
             interacted?.Invoke(value);
     }
-    
+
     public static void SliderValue(string name, ref int value, int min, int max, Action<int>? interacted = null!)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.SliderInt(name, ref value, min, max))
+
+        if (ImGui.SliderInt(name, ref value, min, max))
             interacted?.Invoke(value);
     }
-    
-    
+
+
     public static void Text(string name, ref string value, Action<string>? interacted = null!, uint maxLength = 64)
     {
         if (!canRender)
             return;
-        
-        if(ImGui.InputText(name, ref value, maxLength))
+
+        if (ImGui.InputText(name, ref value, maxLength))
             interacted?.Invoke(value);
     }
 }

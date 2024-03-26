@@ -9,7 +9,7 @@ public static class Extensions
 
     public static Quaternion FromEulerAngles(this Vector3 euler) => MathUtil.FromEulerAngles(euler);
     public static Vector3 ToEulerAngles(this Quaternion quaternion) => MathUtil.ToEulerAngles(quaternion);
-    
+
     public static Vector3 WithX(this Vector3 vector, float value) => vector with { X = value };
     public static Vector3 WithY(this Vector3 vector, float value) => vector with { Y = value };
     public static Vector3 WithZ(this Vector3 vector, float value) => vector with { Z = value };
@@ -63,4 +63,7 @@ public static class Extensions
     {
         return Util.ConvertToTitleCase(target);
     }
+
+    public static int EnumToInt<TValue>(this TValue value) where TValue : Enum
+        => (int)(object)value;
 }

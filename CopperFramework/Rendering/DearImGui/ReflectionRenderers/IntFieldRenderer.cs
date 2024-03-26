@@ -8,16 +8,16 @@ public class IntFieldRenderer : ImGuiReflection.FieldRenderer
 {
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
-        ImGuiReflection.currentRangeAttribute =
+        ImGuiReflection.CurrentRangeAttribute =
             (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
 
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (ImGuiReflection.currentRangeAttribute is not null)
+        if (ImGuiReflection.CurrentRangeAttribute is not null)
         {
             var value = (int)(fieldInfo.GetValue(component) ?? 0);
 
             CopperImGui.SliderValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
-                (int)ImGuiReflection.currentRangeAttribute.Min, (int)ImGuiReflection.currentRangeAttribute.Max,
+                (int)ImGuiReflection.CurrentRangeAttribute.Min, (int)ImGuiReflection.CurrentRangeAttribute.Max,
                 newValue => { fieldInfo.SetValue(component, newValue); });
         }
         else

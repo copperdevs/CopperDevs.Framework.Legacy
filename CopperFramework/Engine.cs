@@ -12,6 +12,7 @@ using CopperCore;
 using CopperFramework.Elements;
 using CopperFramework.Elements.Components;
 using CopperFramework.Utility;
+using ImGuiNET;
 
 namespace CopperFramework;
 
