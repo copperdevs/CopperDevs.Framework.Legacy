@@ -2,6 +2,8 @@
 using CopperFramework.Utility;
 using ImGuiNET;
 
+// BUG: Fix Lists of enums
+// BUG: Multiple enums breaks 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 
 public class EnumFieldRenderer : ImGuiReflection.FieldRenderer
@@ -34,6 +36,7 @@ public class EnumFieldRenderer : ImGuiReflection.FieldRenderer
             {
                 renderEnumPopup = true;
                 ImGui.OpenPopup("enum_field_renderer_select_popup");
+                currentEnumValues = Array.Empty<object>();
                 currentEnumValues = enumValues;
             });
         });
