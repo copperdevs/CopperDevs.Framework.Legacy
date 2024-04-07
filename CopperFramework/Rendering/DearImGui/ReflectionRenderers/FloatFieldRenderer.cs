@@ -1,31 +1,35 @@
 ﻿using System.Reflection;
 using CopperFramework.Rendering.DearImGui.Attributes;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 
-public class FloatFieldRenderer : ImGuiReflection.IFieldRenderer
+public class FloatFieldRenderer : ImGuiReflection.FieldRenderer
 {
-    public void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
-        ImGuiReflection.currentRangeAttribute = (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
+        ImGuiReflection.CurrentRangeAttribute =
+            (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
 
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (ImGuiReflection.currentRangeAttribute is not null)
+        if (ImGuiReflection.CurrentRangeAttribute is not null)
         {
             var value = (float)(fieldInfo.GetValue(component) ?? 0);
 
-            CopperImGui.SliderValue($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, ImGuiReflection.currentRangeAttribute.Min, ImGuiReflection.currentRangeAttribute.Max,
+            CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                ImGuiReflection.CurrentRangeAttribute.Min, ImGuiReflection.CurrentRangeAttribute.Max,
                 interactedValue => { fieldInfo.SetValue(component, interactedValue); });
         }
         else
         {
             var value = (float)(fieldInfo.GetValue(component) ?? 0);
 
-            CopperImGui.DragValue($"{fieldInfo.Name}##{fieldInfo.Name}{id}", ref value, newValue => { fieldInfo.SetValue(component, newValue); });
+            CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                newValue => { fieldInfo.SetValue(component, newValue); });
         }
     }
 
-    public void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id)
     {
         var floatValue = (float)value;
 

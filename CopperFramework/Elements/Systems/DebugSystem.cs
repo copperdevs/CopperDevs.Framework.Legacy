@@ -1,4 +1,4 @@
-﻿using CopperFramework.Util;
+﻿using CopperFramework.Utility;
 
 namespace CopperFramework.Elements.Systems;
 

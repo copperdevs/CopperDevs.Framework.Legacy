@@ -1,6 +1,6 @@
 ﻿using CopperFramework.Elements.Systems;
 
-namespace CopperFramework.Util;
+namespace CopperFramework.Utility;
 
 public class SystemSingleton<T> : ISingleton where T : class, ISystem, new()
 {

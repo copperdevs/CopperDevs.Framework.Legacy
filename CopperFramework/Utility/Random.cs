@@ -1,6 +1,6 @@
 ﻿using SystemRandom = System.Random;
 
-namespace CopperFramework.Util;
+namespace CopperFramework.Utility;
 
 public static class Random
 {
@@ -45,7 +45,7 @@ public static class Random
 
     public static T Item<T>(List<T> items)
     {
-        return items[SystemRandom.Next(items.Count - 1)];
+        return items[SystemRandom.Next(items.Count)];
     }
 
     public static T Item<T>(List<T> items, T defaultValue)

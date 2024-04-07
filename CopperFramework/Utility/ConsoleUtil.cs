@@ -2,7 +2,7 @@
 using System.Text;
 using CopperCore;
 
-namespace CopperFramework.Util;
+namespace CopperFramework.Utility;
 
 public static unsafe class ConsoleUtil
 {

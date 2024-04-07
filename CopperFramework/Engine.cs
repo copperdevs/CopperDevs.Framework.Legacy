@@ -4,20 +4,21 @@ global using CopperFramework.Data;
 global using Raylib_cs;
 
 global using Color = CopperFramework.Data.Color;
-global using Random = CopperFramework.Util.Random;
+global using Random = CopperFramework.Utility.Random;
 global using rlColor = Raylib_cs.Color;
 global using Transform = CopperFramework.Data.Transform;
 
 using CopperCore;
 using CopperFramework.Elements;
 using CopperFramework.Elements.Components;
-using CopperFramework.Util;
+using CopperFramework.Utility;
+using ImGuiNET;
 
 namespace CopperFramework;
 
 public class Engine : Singleton<Engine>
 {
-    private EngineWindow window;
+    private readonly EngineWindow window;
     public EngineSettings Settings { get; private set; }
 
     public Engine() : this(new EngineSettings())

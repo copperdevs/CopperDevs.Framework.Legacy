@@ -2,7 +2,7 @@
 using CopperFramework.Rendering.DearImGui;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.Windows;
-using CopperFramework.Util;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Elements.Components;
 
@@ -15,13 +15,6 @@ public class ParticleSystem : GameComponent
     [Range(1, 128)] private Vector2 sizeRandomRange = new(16, 32);
     private List<Color> particleColors = new() { Color.White };
     private List<Particle> particles = new();
-
-    public override void Start()
-    {
-        Transform.Position = new Vector2((float)Raylib.GetScreenWidth() / 2, (float)Raylib.GetScreenHeight() / 2);
-        Transform.Scale = 1;
-        Transform.Rotation = 0;
-    }
 
     public override void Update()
     {

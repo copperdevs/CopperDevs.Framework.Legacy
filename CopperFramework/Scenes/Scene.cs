@@ -42,6 +42,10 @@ public class Scene : IEnumerable<GameComponent>
         
         gameComponent.ParentScene = this;
         gameComponent.Start();
+        
+        gameComponent.Transform.Position = new Vector2((float)Raylib.GetScreenWidth() / 2, (float)Raylib.GetScreenHeight() / 2);
+        gameComponent.Transform.Scale = 1;
+        gameComponent.Transform.Rotation = 0;
     }
 
     public void Remove(GameComponent gameComponent)

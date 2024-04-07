@@ -1,6 +1,6 @@
 ﻿using CopperFramework.Elements.Components;
 using CopperFramework.Scenes;
-using CopperFramework.Util;
+using CopperFramework.Utility;
 using ImGuiNET;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;

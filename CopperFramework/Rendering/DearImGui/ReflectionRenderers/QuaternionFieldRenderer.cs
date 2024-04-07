@@ -1,26 +1,24 @@
 ﻿using System.Reflection;
-using CopperFramework.Util;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 
-public class QuaternionFieldRenderer: ImGuiReflection.IFieldRenderer
+public class QuaternionFieldRenderer : ImGuiReflection.FieldRenderer
 {
-    public void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var value = ((Quaternion)(fieldInfo.GetValue(component) ?? Quaternion.Identity)).ToVector();
-        
-        CopperImGui.DragValue($"{value.GetType().Name}##{id}", ref value, newValue =>
-        {
-            fieldInfo.SetValue(component, newValue.ToQuaternion());
-        });
+
+        CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
+            newValue => { fieldInfo.SetValue(component, newValue.ToQuaternion()); });
     }
 
-    public void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id)
     {
         var vectorValue = ((Quaternion)value).ToVector();
-        
-        CopperImGui.DragValue($"{value.GetType().Name}##{id}", ref vectorValue);
-        
+
+        CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref vectorValue);
+
         value = vectorValue.ToQuaternion();
     }
 }

@@ -1,26 +1,26 @@
 ﻿using ImGuiNET;
 
-namespace CopperFramework.Util;
+namespace CopperFramework.Utility;
 
-public class DisabledScope : Scope
+public class IndentScope : Scope
 {
     private readonly bool condition;
 
-    public DisabledScope() : this(true)
+    public IndentScope() : this(true)
     {
     }
 
-    public DisabledScope(bool condition)
+    public IndentScope(bool condition)
     {
         this.condition = condition;
 
         if (condition)
-            ImGui.BeginDisabled();
+            ImGui.Indent();
     }
 
     protected override void CloseScope()
     {
         if (condition)
-            ImGui.EndDisabled();
+            ImGui.Unindent();
     }
 }
