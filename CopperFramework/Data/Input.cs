@@ -16,8 +16,8 @@ public static class Input
         {
             // down: 1
             // up: 0
-            var value = Raylib.IsKeyDown(key) ? 1 : 0;
-            return float.IsNaN(value) ? 0 : value;
+            var keyDownValue = Raylib.IsKeyDown(key) ? 1 : 0;
+            return float.IsNaN(keyDownValue) ? 0 : keyDownValue;
         }
     }
     
@@ -30,7 +30,6 @@ public static class Input
     {
         return Raylib.IsKeyPressed(key);
     }
-    
     
     public static bool IsMouseButtonDown(MouseButton key)
     {
