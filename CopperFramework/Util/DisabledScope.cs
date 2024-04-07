@@ -4,13 +4,23 @@ namespace CopperFramework.Util;
 
 public class DisabledScope : Scope
 {
-    public DisabledScope()
+    private readonly bool condition;
+
+    public DisabledScope() : this(true)
     {
-        ImGui.BeginDisabled();
     }
-    
+
+    public DisabledScope(bool condition)
+    {
+        this.condition = condition;
+
+        if (condition)
+            ImGui.BeginDisabled();
+    }
+
     protected override void CloseScope()
     {
-        ImGui.EndDisabled();
+        if (condition)
+            ImGui.EndDisabled();
     }
 }

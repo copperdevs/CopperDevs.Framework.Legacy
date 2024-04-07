@@ -29,7 +29,7 @@ public class ComponentBrowserWindow : BaseWindow
         CopperImGui.Group("object_browser_objects_window", () =>
         {
             CopperImGui.Selectable("Add Component", () => { ImGui.OpenPopup("ObjectBrowserNewComponentPopup"); });
-            
+
             NewComponentPopup();
 
             CopperImGui.Selectable("Delete Component", () =>
@@ -46,7 +46,7 @@ public class ComponentBrowserWindow : BaseWindow
             for (var i = 0; i < list.Count; i++)
             {
                 var gameObject = list[i];
-                
+
                 CopperImGui.Selectable($"{gameObject.GetType().Name}###{i}", gameObject == CurrentObjectBrowserTarget,
                     () => { CurrentObjectBrowserTarget = gameObject; });
             }
@@ -58,13 +58,13 @@ public class ComponentBrowserWindow : BaseWindow
         CopperImGui.Group("object_browser_inspector_window",
             () =>
             {
-                if (CurrentObjectBrowserTarget is null) 
+                if (CurrentObjectBrowserTarget is null)
                     return;
 
                 var transformValue = (object)CurrentObjectBrowserTarget.Transform;
                 ImGuiReflection.GetImGuiRenderer<Transform>()?.ValueRenderer(ref transformValue, 100);
                 CurrentObjectBrowserTarget.Transform = (Transform)transformValue;
-                
+
                 ImGuiReflection.RenderValues(CurrentObjectBrowserTarget);
             },
             ImGuiChildFlags.Border);
@@ -72,28 +72,25 @@ public class ComponentBrowserWindow : BaseWindow
 
     private void NewComponentPopup()
     {
-        if (ImGui.BeginPopup("ObjectBrowserNewComponentPopup"))
+        if (!ImGui.BeginPopup("ObjectBrowserNewComponentPopup"))
+            return;
+
+        foreach (var component in components)
         {
-            foreach (var component in components)
+            if (component == typeof(SingletonGameComponent<>))
+                continue;
+
+            var canAddSingleton = component.BaseType!.IsAssignableTo(typeof(ISingleton)) &&
+                                  ComponentRegistry.CurrentComponents.Any(registryComponent =>
+                                      registryComponent.GetType() == component);
+
+            using (new DisabledScope(canAddSingleton))
             {
-                if (component == typeof(SingletonGameComponent<>))
-                    continue;
-
-                var canAddSingleton = component.BaseType!.IsAssignableTo(typeof(ISingleton)) &&
-                                      ComponentRegistry.CurrentComponents.Any(registryComponent =>
-                                          registryComponent.GetType() == component);
-
-                if (canAddSingleton) ImGui.BeginDisabled();
-
                 if (ImGui.Selectable(component.Name))
-                {
-                    SceneManager.ActiveScene.Add(Activator.CreateInstance(component) as GameComponent ?? null!);
-                }
-
-                if (canAddSingleton) ImGui.EndDisabled();
+                    SceneManager.ActiveScene.Add(Activator.CreateInstance(component) as GameComponent ?? null!);                
             }
-
-            ImGui.EndPopup();
         }
+
+        ImGui.EndPopup();
     }
 }

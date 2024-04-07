@@ -36,6 +36,10 @@ public class Scene : IEnumerable<GameComponent>
     {
         SceneComponents.Add(gameComponent);
         
+        gameComponent.Transform.Position = Vector2.Zero;
+        gameComponent.Transform.Rotation = 0;
+        gameComponent.Transform.Scale = 1;
+        
         gameComponent.ParentScene = this;
         gameComponent.Start();
     }

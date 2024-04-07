@@ -4,13 +4,23 @@ namespace CopperFramework.Util;
 
 public class IndentScope : Scope
 {
-    public IndentScope()
+    private readonly bool condition;
+
+    public IndentScope() : this(true)
     {
-        ImGui.Indent();
     }
-    
+
+    public IndentScope(bool condition)
+    {
+        this.condition = condition;
+
+        if (condition)
+            ImGui.Indent();
+    }
+
     protected override void CloseScope()
     {
-        ImGui.Unindent();
+        if (condition)
+            ImGui.Unindent();
     }
 }

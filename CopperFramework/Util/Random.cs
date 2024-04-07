@@ -47,4 +47,9 @@ public static class Random
     {
         return items[SystemRandom.Next(items.Count - 1)];
     }
+
+    public static T Item<T>(List<T> items, T defaultValue)
+    {
+        return items.Count is 0 ? defaultValue : items[SystemRandom.Next(items.Count - 1)];
+    }
 }

@@ -127,7 +127,7 @@ public static class MathUtil
     {
         return new Vector3(vec1.X * vec2.X, vec1.Y * vec2.Y, vec1.Z * vec2.Z);
     }
-
+    
     public static Vector2 RotationStuff(float rotation)
     {
         return new Vector2(MathF.Cos(-rotation * (MathF.PI / 180)), MathF.Sin(-rotation * (MathF.PI / 180)));

@@ -40,7 +40,7 @@ public class ParticleSystem : GameComponent
         {
             Lifetime = Random.Range(lifetimeRandomRange),
             Speed = Random.Range(speedRandomRange),
-            Color = Random.Item(particleColors),
+            Color = Random.Item(particleColors, Color.White),
             Transform = new Transform
             {
                 Position = Transform.Position,
