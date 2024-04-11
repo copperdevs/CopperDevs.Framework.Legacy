@@ -55,10 +55,29 @@ public static class MathUtil
         return quaternion;
     }
 
-    [Pure]
     public static float Clamp(float value, float min, float max)
     {
         return value < min ? min : value > max ? max : value;
+    }
+
+    public static int Clamp(int value, int min, int max)
+    {
+        return value < min ? min : value > max ? max : value;
+    }
+
+    public static float Clamp(float value, Vector2 range)
+    {
+        return value < range.X ? range.X : value > range.Y ? range.Y : value;
+    }
+
+    public static int Clamp(int value, Vector2 range)
+    {
+        return value < (int)range.X ? (int)range.X : value > (int)range.Y ? (int)range.Y : value;
+    }
+
+    public static int Clamp(int value, Vector2Int range)
+    {
+        return value < range.X ? range.X : value > range.Y ? range.Y : value;
     }
 
     public static Vector3 Clamp(Vector3 value, Vector3 min, Vector3 max)

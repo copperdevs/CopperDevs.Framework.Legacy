@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using CopperCore;
 using CopperFramework.Utility;
 using ImGuiNET;
 
@@ -11,9 +12,9 @@ public class EnumFieldRenderer : ImGuiReflection.FieldRenderer
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var enumValue = fieldInfo.GetValue(component)!;
-        
+
         RenderEnum(fieldInfo.FieldType, ref enumValue, id, fieldInfo.Name.ToTitleCase());
-        
+
         fieldInfo.SetValue(component, enumValue);
     }
 
@@ -27,41 +28,36 @@ public class EnumFieldRenderer : ImGuiReflection.FieldRenderer
         var enumValues = Enum.GetValues(type);
         var value = enumValues.GetValue((int)Convert.ChangeType(component, Enum.GetUnderlyingType(type)))!;
 
+        var enumRange = new Vector2Int(0, enumValues.Length);
+
+        var currentValueIndex = 0;
+        
+        for (var i = 0; i < enumValues.Length; i++)
+        {
+            var enumValue = enumValues.GetValue(i);
+
+            if (enumValue?.GetHashCode() == value.GetHashCode())
+                currentValueIndex = i;
+        }
+        
         CopperImGui.HorizontalGroup(() =>
         {
             CopperImGui.Text(title);
         }, () =>
         {
-            CopperImGui.Button($"{value}###{Enum.GetUnderlyingType(type)}{type}{id}", () =>
+            CopperImGui.Button($"-###{Enum.GetUnderlyingType(type)}{type}{id}", () =>
             {
-                renderEnumPopup = true;
-                ImGui.OpenPopup("enum_field_renderer_select_popup");
-                currentEnumValues = Array.Empty<object>();
-                currentEnumValues = enumValues;
+                Log.Info($"{currentValueIndex - 1} {MathUtil.Clamp(currentValueIndex - 1, enumRange)}");
+            });
+        }, () =>
+        {
+            CopperImGui.Button($"{value}###{Enum.GetUnderlyingType(type)}{type}{id}");
+        }, () =>
+        {
+            CopperImGui.Button($"+###{Enum.GetUnderlyingType(type)}{type}{id}", () =>
+            {
+                Log.Info($"{currentValueIndex + 1} {MathUtil.Clamp(currentValueIndex + 1, enumRange)}");
             });
         });
-
-        var componentValue = component;
-        
-        if (renderEnumPopup)
-        {
-            ImGui.BeginPopup("enum_field_renderer_select_popup");
-
-            foreach (var enumValue in currentEnumValues)
-            {
-                CopperImGui.Selectable($"{enumValue}", () =>
-                {
-                    renderEnumPopup = false;
-                    componentValue = enumValue;
-                });
-            }
-            
-            ImGui.EndPopup();
-        }
-
-        component = componentValue;
     }
-
-    private Array currentEnumValues = null!;
-    private bool renderEnumPopup;
 }
