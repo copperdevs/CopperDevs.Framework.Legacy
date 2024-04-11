@@ -64,6 +64,17 @@ public static class Extensions
         return Util.ConvertToTitleCase(target);
     }
 
-    public static int EnumToInt<TValue>(this TValue value) where TValue : Enum
+    public static int EnumToInt<T>(this T value) where T : Enum
         => (int)(object)value;
+
+    
+    public static bool HasAttribute<T>(this object value) where T : Attribute
+    {
+        return value.GetType().IsDefined(typeof(T), false);
+    }
+    
+    public static bool HasAttribute<T>(this Type value) where T : Attribute
+    {
+        return value.IsDefined(typeof(T), false);
+    }
 }

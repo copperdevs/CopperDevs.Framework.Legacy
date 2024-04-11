@@ -37,10 +37,8 @@ public static class ImGuiReflection
 
             if (CurrentReadOnlyAttribute is not null)
             {
-                using (new DisabledScope())
-                {
+                using (new DisabledScope()) 
                     Render();
-                }
             }
             else
             {

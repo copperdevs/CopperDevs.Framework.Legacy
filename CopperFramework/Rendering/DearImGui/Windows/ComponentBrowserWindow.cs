@@ -1,4 +1,5 @@
 ﻿using CopperFramework.Elements.Components;
+using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Scenes;
 using CopperFramework.Utility;
 using ImGuiNET;
@@ -77,7 +78,7 @@ public class ComponentBrowserWindow : BaseWindow
 
         foreach (var component in components)
         {
-            if (component == typeof(SingletonGameComponent<>))
+            if (component == typeof(SingletonGameComponent<>) || component.HasAttribute<HideInInspectorAttribute>())
                 continue;
 
             var canAddSingleton = component.BaseType!.IsAssignableTo(typeof(ISingleton)) &&
@@ -86,8 +87,7 @@ public class ComponentBrowserWindow : BaseWindow
 
             using (new DisabledScope(canAddSingleton))
             {
-                if (ImGui.Selectable(component.Name))
-                    SceneManager.ActiveScene.Add(Activator.CreateInstance(component) as GameComponent ?? null!);                
+                CopperImGui.Selectable(component.Name, () => SceneManager.ActiveScene.Add(Activator.CreateInstance(component) as GameComponent ?? null!));
             }
         }
 
