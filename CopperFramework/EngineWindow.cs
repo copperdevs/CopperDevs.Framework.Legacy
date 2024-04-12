@@ -1,4 +1,5 @@
-﻿using CopperFramework.Utility;
+﻿using CopperCore;
+using CopperFramework.Utility;
 using static Raylib_cs.Raylib;
 
 namespace CopperFramework;
@@ -13,6 +14,8 @@ public class EngineWindow : Singleton<EngineWindow>
     
     private static float fixedDeltaTime = 0;
     private const float FixedFrameTime = 0.02f;
+
+    private RenderTexture2D renderTexture;
     
     public void Start()
     {
@@ -27,6 +30,8 @@ public class EngineWindow : Singleton<EngineWindow>
             Rotation = 0,
             Zoom = 1
         };
+
+        renderTexture = LoadRenderTexture(Settings.WindowSize.X, Settings.WindowSize.Y);
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
@@ -38,6 +43,14 @@ public class EngineWindow : Singleton<EngineWindow>
             fixedUpdate.Invoke();
         }
         
+        if (IsWindowResized())
+        {
+            UnloadRenderTexture(renderTexture);
+            renderTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+        }
+        
+        BeginTextureMode(renderTexture);
+        
         BeginDrawing();
         ClearBackground(Color.RayWhite);
         
@@ -46,6 +59,10 @@ public class EngineWindow : Singleton<EngineWindow>
         cameraRenderUpdate.Invoke();
         
         EndMode2D();
+        
+        EndTextureMode();
+        
+        DrawTextureRec(renderTexture.Texture, new Rectangle(0, 0, renderTexture.Texture.Width, -renderTexture.Texture.Height), Vector2.Zero, Color.White);
         
         uiRenderUpdate.Invoke();
         

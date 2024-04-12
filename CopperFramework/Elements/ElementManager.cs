@@ -31,41 +31,67 @@ internal static class ElementManager
 
             case ElementUpdateType.Render:
                 SystemManager.Update(SystemUpdateType.Renderer);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject =>
-                {
-                    Rlgl.PushMatrix();
-                    Rlgl.Translatef(gameObject.Transform.Position.X, gameObject.Transform.Position.Y, 0);
-                    Rlgl.Rotatef(gameObject.Transform.Rotation, 0, 0, -1);
-                    Rlgl.Scalef(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
-                    gameObject.UpdateComponents(component => component.Update());
-                    Rlgl.PopMatrix();
-                });
+                UpdateComponents(true, component => component.Update());
                 break;
             case ElementUpdateType.Close:
                 SystemManager.Update(SystemUpdateType.Close);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.Sleep()));
-                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.Stop()));
+                UpdateComponents(false, component => component.Sleep());
+                UpdateComponents(false, component => component.Stop());
                 break;
 
             case ElementUpdateType.UiRender:
                 SystemManager.Update(SystemUpdateType.UiRenderer);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.UiUpdate()));
+                UpdateComponents(false, component => component.UiUpdate());
                 break;
 
             case ElementUpdateType.Debug:
-                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject =>
-                {
-                    Rlgl.PushMatrix();
-                    Rlgl.Translatef(gameObject.Transform.Position.X, gameObject.Transform.Position.Y, 0);
-                    Rlgl.Rotatef(gameObject.Transform.Rotation, 0, 0, -1);
-                    Rlgl.Scalef(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
-                    gameObject.UpdateComponents(component => component.DebugUpdate());
-                    Rlgl.PopMatrix();
-                });
+                UpdateComponents(true, component => component.DebugUpdate());
+                break;
+
+            case ElementUpdateType.Fixed:
+                SystemManager.Update(SystemUpdateType.Fixed);
+                UpdateComponents(true, component => component.FixedUpdate());
                 break;
 
             default:
                 throw new ArgumentOutOfRangeException(nameof(updateType), updateType, null);
+        }
+    }
+
+    private static void UpdateComponents(bool rlGlOffset, Action<GameComponent> updateAction)
+    {
+        var components = ComponentRegistry.CurrentComponents.ToList();
+
+        if (rlGlOffset)
+        {
+            foreach (var gameObject in components)
+            {
+                Rlgl.PushMatrix();
+                Rlgl.Translatef(gameObject.Transform.Position.X, -gameObject.Transform.Position.Y, 0);
+                Rlgl.Rotatef(gameObject.Transform.Rotation, 0, 0, -1);
+                Rlgl.Scalef(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
+
+                gameObject.UpdateComponents(component =>
+                {
+                    component.Transform = gameObject.Transform;
+                    updateAction?.Invoke(component);
+                    gameObject.Transform = component.Transform;
+                });
+
+                Rlgl.PopMatrix();
+            }
+        }
+        else
+        {
+            foreach (var gameObject in components)
+            {
+                gameObject.UpdateComponents(component =>
+                {
+                    component.Transform = gameObject.Transform;
+                    updateAction?.Invoke(component);
+                    gameObject.Transform = component.Transform;
+                });
+            }
         }
     }
 
@@ -76,6 +102,7 @@ internal static class ElementManager
         Render,
         UiRender,
         Close,
-        Debug
+        Debug,
+        Fixed
     }
 }

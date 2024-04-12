@@ -10,6 +10,6 @@ public class TextReplacer : GameComponent
 
     public override void Update()
     {
-        output = Util.ConvertToTitleCase(input);
+        output = input.ToTitleCase();
     }
 }

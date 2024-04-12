@@ -10,6 +10,6 @@ public class SquareComponent : GameComponent
 
     public override void Update()
     {
-        Raylib.DrawRectangle(0, 0, 1, 1, squareColor);
+        Raylib.DrawRectangle(-1, -1, 2, 2, squareColor);
     }
 }

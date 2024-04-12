@@ -112,7 +112,7 @@ public class ComponentBrowserWindow : BaseWindow
 
         foreach (var component in components.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
         {
-            CopperImGui.Selectable(component.Name, () => SceneManager.ActiveScene.Add(new GameObject { Activator.CreateInstance(component) as GameComponent ?? null! }));
+            CopperImGui.Selectable(component.Name, () => SceneManager.ActiveScene.Add(new GameObject ($"New {component.Name}"){ Activator.CreateInstance(component) as GameComponent ?? null! }));
         }
 
         ImGui.EndPopup();

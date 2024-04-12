@@ -5,11 +5,21 @@ namespace CopperFramework.Elements.Components;
 
 public class GameObject : IEnumerable
 {
-    [HideInInspector] internal string GameObjectName = "New GameObject";
+    [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
     [HideInInspector] internal List<GameComponent> Components = new();
     [HideInInspector] protected internal Scene? Scene { get; internal set; }
 
+    public GameObject()
+    {
+        GameObjectName = "New GameObject";
+    }
+    
+    public GameObject(string name)
+    {
+        GameObjectName = name;
+    }
+    
     internal void UpdateComponents(Action<GameComponent> action)
     {
         foreach (var component in Components) 

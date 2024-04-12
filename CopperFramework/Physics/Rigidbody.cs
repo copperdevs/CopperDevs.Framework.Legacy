@@ -1,4 +1,5 @@
-﻿using CopperFramework.Elements.Components;
+﻿using CopperCore;
+using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Physics;
 
@@ -8,6 +9,9 @@ public class Rigidbody : GameComponent
 
     public override void FixedUpdate()
     {
+        if (isStatic)
+            return;
         
+        Transform.Position.Y += PhysicsSystem.GetGravity();
     }
 }

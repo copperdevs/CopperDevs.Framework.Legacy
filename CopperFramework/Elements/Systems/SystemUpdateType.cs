@@ -6,5 +6,6 @@ public enum SystemUpdateType
     Update,
     Renderer,
     UiRenderer,
-    Close
+    Close,
+    Fixed
 }

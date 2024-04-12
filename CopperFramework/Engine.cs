@@ -8,7 +8,6 @@ global using rlColor = Raylib_cs.Color;
 global using Transform = CopperFramework.Data.Transform;
 using CopperCore;
 using CopperFramework.Elements;
-using CopperFramework.Elements.Components;
 using CopperFramework.Elements.Systems;
 using CopperFramework.Utility;
 
@@ -60,8 +59,16 @@ public class Engine : Singleton<Engine>
 
                 if (DebugSystem.Instance.DebugEnabled)
                     ElementManager.Update(ElementManager.ElementUpdateType.Debug);
-            }, () => { ElementManager.Update(ElementManager.ElementUpdateType.UiRender); },
-            () => { ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.FixedUpdate())); });
+            }, () =>
+            {
+                //
+                ElementManager.Update(ElementManager.ElementUpdateType.UiRender);
+            },
+            () =>
+            {
+                //
+                ElementManager.Update(ElementManager.ElementUpdateType.Fixed);
+            });
     }
 
     private void Stop()

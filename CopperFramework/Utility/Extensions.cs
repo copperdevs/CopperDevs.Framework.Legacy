@@ -65,7 +65,9 @@ public static class Extensions
     }
 
     public static int EnumToInt<T>(this T value) where T : Enum
-        => (int)(object)value;
+    {
+        return (int)(object)value;
+    }
 
     
     public static bool HasAttribute<T>(this object value) where T : Attribute
