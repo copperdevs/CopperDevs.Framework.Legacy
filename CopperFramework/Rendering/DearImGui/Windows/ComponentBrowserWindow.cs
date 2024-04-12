@@ -1,4 +1,6 @@
-﻿using CopperFramework.Elements.Components;
+﻿using CopperCore;
+using CopperFramework.Elements.Components;
+using CopperFramework.Physics;
 using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Scenes;
 using CopperFramework.Utility;
@@ -10,7 +12,7 @@ public class ComponentBrowserWindow : BaseWindow
 {
     public override string WindowName { get; protected internal set; } = "Object Browser";
 
-    internal static GameComponent? CurrentObjectBrowserTarget = null!;
+    internal static GameObject? CurrentObjectBrowserTarget = null!;
     private List<Type> components = new();
 
     public override void Start()
@@ -29,9 +31,9 @@ public class ComponentBrowserWindow : BaseWindow
     {
         CopperImGui.Group("object_browser_objects_window", () =>
         {
-            CopperImGui.Selectable("Add Component", () => { ImGui.OpenPopup("ObjectBrowserNewComponentPopup"); });
+            CopperImGui.Selectable("Add Component", () => { ImGui.OpenPopup("ObjectBrowserNewGameObjectPopup"); });
 
-            NewComponentPopup();
+            NewGameObjectPopup();
 
             CopperImGui.Selectable("Delete Component", () =>
             {
@@ -48,7 +50,8 @@ public class ComponentBrowserWindow : BaseWindow
             {
                 var gameObject = list[i];
 
-                CopperImGui.Selectable($"{gameObject.GetType().Name}###{i}", gameObject == CurrentObjectBrowserTarget,
+                var gmName = string.IsNullOrWhiteSpace(gameObject.GameObjectName) ? "Unnamed GameObject" : gameObject.GameObjectName;
+                CopperImGui.Selectable($"{gmName}###{i}", gameObject == CurrentObjectBrowserTarget,
                     () => { CurrentObjectBrowserTarget = gameObject; });
             }
         }, 0, ImGui.GetWindowWidth() * 0.25f);
@@ -59,36 +62,70 @@ public class ComponentBrowserWindow : BaseWindow
         CopperImGui.Group("object_browser_inspector_window",
             () =>
             {
+                AddComponentPopup();
                 if (CurrentObjectBrowserTarget is null)
                     return;
+
+                CopperImGui.CollapsingHeader($"GameObject Settings###{CurrentObjectBrowserTarget}", () =>
+                {
+                    using (new IndentScope())
+                    {
+                        CopperImGui.Text("Name", ref CurrentObjectBrowserTarget.GameObjectName);
+                    }
+                });
 
                 var transformValue = (object)CurrentObjectBrowserTarget.Transform;
                 ImGuiReflection.GetImGuiRenderer<Transform>()?.ValueRenderer(ref transformValue, 100);
                 CurrentObjectBrowserTarget.Transform = (Transform)transformValue;
 
-                ImGuiReflection.RenderValues(CurrentObjectBrowserTarget);
+                for (var i = 0; i < CurrentObjectBrowserTarget.Components.Count; i++)
+                {
+                    var component = CurrentObjectBrowserTarget.Components[i];
+
+                    CopperImGui.CollapsingHeader($"{component.GetType().FullName}###{i}{component.GetHashCode()}", () =>
+                    {
+                        using (new IndentScope())
+                        {
+                            // ReSharper disable once AccessToModifiedClosure
+                            CopperImGui.Selectable($"Remove Component###{i}", () => CurrentObjectBrowserTarget.Remove(component));
+                            CopperImGui.Separator("Component Settings");
+
+                            ImGuiReflection.RenderValues(component);
+                        }
+                    });
+                }
+
+                CopperImGui.Selectable("Add New Component", () => ImGui.OpenPopup("ObjectBrowserAddComponentPopup"));
             },
             ImGuiChildFlags.Border);
     }
 
-    private void NewComponentPopup()
+    private void NewGameObjectPopup()
     {
-        if (!ImGui.BeginPopup("ObjectBrowserNewComponentPopup"))
+        if (!ImGui.BeginPopup("ObjectBrowserNewGameObjectPopup"))
             return;
 
-        foreach (var component in components)
+        CopperImGui.Selectable("Empty GameObject", () => { SceneManager.ActiveScene.Add(new GameObject()); });
+
+        CopperImGui.Separator();
+
+
+        foreach (var component in components.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
         {
-            if (component == typeof(SingletonGameComponent<>) || component.HasAttribute<HideInInspectorAttribute>())
-                continue;
+            CopperImGui.Selectable(component.Name, () => SceneManager.ActiveScene.Add(new GameObject { Activator.CreateInstance(component) as GameComponent ?? null! }));
+        }
 
-            var canAddSingleton = component.BaseType!.IsAssignableTo(typeof(ISingleton)) &&
-                                  ComponentRegistry.CurrentComponents.Any(registryComponent =>
-                                      registryComponent.GetType() == component);
+        ImGui.EndPopup();
+    }
 
-            using (new DisabledScope(canAddSingleton))
-            {
-                CopperImGui.Selectable(component.Name, () => SceneManager.ActiveScene.Add(Activator.CreateInstance(component) as GameComponent ?? null!));
-            }
+    private void AddComponentPopup()
+    {
+        if (!ImGui.BeginPopup("ObjectBrowserAddComponentPopup"))
+            return;
+
+        foreach (var component in components.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
+        {
+            CopperImGui.Selectable(component.Name, () => CurrentObjectBrowserTarget?.Add(Activator.CreateInstance(component) as GameComponent ?? null!));
         }
 
         ImGui.EndPopup();

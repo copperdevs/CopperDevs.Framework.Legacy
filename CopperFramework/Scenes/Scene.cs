@@ -2,12 +2,12 @@
 
 namespace CopperFramework.Scenes;
 
-public class Scene : IEnumerable<GameComponent>
+public class Scene : IEnumerable<GameObject>
 {
     public string DisplayName { get; private set; }
     public Guid Id { get; private set; }
 
-    internal List<GameComponent> SceneComponents = new();
+    internal List<GameObject> SceneObjects = new();
 
     public Scene()
     {
@@ -32,32 +32,29 @@ public class Scene : IEnumerable<GameComponent>
     public static implicit operator Guid(Scene scene) => scene.Id;
     public static implicit operator string(Scene scene) => scene.DisplayName;
 
-    public void Add(GameComponent gameComponent)
+    public void Add(GameObject gameObject)
     {
-        SceneComponents.Add(gameComponent);
+        SceneObjects.Add(gameObject);
         
-        gameComponent.Transform.Position = Vector2.Zero;
-        gameComponent.Transform.Rotation = 0;
-        gameComponent.Transform.Scale = 1;
+        gameObject.Transform.Position = new Vector2((float)Raylib.GetScreenWidth() / 2, (float)Raylib.GetScreenHeight() / 2);
+        gameObject.Transform.Scale = 1;
+        gameObject.Transform.Rotation = 0;
+
+        gameObject.Scene = this;
         
-        gameComponent.ParentScene = this;
-        gameComponent.Start();
-        
-        gameComponent.Transform.Position = new Vector2((float)Raylib.GetScreenWidth() / 2, (float)Raylib.GetScreenHeight() / 2);
-        gameComponent.Transform.Scale = 1;
-        gameComponent.Transform.Rotation = 0;
+        gameObject.UpdateComponents(component => component.Update());
     }
 
-    public void Remove(GameComponent gameComponent)
+    public void Remove(GameObject gameObject)
     {
-        SceneComponents.Remove(gameComponent);
+        SceneObjects.Remove(gameObject);
         
-        gameComponent.Stop();
+        gameObject.UpdateComponents(component => component.Stop());
     }
 
-    public IEnumerator<GameComponent> GetEnumerator()
+    public IEnumerator<GameObject> GetEnumerator()
     {
-        return SceneComponents.GetEnumerator();
+        return SceneObjects.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()

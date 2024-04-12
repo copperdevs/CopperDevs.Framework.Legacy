@@ -50,6 +50,7 @@ public static class CopperImGui
             ImGuiDockNodeFlags.PassthruCentralNode | ImGuiDockNodeFlags.AutoHideTabBar);
 
         RenderWindows();
+        DearImGuiSystem.Instance.RenderImGuiWindowsMenu();
 
         currentRenderer.End();
     }
@@ -338,6 +339,15 @@ public static class CopperImGui
             return;
 
         if (ImGui.Button(name))
+            clickEvent?.Invoke();
+    }
+
+    public static void Button(string name, float width, float height = 0, Action? clickEvent = null)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.Button(name, tempVec with { X = width, Y = height}))
             clickEvent?.Invoke();
     }
 

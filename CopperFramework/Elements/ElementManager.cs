@@ -29,24 +29,24 @@ internal static class ElementManager
                 break;
             case ElementUpdateType.Render:
                 SystemManager.Update(SystemUpdateType.Renderer);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(component =>
+                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject =>
                 {
                     Rlgl.PushMatrix();
-                    Rlgl.Translatef(component.Transform.Position.X, component.Transform.Position.Y, 0);
-                    Rlgl.Rotatef(component.Transform.Rotation, 0, 0, -1);
-                    Rlgl.Scalef(component.Transform.Scale, component.Transform.Scale, 0);
-                    component.Update();
+                    Rlgl.Translatef(gameObject.Transform.Position.X, gameObject.Transform.Position.Y, 0);
+                    Rlgl.Rotatef(gameObject.Transform.Rotation, 0, 0, -1);
+                    Rlgl.Scalef(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
+                    gameObject.UpdateComponents(component => component.Update());
                     Rlgl.PopMatrix();
                 });
                 break;
             case ElementUpdateType.Close:
                 SystemManager.Update(SystemUpdateType.Close);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(component => component.Stop());
-                ComponentRegistry.CurrentComponents.ToList().ForEach(component => component.Sleep());
+                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.Sleep()));
+                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.Stop()));
                 break;
             case ElementUpdateType.UiRender:
                 SystemManager.Update(SystemUpdateType.UiRenderer);
-                ComponentRegistry.CurrentComponents.ToList().ForEach(component => component.UiUpdate());
+                ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.UiUpdate()));
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(updateType), updateType, null);

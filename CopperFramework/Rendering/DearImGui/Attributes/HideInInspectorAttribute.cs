@@ -1,6 +1,6 @@
 ﻿namespace CopperFramework.Rendering.DearImGui.Attributes;
 
-[AttributeUsage(AttributeTargets.Field | AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Class | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
 public sealed class HideInInspectorAttribute : Attribute
 {
 }

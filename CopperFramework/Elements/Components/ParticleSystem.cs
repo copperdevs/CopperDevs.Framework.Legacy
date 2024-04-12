@@ -72,7 +72,8 @@ public class ParticleSystem : GameComponent
 
         if (particles.Count == 0 && !isActive)
         {
-            ComponentRegistry.CurrentComponents.Remove(this);
+            ComponentRegistry.CurrentComponents.Remove(Parent);
+            ComponentBrowserWindow.CurrentObjectBrowserTarget = null;
         }
     }
 
@@ -86,10 +87,10 @@ public class ParticleSystem : GameComponent
         if (CopperImGui.AnyElementHovered) 
             return;
         
-        if (Input.IsMouseButtonDown(MouseButton.Left) && ComponentBrowserWindow.CurrentObjectBrowserTarget == this)
-        {
-            Transform.Position = Input.MousePosition;
-        }
+        // if (Input.IsMouseButtonDown(MouseButton.Left) && ComponentBrowserWindow.CurrentObjectBrowserTarget == Parent)
+        // {
+            // Transform.Position = Input.MousePosition;
+        // }
     }
     
     [Serializable]
@@ -97,7 +98,7 @@ public class ParticleSystem : GameComponent
     {
         public float Lifetime;
         public float Speed;
-        public Color Color;
+        public Color Color = new();
         public Transform Transform;
     }
 }

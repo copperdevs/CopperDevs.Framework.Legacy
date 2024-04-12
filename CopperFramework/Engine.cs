@@ -2,12 +2,10 @@
 global using System.Numerics;
 global using CopperFramework.Data;
 global using Raylib_cs;
-
 global using Color = CopperFramework.Data.Color;
 global using Random = CopperFramework.Utility.Random;
 global using rlColor = Raylib_cs.Color;
 global using Transform = CopperFramework.Data.Transform;
-
 using CopperCore;
 using CopperFramework.Elements;
 using CopperFramework.Elements.Components;
@@ -39,10 +37,10 @@ public class Engine : Singleton<Engine>
     public void Run()
     {
         Start();
-        
-        while (!Raylib.WindowShouldClose()) 
+
+        while (!Raylib.WindowShouldClose())
             Update();
-        
+
         Stop();
     }
 
@@ -59,14 +57,8 @@ public class Engine : Singleton<Engine>
             {
                 ElementManager.Update(ElementManager.ElementUpdateType.Update);
                 ElementManager.Update(ElementManager.ElementUpdateType.Render);
-            }, () =>
-            {
-                ElementManager.Update(ElementManager.ElementUpdateType.UiRender);
-            },
-            () =>
-            {
-                ComponentRegistry.CurrentComponents.ToList().ForEach(component => component.FixedUpdate());
-            });
+            }, () => { ElementManager.Update(ElementManager.ElementUpdateType.UiRender); },
+            () => { ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.FixedUpdate())); });
     }
 
     private void Stop()

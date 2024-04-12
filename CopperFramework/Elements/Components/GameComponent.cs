@@ -6,7 +6,8 @@ namespace CopperFramework.Elements.Components;
 public abstract class GameComponent
 {
     [HideInInspector] protected internal Transform Transform;
-    protected internal Scene? ParentScene { get; internal set; }
+    protected internal GameObject Parent { get; internal set; }
+    protected internal Scene? ParentScene => Parent.Scene;
 
     public virtual void Start()
     {

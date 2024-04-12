@@ -27,10 +27,10 @@ public static class SceneManager
 
     public static void LoadScene(Scene targetScene)
     {
-        currentScene?.SceneComponents.ForEach(component => component.Sleep());
+        currentScene?.SceneObjects.ForEach(gameObject => gameObject.UpdateComponents(component => component.Sleep()));
         if (Scenes.ContainsKey(targetScene))
             currentScene = targetScene;
-        targetScene?.SceneComponents.ForEach(component => component.Awake());
+        targetScene?.SceneObjects.ForEach(gameObject => gameObject.UpdateComponents(component => component.Awake()));
     }
 
     internal static void RegisterScene(Scene targetScene)
