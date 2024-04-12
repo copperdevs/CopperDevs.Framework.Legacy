@@ -12,18 +12,22 @@ public class GameObject : IEnumerable
 
     internal void UpdateComponents(Action<GameComponent> action)
     {
-        Components.ForEach(action);
+        foreach (var component in Components) 
+            action?.Invoke(component);
     }
 
     public void Add(GameComponent gameComponent)
     {
         gameComponent.Parent = this;
         Components.Add(gameComponent);
+        gameComponent.Start();
     }
 
     public void Remove(GameComponent gameComponent)
     {
         Components.Remove(gameComponent);
+        gameComponent.Stop();
+        gameComponent.Sleep();
     }
 
     public IEnumerator GetEnumerator()

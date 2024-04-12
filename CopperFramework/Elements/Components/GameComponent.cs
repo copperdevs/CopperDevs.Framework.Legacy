@@ -21,6 +21,10 @@ public abstract class GameComponent
     {
     }
 
+    public virtual void DebugUpdate()
+    {
+    }
+
     public virtual void UiUpdate()
     {
     }

@@ -1,6 +1,4 @@
-﻿using CopperFramework.Elements.Systems;
-using CopperFramework.Rendering.DearImGui;
-using CopperFramework.Rendering.DearImGui.Attributes;
+﻿using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.Windows;
 using CopperFramework.Utility;
 
@@ -23,8 +21,6 @@ public class ParticleSystem : GameComponent
         UpdateParticles();
         RenderParticles();
         KillParticles();
-
-        EditorUpdate();
     }
 
     private void SpawnParticle()
@@ -64,35 +60,24 @@ public class ParticleSystem : GameComponent
 
     private void KillParticles()
     {
-        foreach (var particle in particles.ToList())
+        foreach (var particle in particles.ToList().Where(particle => particle.Lifetime <= 0))
         {
-            if (particle.Lifetime <= 0)
-                particles.Remove(particle);
+            particles.Remove(particle);
         }
 
-        if (particles.Count == 0 && !isActive)
-        {
-            ComponentRegistry.CurrentComponents.Remove(Parent);
-            ComponentBrowserWindow.CurrentObjectBrowserTarget = null;
-        }
+        if (particles.Count != 0 || isActive)
+            return;
+
+        ComponentRegistry.CurrentComponents.Remove(Parent);
+        ComponentBrowserWindow.CurrentObjectBrowserTarget = null;
     }
 
-    private void EditorUpdate()
+    public override void DebugUpdate()
     {
-        if (!DebugSystem.Instance.DebugEnabled) 
-            return;
-        
         Raylib.DrawCircleV(Vector2.Zero, 8, Color.Red);
-    
-        if (CopperImGui.AnyElementHovered) 
-            return;
-        
-        // if (Input.IsMouseButtonDown(MouseButton.Left) && ComponentBrowserWindow.CurrentObjectBrowserTarget == Parent)
-        // {
-            // Transform.Position = Input.MousePosition;
-        // }
     }
-    
+
+
     [Serializable]
     public class Particle
     {

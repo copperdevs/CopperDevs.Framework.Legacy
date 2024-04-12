@@ -90,7 +90,7 @@ public class ComponentBrowserWindow : BaseWindow
                             CopperImGui.Selectable($"Remove Component###{i}", () => CurrentObjectBrowserTarget.Remove(component));
                             CopperImGui.Separator("Component Settings");
 
-                            ImGuiReflection.RenderValues(component);
+                            ImGuiReflection.RenderValues(component, component.GetHashCode());
                         }
                     });
                 }

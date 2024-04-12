@@ -9,8 +9,8 @@ global using Transform = CopperFramework.Data.Transform;
 using CopperCore;
 using CopperFramework.Elements;
 using CopperFramework.Elements.Components;
+using CopperFramework.Elements.Systems;
 using CopperFramework.Utility;
-using ImGuiNET;
 
 namespace CopperFramework;
 
@@ -57,6 +57,9 @@ public class Engine : Singleton<Engine>
             {
                 ElementManager.Update(ElementManager.ElementUpdateType.Update);
                 ElementManager.Update(ElementManager.ElementUpdateType.Render);
+
+                if (DebugSystem.Instance.DebugEnabled)
+                    ElementManager.Update(ElementManager.ElementUpdateType.Debug);
             }, () => { ElementManager.Update(ElementManager.ElementUpdateType.UiRender); },
             () => { ComponentRegistry.CurrentComponents.ToList().ForEach(gameObject => gameObject.UpdateComponents(component => component.FixedUpdate())); });
     }
