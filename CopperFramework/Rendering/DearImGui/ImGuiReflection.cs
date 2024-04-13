@@ -37,7 +37,7 @@ public static class ImGuiReflection
 
             if (CurrentReadOnlyAttribute is not null)
             {
-                using (new DisabledScope()) 
+                using (new DisabledScope())
                     Render();
             }
             else
@@ -114,7 +114,7 @@ public static class ImGuiReflection
 
     internal static FieldRenderer? GetImGuiRenderer<T>()
     {
-        return ImGuiRenderers.TryGetValue(typeof(T), out var value) ? value : null;
+        return ImGuiRenderers.GetValueOrDefault(typeof(T));
     }
 
     private static readonly Dictionary<Type, FieldRenderer> ImGuiRenderers = new()
@@ -131,7 +131,8 @@ public static class ImGuiReflection
         { typeof(Transform), new TransformFieldRenderer() },
         { typeof(Color), new ColorFieldRenderer() },
         { typeof(Texture2D), new Texture2DFieldRenderer() },
-        { typeof(Enum), new EnumFieldRenderer() }
+        { typeof(Enum), new EnumFieldRenderer() },
+        { typeof(Vector2Int), new Vector2IntFieldRenderer() }
     };
 
     public abstract class FieldRenderer
@@ -152,10 +153,7 @@ public static class ImGuiReflection
                     () =>
                     {
                         CopperImGui.Button($"+##{fieldInfo.Name}{id}",
-                            () =>
-                            {
-                                value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType()));
-                            });
+                            () => { value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType())); });
                     },
                     () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
 

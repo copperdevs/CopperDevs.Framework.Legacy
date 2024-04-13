@@ -1,8 +1,10 @@
-﻿using CopperFramework.Elements.Components;
+﻿using CopperCore;
+using CopperFramework.Data;
+using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Testing;
 
-public class EnumTest : GameComponent
+public class ReflectionTest : GameComponent
 {
     public MyEnum CurrentMyEnum = MyEnum.One;
 
@@ -20,4 +22,6 @@ public class EnumTest : GameComponent
         Two,
         Three
     }
+
+    public Vector2Int Vector2Int;
 }

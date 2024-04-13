@@ -242,7 +242,7 @@ public static class CopperImGui
             ImGui.LabelText(title, $"{value}");
     }
 
-    public static void Text(object value)
+    public static void Text(object? value)
     {
         if (canRender)
             ImGui.Text($"{value}");
@@ -347,7 +347,7 @@ public static class CopperImGui
         if (!canRender)
             return;
 
-        if (ImGui.Button(name, tempVec with { X = width, Y = height}))
+        if (ImGui.Button(name, tempVec with { X = width, Y = height }))
             clickEvent?.Invoke();
     }
 
@@ -410,6 +410,25 @@ public static class CopperImGui
             return;
 
         if (ImGui.SliderFloat2(name, ref value, min, max))
+            interacted?.Invoke(value);
+    }
+
+
+    public static void DragValue(string name, ref Vector2Int value, Action<Vector2Int>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragInt2(name, ref value.X))
+            interacted?.Invoke(value);
+    }
+
+    public static void SliderValue(string name, ref Vector2Int value, int min, int max, Action<Vector2Int>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.SliderInt2(name, ref value.X, min, max))
             interacted?.Invoke(value);
     }
 
@@ -477,5 +496,27 @@ public static class CopperImGui
 
         if (ImGui.InputText(name, ref value, maxLength))
             interacted?.Invoke(value);
+    }
+
+    public static void TabGroup(string id, params (string, Action)[] tabs)
+    {
+        if (!canRender)
+            return;
+
+        if (!ImGui.BeginTabBar(id, ImGuiTabBarFlags.Reorderable))
+            return;
+
+        for (var i = 0; i < tabs.Length; i++)
+        {
+            var (tabTitle, tabAction) = tabs[i];
+
+            if (!ImGui.BeginTabItem($"{tabTitle}###{id}{i}"))
+                continue;
+
+            tabAction?.Invoke();
+            ImGui.EndTabItem();
+        }
+
+        ImGui.EndTabBar();
     }
 }

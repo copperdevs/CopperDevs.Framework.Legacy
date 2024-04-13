@@ -12,7 +12,7 @@ public class EngineWindow : Singleton<EngineWindow>
 
     public EngineWindowCamera Camera;
     
-    private static float fixedDeltaTime = 0;
+    internal static float FixedDeltaTime = 0;
     private const float FixedFrameTime = 0.02f;
 
     private RenderTexture2D renderTexture;
@@ -36,10 +36,10 @@ public class EngineWindow : Singleton<EngineWindow>
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
     {
-        fixedDeltaTime += Time.DeltaTime;
-        if (fixedDeltaTime >= FixedFrameTime)
+        FixedDeltaTime += Time.DeltaTime;
+        if (FixedDeltaTime >= FixedFrameTime)
         {
-            fixedDeltaTime = 0;
+            FixedDeltaTime = 0;
             fixedUpdate.Invoke();
         }
         

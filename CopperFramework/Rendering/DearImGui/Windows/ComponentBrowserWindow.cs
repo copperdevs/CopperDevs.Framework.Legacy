@@ -13,15 +13,6 @@ public class ComponentBrowserWindow : BaseWindow
     public override string WindowName { get; protected internal set; } = "Object Browser";
 
     internal static GameObject? CurrentObjectBrowserTarget = null!;
-    private List<Type> components = new();
-
-    public override void Start()
-    {
-        components = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(assembly => assembly.GetTypes())
-            .Where(type => type.IsSubclassOf(typeof(GameComponent))).ToList();
-    }
-
     public override void Update()
     {
         CopperImGui.HorizontalGroup(SelectorWindow, InspectorWindow);
@@ -110,9 +101,9 @@ public class ComponentBrowserWindow : BaseWindow
         CopperImGui.Separator();
 
 
-        foreach (var component in components.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
+        foreach (var componentType in ComponentRegistry.ComponentTypes.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
         {
-            CopperImGui.Selectable(component.Name, () => SceneManager.ActiveScene.Add(new GameObject ($"New {component.Name}"){ Activator.CreateInstance(component) as GameComponent ?? null! }));
+            CopperImGui.Selectable(componentType.Name, () => ComponentRegistry.Instantiate(componentType));
         }
 
         ImGui.EndPopup();
@@ -123,9 +114,9 @@ public class ComponentBrowserWindow : BaseWindow
         if (!ImGui.BeginPopup("ObjectBrowserAddComponentPopup"))
             return;
 
-        foreach (var component in components.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
+        foreach (var componentType in ComponentRegistry.ComponentTypes.Where(component => !component.HasAttribute<HideInInspectorAttribute>()))
         {
-            CopperImGui.Selectable(component.Name, () => CurrentObjectBrowserTarget?.Add(Activator.CreateInstance(component) as GameComponent ?? null!));
+            CopperImGui.Selectable(componentType.Name, () => CurrentObjectBrowserTarget?.AddComponent(componentType));
         }
 
         ImGui.EndPopup();

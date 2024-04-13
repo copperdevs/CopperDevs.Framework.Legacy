@@ -11,6 +11,17 @@ public abstract class GameComponent
 
     protected internal Scene? ParentScene => Parent.Scene;
 
+    public T GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
+    {
+        return Parent.GetComponent<T>(addIfNotFound);
+    }
+    
+    public T AddComponent<T>() where T : GameComponent
+    {
+        return Parent.AddComponent<T>();
+    }
+    
+    
     public virtual void Start()
     {
     }

@@ -90,7 +90,7 @@ public static class MathUtil
 
     public static float Lerp(float a, float b, float t)
     {
-        return (1.0f - t) * a + b + t;  
+        return (1.0f - t) * a + b + t;
     }
 
     public static float InverseLerp(float a, float b, float v)
@@ -146,9 +146,24 @@ public static class MathUtil
     {
         return new Vector3(vec1.X * vec2.X, vec1.Y * vec2.Y, vec1.Z * vec2.Z);
     }
-    
-    public static Vector2 RotationStuff(float rotation)
+
+    public static Vector2 CreateRotatedUnitVector(float rotation)
     {
         return new Vector2(MathF.Cos(-rotation * (MathF.PI / 180)), MathF.Sin(-rotation * (MathF.PI / 180)));
+    }
+
+    public static float CrossProduct(Vector2 a, Vector2 b)
+    {
+        return a.X * b.Y - a.Y * b.X;
+    }
+
+    public static Vector2 CrossProduct(Vector2 a, float s)
+    {
+        return new Vector2(s * a.Y, -s * a.X);
+    }
+
+    public static Vector2 CrossProduct(float s, Vector2 a)
+    {
+        return new Vector2(-s * a.Y, s * a.X);
     }
 }

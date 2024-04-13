@@ -45,7 +45,7 @@ public class ParticleSystem : GameComponent
         foreach (var particle in particles)
         {
             particle.Lifetime -= Time.DeltaTime;
-            particle.Transform.Position += MathUtil.RotationStuff(particle.Transform.Rotation) * particle.Speed;
+            particle.Transform.Position += MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed;
         }
     }
 

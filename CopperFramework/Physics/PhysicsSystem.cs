@@ -1,4 +1,5 @@
 ﻿using CopperCore;
+using CopperFramework.Elements.Components;
 using CopperFramework.Elements.Systems;
 using CopperFramework.Utility;
 
@@ -24,6 +25,8 @@ public class PhysicsSystem : SystemSingleton<PhysicsSystem>, ISystem
 
     public void LoadSystem()
     {
+        ComponentRegistry.RegisterAbstractSubclass<Collider, BoxCollider>();
+        ComponentRegistry.RegisterAbstractSubclass<Collider, CircleCollider>();
     }
 
     public void ShutdownSystem()

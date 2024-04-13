@@ -16,7 +16,7 @@ namespace CopperFramework;
 public class Engine : Singleton<Engine>
 {
     private readonly EngineWindow window;
-    public EngineSettings Settings { get; private set; }
+    public EngineSettings Settings;
 
     public Engine() : this(new EngineSettings())
     {

@@ -1,5 +1,4 @@
-﻿
-namespace CopperFramework.Testing;
+﻿namespace CopperFramework.Testing;
 
 public static class Program
 {

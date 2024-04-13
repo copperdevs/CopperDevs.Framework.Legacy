@@ -79,4 +79,9 @@ public static class Extensions
     {
         return value.IsDefined(typeof(T), false);
     }
+
+    public static bool IsSameOrSubclass(this Type potentialDescendant, Type potentialBase)
+    {
+        return Util.IsSameOrSubclass(potentialBase, potentialDescendant);
+    }
 }
