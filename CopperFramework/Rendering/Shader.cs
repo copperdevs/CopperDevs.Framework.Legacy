@@ -3,26 +3,33 @@
 namespace CopperFramework.Rendering;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-public sealed class Shader
+public sealed class Shader : IRenderable
 {
     private static readonly List<Shader> ShaderLoadQueue = [];
     private static bool requireQueue = true;
 
-    private readonly string? vertexShaderData;
-    private readonly string? fragmentShaderData;
+    public readonly string Name;
+    public readonly string? VertexShaderData;
+    public readonly string? FragmentShaderData;
 
     private rlShader rlShader;
 
 
-    public Shader(string? newVertexShaderData, string? newFragmentShaderData)
+    public static Shader Load(string shaderName, string? newVertexShaderData = null, string? newFragmentShaderData = null)
     {
-        vertexShaderData = newVertexShaderData;
-        fragmentShaderData = newFragmentShaderData;
+        return new Shader(shaderName, newVertexShaderData, newFragmentShaderData);
+    }
+
+    public Shader(string shaderName, string? newVertexShaderData = null, string? newFragmentShaderData = null)
+    {
+        Name = shaderName;
+        VertexShaderData = newVertexShaderData;
+        FragmentShaderData = newFragmentShaderData;
 
         if (requireQueue)
             ShaderLoadQueue.Add(this);
         else
-            Load();
+            LoadShader();
     }
 
     public static implicit operator rlShader(Shader shader) => shader.rlShader;
@@ -35,13 +42,15 @@ public sealed class Shader
         requireQueue = false;
 
         foreach (var shader in ShaderLoadQueue)
-            shader.Load();
+            shader.LoadShader();
     }
 
-    private void Load()
+    private void LoadShader()
     {
         Log.Info($"Loading Shader");
-        rlShader = Raylib.LoadShaderFromMemory(vertexShaderData, fragmentShaderData);
+        rlShader = Raylib.LoadShaderFromMemory(VertexShaderData, FragmentShaderData);
+        
+        RenderingManager.RegisterRenderableItem(this);
     }
 
     #endregion
