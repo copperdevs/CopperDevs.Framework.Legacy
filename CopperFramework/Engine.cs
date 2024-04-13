@@ -8,9 +8,9 @@ namespace CopperFramework;
 public class Engine : Singleton<Engine>
 {
     private readonly EngineWindow window;
-    public EngineSettings Settings;
+    public readonly EngineSettings Settings;
 
-    public Engine() : this(new EngineSettings())
+    public Engine() : this(EngineSettings.DefaultSettings)
     {
     }
 

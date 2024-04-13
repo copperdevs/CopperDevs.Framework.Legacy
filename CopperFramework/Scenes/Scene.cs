@@ -36,7 +36,7 @@ public class Scene : IEnumerable<GameObject>
     {
         SceneObjects.Add(gameObject);
         
-        gameObject.Transform.Position = new Vector2((float)Raylib.GetScreenWidth() / 2, (float)Raylib.GetScreenHeight() / 2);
+        gameObject.Transform.Position = Vector2.Zero;
         gameObject.Transform.Scale = 1;
         gameObject.Transform.Rotation = 0;
 

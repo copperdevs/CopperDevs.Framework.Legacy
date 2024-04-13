@@ -1,13 +1,16 @@
-﻿using CopperCore;
-using CopperDearImGui.Attributes;
+﻿using CopperDearImGui.Attributes;
 using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Physics;
 
+// references
+    // https://code.tutsplus.com/how-to-create-a-custom-2d-physics-engine-oriented-rigid-bodies--gamedev-8032t
 public class Rigidbody : GameComponent
 {
-    private bool isStatic;
     [HideInInspector] private Collider targetCollider;
+    
+    private bool isStatic;
+    
 
     public override void Start()
     {
@@ -18,7 +21,5 @@ public class Rigidbody : GameComponent
     {
         if (isStatic)
             return;
-        
-        Transform.Position.Y += PhysicsSystem.GetGravity();
     }
 }

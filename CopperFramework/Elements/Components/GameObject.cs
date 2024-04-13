@@ -10,7 +10,7 @@ public class GameObject : IEnumerable
 {
     [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
-    [HideInInspector] internal List<GameComponent> Components = new();
+    [HideInInspector] internal List<GameComponent> Components = [];
     [HideInInspector] protected internal Scene? Scene { get; internal set; }
 
     public GameObject()

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using CopperCore.Data;
 
 namespace CopperCore.Utility;
@@ -13,6 +14,7 @@ public static class MathUtil
     /// <summary>
     /// https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static Vector3 ToEulerAngles(Quaternion quaternion)
     {
         Vector3 angles;
@@ -166,5 +168,20 @@ public static class MathUtil
     public static Vector2 CrossProduct(float s, Vector2 a)
     {
         return new Vector2(-s * a.Y, s * a.X);
+    }
+
+    public static float Length(Vector2 vector)
+    {
+        return MathF.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+    }
+
+    public static float SqrLength(Vector2 vector)
+    {
+        return vector.X * vector.X + vector.Y * vector.Y;
+    }
+
+    public static Vector2 Normalized(Vector2 vector)
+    {
+        return vector * (1 / Length(vector));
     }
 }
