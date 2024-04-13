@@ -1,4 +1,4 @@
-﻿namespace CopperDearImGui.Utility;
+﻿namespace CopperCore.Utility;
 
 public abstract class Scope : IDisposable
 {

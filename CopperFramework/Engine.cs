@@ -7,7 +7,9 @@ namespace CopperFramework;
 
 public class Engine : Singleton<Engine>
 {
-    private readonly EngineWindow window;
+    public static EngineWindow CurrentWindow => Instance.Window;
+    
+    public readonly EngineWindow Window;
     public readonly EngineSettings Settings;
 
     public Engine() : this(EngineSettings.DefaultSettings)
@@ -22,7 +24,7 @@ public class Engine : Singleton<Engine>
         SetInstance(this);
 
         Settings = settings;
-        window = new EngineWindow();
+        Window = new EngineWindow(settings);
     }
 
     public void Run()
@@ -37,14 +39,14 @@ public class Engine : Singleton<Engine>
 
     private void Start()
     {
-        window.Start();
+        Window.Start();
 
         ElementManager.Initialize();
     }
 
     private void Update()
     {
-        window.Update(() =>
+        Window.Update(() =>
             {
                 ElementManager.Update(ElementManager.ElementUpdateType.Update);
                 ElementManager.Update(ElementManager.ElementUpdateType.Render);
@@ -66,6 +68,6 @@ public class Engine : Singleton<Engine>
     private void Stop()
     {
         ElementManager.Shutdown();
-        window.Shutdown();
+        Window.Shutdown();
     }
 }

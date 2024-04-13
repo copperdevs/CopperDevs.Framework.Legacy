@@ -8,13 +8,6 @@ namespace CopperDearImGui;
 [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
 public static class ImGuiReflection
 {
-    internal static RangeAttribute? CurrentRangeAttribute;
-    internal static ReadOnlyAttribute? CurrentReadOnlyAttribute;
-    internal static TooltipAttribute? CurrentTooltipAttribute;
-    internal static HideInInspectorAttribute? CurrentHideInInspectorAttribute;
-    internal static SpaceAttribute? CurrentSpaceAttribute;
-    internal static SeperatorAttribute? CurrentSeperatorAttribute;
-
     internal static void RenderValues(object component, int id = 0)
     {
         var fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
@@ -24,16 +17,12 @@ public static class ImGuiReflection
             SpaceAttributeRenderer(info);
             SeperatorAttributeRenderer(info);
 
-            CurrentHideInInspectorAttribute =
-                (HideInInspectorAttribute?)Attribute.GetCustomAttribute(info, typeof(HideInInspectorAttribute))!;
-
-            if (CurrentHideInInspectorAttribute is not null)
+            if (Attribute.GetCustomAttribute(info, typeof(HideInInspectorAttribute)) is not null)
                 continue;
 
-            CurrentReadOnlyAttribute =
-                (ReadOnlyAttribute?)Attribute.GetCustomAttribute(info, typeof(ReadOnlyAttribute))!;
+            var currentReadOnlyAttribute = (ReadOnlyAttribute?)Attribute.GetCustomAttribute(info, typeof(ReadOnlyAttribute))!;
 
-            if (CurrentReadOnlyAttribute is not null)
+            if (currentReadOnlyAttribute is not null)
             {
                 using (new DisabledScope())
                     Render();
@@ -43,12 +32,12 @@ public static class ImGuiReflection
                 Render();
             }
 
-            CurrentTooltipAttribute = (TooltipAttribute)Attribute.GetCustomAttribute(info, typeof(TooltipAttribute))!;
+            var currentTooltipAttribute = (TooltipAttribute)Attribute.GetCustomAttribute(info, typeof(TooltipAttribute))!;
 
-            if (CurrentTooltipAttribute is null)
+            if (currentTooltipAttribute is null)
                 continue;
 
-            CopperImGui.Tooltip(CurrentTooltipAttribute.Message);
+            CopperImGui.Tooltip(currentTooltipAttribute.Message);
 
             continue;
 
@@ -99,15 +88,12 @@ public static class ImGuiReflection
 
     private static void SpaceAttributeRenderer(MemberInfo info)
     {
-        CurrentSpaceAttribute = (SpaceAttribute?)Attribute.GetCustomAttribute(info, typeof(SpaceAttribute))!;
-        if (CurrentSpaceAttribute is not null) CurrentSpaceAttribute.Render();
+        ((SpaceAttribute?)Attribute.GetCustomAttribute(info, typeof(SpaceAttribute)))?.Render();
     }
 
     private static void SeperatorAttributeRenderer(MemberInfo info)
     {
-        CurrentSeperatorAttribute =
-            (SeperatorAttribute?)Attribute.GetCustomAttribute(info, typeof(SeperatorAttribute))!;
-        if (CurrentSeperatorAttribute is not null) CurrentSeperatorAttribute.Render();
+        ((SeperatorAttribute?)Attribute.GetCustomAttribute(info, typeof(SeperatorAttribute)))?.Render();
     }
 
     internal static FieldRenderer? GetImGuiRenderer<T>()
@@ -126,9 +112,6 @@ public static class ImGuiReflection
         { typeof(Vector4), new Vector4FieldRenderer() },
         { typeof(Quaternion), new QuaternionFieldRenderer() },
         { typeof(Guid), new GuidFieldRenderer() },
-        // { typeof(Transform), new TransformFieldRenderer() },
-        // { typeof(Color), new ColorFieldRenderer() },
-        // { typeof(Texture2D), new Texture2DFieldRenderer() },
         { typeof(Enum), new EnumFieldRenderer() },
         { typeof(Vector2Int), new Vector2IntFieldRenderer() }
     };

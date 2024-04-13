@@ -1,28 +1,35 @@
-﻿using CopperCore;
+﻿using System.Reflection;
 using CopperFramework.Utility;
 using static Raylib_cs.Raylib;
 
 namespace CopperFramework;
 
-public class EngineWindow : Singleton<EngineWindow>
+public class EngineWindow
 {
-    public EngineWindow() => SetInstance(this);
+    public EngineWindow(EngineSettings settings)
+    {
+        this.settings = settings;
+    }
 
-    private EngineSettings Settings => Engine.Instance.Settings;
+    private readonly EngineSettings settings;
 
     public EngineWindowCamera Camera;
     
     internal static float FixedDeltaTime = 0;
     private const float FixedFrameTime = 0.02f;
 
-    private RenderTexture2D renderTexture;
+    public RenderTexture2D RenderTexture { get; private set; }
+    public bool ScreenShaderEnabled = true;
+    public Shader? ScreenShader { get; private set; }
     
+    public void SetScreenShader(Shader? shader) => ScreenShader = shader;
+
     public void Start()
     {
-        SetConfigFlags(Settings.WindowFlags);
-        InitWindow(Settings.WindowSize.X, Settings.WindowSize.Y, Settings.WindowTitle);
+        SetConfigFlags(settings.WindowFlags);
+        InitWindow(settings.WindowSize.X, settings.WindowSize.Y, string.IsNullOrWhiteSpace(settings.WindowTitle) ? Assembly.GetEntryAssembly()?.FullName : settings.WindowTitle);
         InitAudioDevice();
-        SetTargetFPS(Settings.TargetFps);
+        SetTargetFPS(settings.TargetFps);
 
         Camera = new EngineWindowCamera
         {
@@ -31,7 +38,8 @@ public class EngineWindow : Singleton<EngineWindow>
             Zoom = 1
         };
 
-        renderTexture = LoadRenderTexture(Settings.WindowSize.X, Settings.WindowSize.Y);
+        RenderTexture = LoadRenderTexture(settings.WindowSize.X, settings.WindowSize.Y);
+        Shader.LoadQueue();
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
@@ -45,11 +53,11 @@ public class EngineWindow : Singleton<EngineWindow>
         
         if (IsWindowResized())
         {
-            UnloadRenderTexture(renderTexture);
-            renderTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+            UnloadRenderTexture(RenderTexture);
+            RenderTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
         }
         
-        BeginTextureMode(renderTexture);
+        BeginTextureMode(RenderTexture);
         
         BeginDrawing();
         ClearBackground(Color.RayWhite);
@@ -62,7 +70,10 @@ public class EngineWindow : Singleton<EngineWindow>
         
         EndTextureMode();
         
-        DrawTextureRec(renderTexture.Texture, new Rectangle(0, 0, renderTexture.Texture.Width, -renderTexture.Texture.Height), Vector2.Zero, Color.White);
+        using (new ShaderScope(ScreenShader!, (ScreenShader is not null) && ScreenShaderEnabled))
+        {
+            DrawTextureRec(RenderTexture.Texture, new Rectangle(0, 0, RenderTexture.Texture.Width, -RenderTexture.Texture.Height), Vector2.Zero, Color.White);
+        }
         
         uiRenderUpdate.Invoke();
         
@@ -75,20 +86,15 @@ public class EngineWindow : Singleton<EngineWindow>
         CloseWindow();
     }
 
-    public struct EngineWindowCamera
+    public struct EngineWindowCamera()
     {
-        private Camera2D camera2D;
-
-        public EngineWindowCamera()
+        private Camera2D camera2D = new()
         {
-            camera2D = new Camera2D()
-            {
-                Offset = Vector2.Zero,
-                Zoom = 1,
-                Rotation = 0,
-                Target = Vector2.Zero
-            };
-        }
+            Offset = Vector2.Zero,
+            Zoom = 1,
+            Rotation = 0,
+            Target = Vector2.Zero
+        };
 
         public static implicit operator Camera2D(EngineWindowCamera camera) => camera.camera2D;
 

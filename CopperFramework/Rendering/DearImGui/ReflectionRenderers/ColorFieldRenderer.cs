@@ -15,7 +15,7 @@ public class ColorFieldRenderer : FieldRenderer
         CopperImGui.ColorEdit($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref vectorColor,
             interactedValue =>
             {
-                fieldInfo.SetValue(component, interactedValue*255);
+                fieldInfo.SetValue(component, new Color(interactedValue*255));
             });
     }
 

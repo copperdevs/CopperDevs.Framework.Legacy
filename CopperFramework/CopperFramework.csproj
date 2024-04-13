@@ -20,5 +20,9 @@
       <None Remove="Resources\Fonts\Inter\static\Inter-Regular.ttf" />
       <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Regular.ttf" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\Shaders\Bloom.frag" />
+    </ItemGroup>
 
 </Project>

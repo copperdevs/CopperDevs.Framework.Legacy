@@ -2,7 +2,7 @@
 
 public static class Input
 {
-    public static Vector2 MousePosition => Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), EngineWindow.Instance.Camera);
+    public static Vector2 MousePosition => Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), Engine.CurrentWindow.Camera);
 
     public static float IsKeyDown(KeyboardKey upKey, KeyboardKey downKey)
     {

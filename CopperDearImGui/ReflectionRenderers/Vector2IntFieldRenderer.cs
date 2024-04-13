@@ -6,15 +6,15 @@ public class Vector2IntFieldRenderer : FieldRenderer
 {
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
-        ImGuiReflection.CurrentRangeAttribute =
-            (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
+        var rangeAttribute = (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
+        
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (ImGuiReflection.CurrentRangeAttribute is not null)
+        if (rangeAttribute is not null)
         {
             var value = (Vector2Int)(fieldInfo.GetValue(component) ?? Vector2Int.Zero);
 
             CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                (int)ImGuiReflection.CurrentRangeAttribute.Min, (int)ImGuiReflection.CurrentRangeAttribute.Max,
+                (int)rangeAttribute.Min, (int)rangeAttribute.Max,
                 newValue => { fieldInfo.SetValue(component, newValue); });
         }
         else

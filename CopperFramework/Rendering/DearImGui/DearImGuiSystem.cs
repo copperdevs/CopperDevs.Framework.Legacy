@@ -25,6 +25,7 @@ public class DearImGuiSystem : SystemSingleton<DearImGuiSystem>, ISystem
     {
         CopperImGui.RegisterFieldRenderer<Color, ColorFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Texture2D, Texture2DFieldRenderer>();
+        CopperImGui.RegisterFieldRenderer<RenderTexture2D, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
         
         CopperImGui.Setup<CopperRlCopperImGui>();

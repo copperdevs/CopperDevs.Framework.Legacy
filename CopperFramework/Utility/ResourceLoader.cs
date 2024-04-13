@@ -1,4 +1,6 @@
-﻿namespace CopperFramework.Utility;
+﻿using System.Reflection;
+
+namespace CopperFramework.Utility;
 
 public static class ResourceLoader
 {
@@ -11,7 +13,7 @@ public static class ResourceLoader
         return ms.ToArray();
     }
 
-    public static string[] GetResources()
+    public static IEnumerable<string> GetResources()
     {
         return typeof(ResourceLoader).Assembly.GetManifestResourceNames();
     }
