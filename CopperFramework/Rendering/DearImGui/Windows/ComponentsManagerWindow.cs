@@ -1,11 +1,12 @@
-﻿using CopperFramework.Elements.Components;
-using CopperFramework.Utility;
+﻿using CopperDearImGui;
+using CopperDearImGui.Utility;
+using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 
 public class ComponentsManagerWindow : BaseWindow
 {
-    public override string WindowName { get; protected internal set; } = "Components Manager";
+    public override string WindowName { get; protected set; } = "Components Manager";
 
     public override void Update()
     {

@@ -1,24 +1,30 @@
 ﻿using System.Reflection;
-using CopperFramework.Utility;
+using CopperCore.Utility;
+using CopperDearImGui;
+using CopperDearImGui.ReflectionRenderers;
 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 
-public class ColorFieldRenderer : ImGuiReflection.FieldRenderer
+public class ColorFieldRenderer : FieldRenderer
 {
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var value = (Color)(fieldInfo.GetValue(component) ?? new Color(0));
+        var vectorColor = (Vector4)(value / 255);
 
-        CopperImGui.ColorEdit($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-            interactedValue => { fieldInfo.SetValue(component, interactedValue); });
+        CopperImGui.ColorEdit($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref vectorColor,
+            interactedValue =>
+            {
+                fieldInfo.SetValue(component, interactedValue*255);
+            });
     }
 
     public override void ValueRenderer(ref object value, int id)
     {
-        var colorValue = (Color)value;
+        var colorValue = (Vector4)((Color)value / 255);
 
         CopperImGui.ColorEdit($"{value.GetType().Name.ToTitleCase()}##{id}", ref colorValue);
 
-        value = colorValue;
+        value = colorValue*255;
     }
 }

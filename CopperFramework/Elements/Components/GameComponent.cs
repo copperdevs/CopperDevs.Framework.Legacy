@@ -1,4 +1,4 @@
-﻿using CopperFramework.Rendering.DearImGui.Attributes;
+﻿using CopperDearImGui.Attributes;
 using CopperFramework.Scenes;
 
 namespace CopperFramework.Elements.Components;

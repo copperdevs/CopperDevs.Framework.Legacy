@@ -1,4 +1,5 @@
 ﻿using CopperCore;
+using CopperCore.Data;
 using CopperFramework.Data;
 using CopperFramework.Elements.Components;
 

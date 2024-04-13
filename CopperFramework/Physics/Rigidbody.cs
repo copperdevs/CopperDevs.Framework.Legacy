@@ -1,6 +1,6 @@
 ﻿using CopperCore;
+using CopperDearImGui.Attributes;
 using CopperFramework.Elements.Components;
-using CopperFramework.Rendering.DearImGui.Attributes;
 
 namespace CopperFramework.Physics;
 
@@ -12,7 +12,6 @@ public class Rigidbody : GameComponent
     public override void Start()
     {
         targetCollider = GetComponent<Collider>();
-        Log.Info($"{GetComponent<Collider>()} | {GetComponent<Collider>() is null}");
     }
 
     public override void FixedUpdate()

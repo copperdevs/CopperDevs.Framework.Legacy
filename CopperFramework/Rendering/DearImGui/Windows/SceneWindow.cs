@@ -1,10 +1,11 @@
-﻿using CopperFramework.Scenes;
+﻿using CopperDearImGui;
+using CopperFramework.Scenes;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 
 public class SceneWindow : BaseWindow
 {
-    public override string WindowName { get; protected internal set; } = "Scene Manager";
+    public override string WindowName { get; protected set; } = "Scene Manager";
 
     public override void Update()
     {

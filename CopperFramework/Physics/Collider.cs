@@ -1,5 +1,5 @@
-﻿using CopperFramework.Elements.Components;
-using CopperFramework.Rendering.DearImGui.Attributes;
+﻿using CopperDearImGui.Attributes;
+using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Physics;
 

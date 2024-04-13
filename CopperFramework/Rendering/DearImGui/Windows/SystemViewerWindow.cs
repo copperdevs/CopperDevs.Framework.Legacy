@@ -1,11 +1,12 @@
-﻿using CopperFramework.Elements.Systems;
+﻿using CopperDearImGui;
+using CopperFramework.Elements.Systems;
 using ImGuiNET;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 
 public class SystemViewerWindow : BaseWindow
 {
-    public override string WindowName { get; protected internal set; } = "System Viewer";
+    public override string WindowName { get; protected set; } = "System Viewer";
     private int currentSystemIndex = 0;
 
     public override void Update()
@@ -26,7 +27,7 @@ public class SystemViewerWindow : BaseWindow
                 CopperImGui.Selectable($"{systems[i].GetType().Name}", i == currentSystemIndex,
                     () => { currentSystemIndex = localI; });
             }
-        }, ImGuiChildFlags.Border, 0, ImGui.GetWindowWidth() * 0.25f);
+        }, ImGuiChildFlags.Border, 0, CopperImGui.CurrentWindowWidth * 0.25f);
     }
 
     private void InspectorWindow()

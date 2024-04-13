@@ -1,4 +1,5 @@
-﻿using CopperFramework.Rendering.DearImGui.Attributes;
+﻿using CopperCore.Utility;
+using CopperDearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.Windows;
 using CopperFramework.Utility;
 

@@ -1,5 +1,5 @@
-﻿using CopperFramework.Elements.Components;
-using CopperFramework.Utility;
+﻿using CopperCore.Utility;
+using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Testing;
 

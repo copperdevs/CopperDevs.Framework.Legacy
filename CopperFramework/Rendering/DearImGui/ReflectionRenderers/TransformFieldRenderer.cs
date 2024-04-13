@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
-using CopperFramework.Utility;
+using CopperCore.Utility;
+using CopperDearImGui;
+using CopperDearImGui.ReflectionRenderers;
+using CopperDearImGui.Utility;
 
 namespace CopperFramework.Rendering.DearImGui.ReflectionRenderers;
 
-public class TransformFieldRenderer : ImGuiReflection.FieldRenderer
+public class TransformFieldRenderer : FieldRenderer
 {
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {

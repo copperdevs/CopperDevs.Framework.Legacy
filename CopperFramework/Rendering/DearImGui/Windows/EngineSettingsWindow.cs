@@ -1,10 +1,10 @@
-﻿using ImGuiNET;
+﻿using CopperDearImGui;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 
 public class EngineSettingsWindow : BaseWindow
 {
-    public override string WindowName { get; protected internal set; } = "Engine Settings";
+    public override string WindowName { get; protected set; } = "Engine Settings";
 
     public override void Update()
     {

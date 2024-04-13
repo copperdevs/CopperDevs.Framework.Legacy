@@ -1,6 +1,6 @@
 ﻿using CopperCore;
+using CopperDearImGui.Attributes;
 using CopperFramework.Physics;
-using CopperFramework.Rendering.DearImGui.Attributes;
 using CopperFramework.Scenes;
 using CopperFramework.Utility;
 
