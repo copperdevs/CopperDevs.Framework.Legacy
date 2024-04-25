@@ -8,8 +8,6 @@ public static class Program
     {
         var engine = new Engine(EngineSettings.Development);
         
-        
-        
         engine.Run();
     }
 }

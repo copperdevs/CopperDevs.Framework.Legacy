@@ -55,7 +55,7 @@ public static class SystemManager
         return types.Select(type => (ISystem)Activator.CreateInstance(type)!).ToList();
     }
 
-    internal static T GetSystem<T>() where T : ISystem
+    public static T GetSystem<T>()
     {
         foreach (var system in systems.Where(system => system.GetType() == typeof(T)))
             return (T)system;

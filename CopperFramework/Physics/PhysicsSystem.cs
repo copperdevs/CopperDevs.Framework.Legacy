@@ -7,7 +7,7 @@ namespace CopperFramework.Physics;
 
 public class PhysicsSystem : BaseSystem<PhysicsSystem>
 {
-    private float gravity = -9.81f;
+    public float Gravity = -9.81f;
 
     public override SystemUpdateType GetUpdateType() => SystemUpdateType.Fixed;
 
@@ -27,6 +27,6 @@ public class PhysicsSystem : BaseSystem<PhysicsSystem>
 
     public static float GetGravity()
     {
-        return Instance.gravity;
+        return Instance.Gravity;
     }
 }

@@ -22,7 +22,7 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
         CopperImGui.RegisterFieldRenderer<Texture2D, Texture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<RenderTexture2D, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
-        
+
         CopperImGui.Setup<CopperRlCopperImGui>();
         CopperImGui.Rendered += RenderImGuiWindowsMenu;
     }
@@ -37,14 +37,14 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
     {
         if (!DebugSystem.Instance.DebugEnabled)
             return;
-        
+
         CopperImGui.MenuBar(null!, true, ("Windows", () =>
-            {
-                CopperImGui.MenuItem("ImGui About", ref CopperImGui.ShowDearImGuiAboutWindow);
-                CopperImGui.MenuItem("ImGui Demo", ref CopperImGui.ShowDearImGuiDemoWindow);
-                CopperImGui.MenuItem("ImGui Metrics", ref CopperImGui.ShowDearImGuiMetricsWindow);
-                CopperImGui.MenuItem("ImGui Debug Log", ref CopperImGui.ShowDearImGuiDebugLogWindow);
-                CopperImGui.MenuItem("ImGui Id Stack Tool", ref CopperImGui.ShowDearImGuiIdStackToolWindow);
-            }));
+        {
+            CopperImGui.MenuItem("ImGui About", ref CopperImGui.ShowDearImGuiAboutWindow);
+            CopperImGui.MenuItem("ImGui Demo", ref CopperImGui.ShowDearImGuiDemoWindow);
+            CopperImGui.MenuItem("ImGui Metrics", ref CopperImGui.ShowDearImGuiMetricsWindow);
+            CopperImGui.MenuItem("ImGui Debug Log", ref CopperImGui.ShowDearImGuiDebugLogWindow);
+            CopperImGui.MenuItem("ImGui Id Stack Tool", ref CopperImGui.ShowDearImGuiIdStackToolWindow);
+        }));
     }
 }

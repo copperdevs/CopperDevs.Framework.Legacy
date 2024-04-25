@@ -356,6 +356,15 @@ public static partial class CopperImGui
         ImGui.EndTabBar();
     }
 
+    public static bool MenuItem(string text)
+    {
+        if (!canRender)
+            return false;
+        
+        var temp = false;
+        return MenuItem(text, ref temp);
+    }
+
     public static bool MenuItem(string text, ref bool enabled)
     {
         return canRender && ImGui.MenuItem(text, null, ref enabled);

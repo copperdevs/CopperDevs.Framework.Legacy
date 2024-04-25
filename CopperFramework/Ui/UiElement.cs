@@ -1,7 +1,10 @@
-﻿namespace CopperFramework.Ui;
+﻿using CopperDearImGui.Attributes;
+
+namespace CopperFramework.Ui;
 
 public class UiElement
 {
     public string Name = "Untitled UiElement";
-    public Transform Transform;
+    [Range(0, 1)] public Vector2 Position;
+    [Range(0, 1)] public Vector2 Size;
 }
