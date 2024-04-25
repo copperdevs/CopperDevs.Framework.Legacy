@@ -86,9 +86,14 @@ public class EngineWindow
         CloseWindow();
     }
 
-    public struct EngineWindowCamera()
+    public struct EngineWindowCamera
     {
-        private Camera2D camera2D = new()
+        public EngineWindowCamera()
+        {
+            
+        }
+        
+        private rlCamera2D camera2D = new()
         {
             Offset = Vector2.Zero,
             Zoom = 1,
@@ -96,7 +101,7 @@ public class EngineWindow
             Target = Vector2.Zero
         };
 
-        public static implicit operator Camera2D(EngineWindowCamera camera) => camera.camera2D;
+        public static implicit operator rlCamera2D(EngineWindowCamera camera) => camera.camera2D;
 
         public Vector2 Position
         {

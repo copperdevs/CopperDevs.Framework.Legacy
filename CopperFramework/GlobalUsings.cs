@@ -11,3 +11,5 @@ global using Shader = CopperFramework.Rendering.Shader;
 global using rlTransform = Raylib_cs.Transform;
 global using rlColor = Raylib_cs.Color;
 global using rlShader = Raylib_cs.Shader;
+global using rlCamera2D = Raylib_cs.Camera2D;
+global using rlCamera3D = Raylib_cs.Camera3D;

@@ -28,9 +28,9 @@ public class RenderingManagerWindow : BaseWindow
                     {
                         using (new IndentScope())
                         {
-                            CopperImGui.Selectable("Set to engine screen shader", () => Engine.CurrentWindow.SetScreenShader(shader));
+                            CopperImGui.Selectable($"Set to engine screen shader###{shader.Name}", () => Engine.CurrentWindow.SetScreenShader(shader));
 
-                            CopperImGui.CollapsingHeader("Vertex Shader Data", () =>
+                            CopperImGui.CollapsingHeader($"Vertex Shader Data###{shader.Name}", () =>
                             {
                                 using (new IndentScope())
                                 {
@@ -38,7 +38,7 @@ public class RenderingManagerWindow : BaseWindow
                                 }
                             });
 
-                            CopperImGui.CollapsingHeader("Fragment Shader Data", () =>
+                            CopperImGui.CollapsingHeader($"Fragment Shader Data###{shader.Name}", () =>
                             {
                                 using (new IndentScope())
                                 {

@@ -17,22 +17,30 @@ public sealed class Shader : IRenderable
 
     public enum IncludedShaders
     {
-        Bloom
+        Bloom,
+        Blur,
+        CrossStitching,
+        DreamVision,
+        Fisheye,
+        Grayscale,
+        Pixelizer,
+        Posterization,
+        Predator,
+        Scanlines,
+        Sobel
     }
-    
 
-    public static Shader Load(string shaderName, string? newVertexShaderData = null, string? newFragmentShaderData = null)
+
+    public static Shader Load(string shaderName, string? newVertexShaderData = null,
+        string? newFragmentShaderData = null)
     {
         return new Shader(shaderName, newVertexShaderData, newFragmentShaderData);
     }
 
     public static Shader Load(IncludedShaders includedShaders)
     {
-        return includedShaders switch
-        {
-            IncludedShaders.Bloom => Load("Bloom Screen Shader", null, ResourceLoader.LoadTextResource("CopperFramework.Resources.Shaders.Bloom.frag")),
-            _ => throw new ArgumentOutOfRangeException(nameof(includedShaders), includedShaders, null)
-        };
+        return Load(includedShaders.ToString(), null,
+            ResourceLoader.LoadTextResource($"CopperFramework.Resources.Shaders.{includedShaders.ToString()}.frag"));
     }
 
     public Shader(string shaderName, string? newVertexShaderData = null, string? newFragmentShaderData = null)
@@ -64,7 +72,7 @@ public sealed class Shader : IRenderable
     {
         Log.Info($"Loading Shader");
         rlShader = Raylib.LoadShaderFromMemory(VertexShaderData, FragmentShaderData);
-        
+
         RenderingManager.RegisterRenderableItem(this);
     }
 
