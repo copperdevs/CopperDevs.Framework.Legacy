@@ -7,7 +7,7 @@ public static class Program
 {
     public static void Main()
     {
-        var engine = new Engine(EngineSettings.UncappedFps);
+        var engine = new Engine(EngineSettings.Development);
 
         Shader.Load("Empty");
         

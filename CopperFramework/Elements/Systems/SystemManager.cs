@@ -47,6 +47,7 @@ public static class SystemManager
             .Where(p => targetType.IsAssignableFrom(p)).ToList();
 
         types.Remove(typeof(ISystem));
+        types.Remove(typeof(BaseSystem<>));
 
         foreach (var type in types)
             Log.Info($"Loading new {nameof(ISystem)} | Name: {type.FullName}");
@@ -54,14 +55,14 @@ public static class SystemManager
         return types.Select(type => (ISystem)Activator.CreateInstance(type)!).ToList();
     }
 
-    public static T GetSystem<T>() where T : ISystem
+    internal static T GetSystem<T>() where T : ISystem
     {
         foreach (var system in systems.Where(system => system.GetType() == typeof(T)))
             return (T)system;
         return default!;
     }
 
-    public static List<ISystem> GetSystems()
+    internal static List<ISystem> GetSystems()
     {
         return systems.ToList();
     }

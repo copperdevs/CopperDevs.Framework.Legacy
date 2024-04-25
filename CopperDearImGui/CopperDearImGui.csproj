@@ -15,4 +15,31 @@
       <ProjectReference Include="..\CopperCore\CopperCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="CopperImGui.DearImGui.DataLayering.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImGui.DearImGui.Layering.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImGui.DearImGui.Theming.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImGui.ImGuiReflectionLayering.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImgui.PopupManagment.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImGui.Rendering.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImGui.Values.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CopperImGui.WindowManagment.cs">
+        <DependentUpon>CopperImGui.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

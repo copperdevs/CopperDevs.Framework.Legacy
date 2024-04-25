@@ -1,12 +1,11 @@
 ﻿namespace CopperFramework.Elements.Systems;
 
-public interface ISystem
+internal interface ISystem
 {
-    public SystemUpdateType GetUpdateType();
     public int GetPriority();
-    
-    public void UpdateSystem();
+    public SystemUpdateType GetUpdateType();
 
     public void LoadSystem();
+    public void UpdateSystem();
     public void ShutdownSystem();
 }

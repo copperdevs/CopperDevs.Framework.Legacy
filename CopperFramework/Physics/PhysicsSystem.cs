@@ -5,37 +5,28 @@ using CopperFramework.Utility;
 
 namespace CopperFramework.Physics;
 
-public class PhysicsSystem : SystemSingleton<PhysicsSystem>, ISystem
+public class PhysicsSystem : BaseSystem<PhysicsSystem>
 {
     private float gravity = -9.81f;
-    
-    public SystemUpdateType GetUpdateType()
-    {
-        return SystemUpdateType.Fixed;
-    }
 
-    public int GetPriority()
-    {
-        return 0;
-    }
+    public override SystemUpdateType GetUpdateType() => SystemUpdateType.Fixed;
 
-    public void UpdateSystem()
+    public override void UpdateSystem()
     {
     }
 
-    public void LoadSystem()
+    public override void LoadSystem()
     {
         ComponentRegistry.RegisterAbstractSubclass<Collider, BoxCollider>();
         ComponentRegistry.RegisterAbstractSubclass<Collider, CircleCollider>();
     }
 
-    public void ShutdownSystem()
+    public override void ShutdownSystem()
     {
     }
 
     public static float GetGravity()
     {
-        return -9.81f;
         return Instance.gravity;
     }
 }

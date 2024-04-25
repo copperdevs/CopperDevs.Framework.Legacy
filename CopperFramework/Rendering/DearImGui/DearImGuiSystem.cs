@@ -1,25 +1,22 @@
 ﻿using CopperDearImGui;
-using CopperDearImGui.Utility;
 using CopperFramework.Elements.Systems;
 using CopperFramework.Rendering.DearImGui.ReflectionRenderers;
-using CopperFramework.Utility;
-using ImGuiNET;
 
 namespace CopperFramework.Rendering.DearImGui;
 
-public class DearImGuiSystem : SystemSingleton<DearImGuiSystem>, ISystem
+public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
 {
-    public SystemUpdateType GetUpdateType() => SystemUpdateType.UiRenderer;
+    public override SystemUpdateType GetUpdateType() => SystemUpdateType.UiRenderer;
 
-    public int GetPriority() => 100;
+    public override int GetPriority() => 100;
 
-    public void UpdateSystem()
+    public override void UpdateSystem()
     {
         if (DebugSystem.Instance.DebugEnabled)
             CopperImGui.Render();
     }
 
-    public void LoadSystem()
+    public override void LoadSystem()
     {
         CopperImGui.RegisterFieldRenderer<Color, ColorFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Texture2D, Texture2DFieldRenderer>();
@@ -30,7 +27,7 @@ public class DearImGuiSystem : SystemSingleton<DearImGuiSystem>, ISystem
         CopperImGui.Rendered += RenderImGuiWindowsMenu;
     }
 
-    public void ShutdownSystem()
+    public override void ShutdownSystem()
     {
         CopperImGui.Rendered -= RenderImGuiWindowsMenu;
         CopperImGui.Shutdown();

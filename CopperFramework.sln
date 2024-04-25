@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperCore", "CopperCore\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDearImGui", "CopperDearImGui\CopperDearImGui.csproj", "{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperFramework.UiCreator", "CopperFramework.UiCreator\CopperFramework.UiCreator.csproj", "{C245401B-29AC-4BC6-84E8-F18CF27342B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C245401B-29AC-4BC6-84E8-F18CF27342B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C245401B-29AC-4BC6-84E8-F18CF27342B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C245401B-29AC-4BC6-84E8-F18CF27342B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C245401B-29AC-4BC6-84E8-F18CF27342B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
