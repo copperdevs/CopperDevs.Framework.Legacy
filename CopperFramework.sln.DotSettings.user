@@ -2,4 +2,6 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\7.0.14\ref\net7.0\System.Runtime.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Coope\.nuget\packages\imgui.net\1.90.1.1\lib\net6.0\ImGui.NET.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Users\715263\Desktop\School-Work\Dev\Software\Dotnet\dotnet-sdk-7.0.400-win-x64\sdk\7.0.400\MSBuild.dll</s:String>
+	</wpf:ResourceDictionary>

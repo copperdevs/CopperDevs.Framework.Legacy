@@ -13,7 +13,7 @@ public static class CopperImGui
     private static ICopperImGuiRenderer currentRenderer = null!;
 
     // windows
-    private static List<BaseWindow> windows = [];
+    private static List<BaseWindow> windows = new();
 
     // dearimgui windows
     public static bool ShowDearImGuiAboutWindow;
@@ -116,7 +116,7 @@ public static class CopperImGui
 
     #region Popup Managment
 
-    private static readonly Dictionary<string, Action> RegisteredPopups = [];
+    private static readonly Dictionary<string, Action> RegisteredPopups = new();
 
     public static void RegisterPopup(string id, Action renderAction)
     {

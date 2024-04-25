@@ -9,8 +9,6 @@ namespace CopperFramework.Rendering.DearImGui;
 
 public class DearImGuiSystem : SystemSingleton<DearImGuiSystem>, ISystem
 {
-    private static readonly List<BaseWindow> Windows = [];
-
     public SystemUpdateType GetUpdateType() => SystemUpdateType.UiRenderer;
 
     public int GetPriority() => 100;

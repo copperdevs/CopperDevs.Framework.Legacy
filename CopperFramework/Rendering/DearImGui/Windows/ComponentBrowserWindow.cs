@@ -105,7 +105,7 @@ public class ComponentBrowserWindow : BaseWindow
 
     private static void NewGameObjectPopup()
     {
-        CopperImGui.Selectable("Empty GameObject", () => { SceneManager.ActiveScene.Add([]); });
+        CopperImGui.Selectable("Empty GameObject", () => { SceneManager.ActiveScene.Add(new GameObject()); });
 
         CopperImGui.Separator();
 
