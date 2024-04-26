@@ -2,10 +2,10 @@
 
 public struct Color
 {
-    public float R = 255;
-    public float G = 255;
-    public float B = 255;
-    public float A = 255;
+    public float R { get; set; } = 255;
+    public float G { get; set; } = 255;
+    public float B { get; set; } = 255;
+    public float A { get; set; } = 255;
 
     public Color(float r, float g, float b, float a)
     {
