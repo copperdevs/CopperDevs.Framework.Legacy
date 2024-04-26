@@ -34,9 +34,6 @@
       <Compile Update="CopperImGui.Rendering.cs">
         <DependentUpon>CopperImGui.cs</DependentUpon>
       </Compile>
-      <Compile Update="CopperImGui.Values.cs">
-        <DependentUpon>CopperImGui.cs</DependentUpon>
-      </Compile>
       <Compile Update="CopperImGui.WindowManagment.cs">
         <DependentUpon>CopperImGui.cs</DependentUpon>
       </Compile>

@@ -1,4 +1,5 @@
-﻿using ImGuiNET;
+﻿using CopperDearImGui.Utility;
+using ImGuiNET;
 
 namespace CopperDearImGui;
 
@@ -85,15 +86,6 @@ public static partial class CopperImGui
             ImGui.Text($"{value}");
     }
 
-    public static bool DragValue(string name, Matrix4x4 matrix4X4)
-    {
-        if (!canRender)
-            return false;
-
-        var matrix = matrix4X4;
-        return DragValue(name, ref matrix);
-    }
-
     public static bool DragValue(string name, ref Matrix4x4 matrix)
     {
         if (!canRender)
@@ -101,45 +93,46 @@ public static partial class CopperImGui
 
         var interacted = false;
 
-        if (ImGui.CollapsingHeader(name))
+        var temp = matrix;
+
+        CollapsingHeader(name, () =>
         {
-            ImGui.Indent();
+            using (new IndentScope())
+            {
+                interacted =
+                    DragMatrix4X4Row($"Row One##{name}", ref temp.M11, ref temp.M12, ref temp.M13,
+                        ref temp.M14) ||
+                    DragMatrix4X4Row($"Row Two##{name}", ref temp.M21, ref temp.M22, ref temp.M23,
+                        ref temp.M24) ||
+                    DragMatrix4X4Row($"Row Three##{name}", ref temp.M31, ref temp.M32, ref temp.M33,
+                        ref temp.M34) ||
+                    DragMatrix4X4Row($"Row Four##{name}", ref temp.M41, ref temp.M42, ref temp.M43,
+                        ref temp.M44);
+            }
+        });
 
-            interacted =
-                DragMatrix4X4Row($"Row One##{name}",
-                    ref matrix.M11, ref matrix.M12, ref matrix.M13, ref matrix.M14) ||
-                DragMatrix4X4Row($"Row Two##{name}",
-                    ref matrix.M21, ref matrix.M22, ref matrix.M23, ref matrix.M24) ||
-                DragMatrix4X4Row($"Row Three##{name}",
-                    ref matrix.M31, ref matrix.M32, ref matrix.M33, ref matrix.M34) ||
-                DragMatrix4X4Row($"Row Four##{name}",
-                    ref matrix.M41, ref matrix.M42, ref matrix.M43, ref matrix.M44);
-
-            ImGui.Unindent();
-        }
+        if (interacted)
+            matrix = temp;
 
         return interacted;
-    }
 
-    private static bool DragMatrix4X4Row(string rowName,
-        ref float itemOne, ref float itemTwo, ref float itemThree, ref float itemFour)
-    {
-        if (!canRender)
-            return false;
-
-        var interacted = false;
-        var row = new Vector4(itemOne, itemTwo, itemThree, itemFour);
-
-        if (ImGui.DragFloat4(rowName, ref row))
+        bool DragMatrix4X4Row(string rowName, ref float itemOne, ref float itemTwo, ref float itemThree,
+            ref float itemFour)
         {
-            interacted = true;
+            var rowInteracted = false;
+            var row = new Vector4(itemOne, itemTwo, itemThree, itemFour);
+
+            if (!ImGui.DragFloat4(rowName, ref row))
+                return rowInteracted;
+
+            rowInteracted = true;
             itemOne = row.X;
             itemTwo = row.Y;
             itemThree = row.Z;
             itemFour = row.W;
-        }
 
-        return interacted;
+            return rowInteracted;
+        }
     }
 
     public static void Tooltip(string message)
@@ -219,6 +212,16 @@ public static partial class CopperImGui
             interacted?.Invoke(value);
     }
 
+    public static void DragValue(string name, ref float value, float speed, float min, float max,
+        Action<float>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragFloat(name, ref value, speed, min, max))
+            interacted?.Invoke(value);
+    }
+
     public static void SliderValue(string name, ref float value, float min, float max,
         Action<float>? interacted = null!)
     {
@@ -238,6 +241,16 @@ public static partial class CopperImGui
             interacted?.Invoke(value);
     }
 
+    public static void DragValue(string name, ref Vector2 value, float speed, float min, float max,
+        Action<Vector2>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragFloat2(name, ref value, speed, min, max))
+            interacted?.Invoke(value);
+    }
+
     public static void SliderValue(string name, ref Vector2 value, float min, float max,
         Action<Vector2>? interacted = null!)
     {
@@ -248,6 +261,16 @@ public static partial class CopperImGui
             interacted?.Invoke(value);
     }
 
+
+    public static void DragValue(string name, ref Vector2Int value, int speed, int min, int max,
+        Action<Vector2Int>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragInt2(name, ref value.X, speed, min, max))
+            interacted?.Invoke(value);
+    }
 
     public static void DragValue(string name, ref Vector2Int value, Action<Vector2Int>? interacted = null!)
     {
@@ -277,6 +300,16 @@ public static partial class CopperImGui
             interacted?.Invoke(value);
     }
 
+    public static void DragValue(string name, ref Vector3 value, float speed, float min, float max,
+        Action<Vector3>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragFloat3(name, ref value, speed, min, max))
+            interacted?.Invoke(value);
+    }
+
     public static void SliderValue(string name, ref Vector3 value, float min, float max,
         Action<Vector3>? interacted = null!)
     {
@@ -296,6 +329,16 @@ public static partial class CopperImGui
             interacted?.Invoke(value);
     }
 
+    public static void DragValue(string name, ref Vector4 value, float speed, float min, float max,
+        Action<Vector4>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragFloat4(name, ref value, speed, min, max))
+            interacted?.Invoke(value);
+    }
+
     public static void SliderValue(string name, ref Vector4 value, float min, float max,
         Action<Vector4>? interacted = null!)
     {
@@ -312,6 +355,16 @@ public static partial class CopperImGui
             return;
 
         if (ImGui.DragInt(name, ref value))
+            interacted?.Invoke(value);
+    }
+
+    public static void DragValue(string name, ref int value, int speed, int min, int max,
+        Action<int>? interacted = null!)
+    {
+        if (!canRender)
+            return;
+
+        if (ImGui.DragInt(name, ref value, speed, min, max))
             interacted?.Invoke(value);
     }
 
@@ -360,9 +413,22 @@ public static partial class CopperImGui
     {
         if (!canRender)
             return false;
-        
+
         var temp = false;
         return MenuItem(text, ref temp);
+    }
+
+    public static bool MenuItem(string text, Action? action)
+    {
+        if (!canRender)
+            return false;
+
+        var temp = false;
+        if (!MenuItem(text, ref temp))
+            return false;
+
+        action?.Invoke();
+        return true;
     }
 
     public static bool MenuItem(string text, ref bool enabled)

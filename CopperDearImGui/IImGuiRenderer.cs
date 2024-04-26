@@ -1,6 +1,6 @@
 ﻿namespace CopperDearImGui;
 
-public interface ICopperImGuiRenderer
+public interface IImGuiRenderer
 {
     public void Setup();
     public void Begin();

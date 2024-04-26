@@ -6,6 +6,8 @@ namespace CopperFramework;
 
 public class EngineWindow
 {
+    public static Vector2 Size => new Vector2(GetScreenWidth(), GetScreenHeight());
+    
     public EngineWindow(EngineSettings settings)
     {
         this.settings = settings;

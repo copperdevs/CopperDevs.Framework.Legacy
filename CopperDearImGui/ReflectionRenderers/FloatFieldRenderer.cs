@@ -12,10 +12,22 @@ public class FloatFieldRenderer : FieldRenderer
         if (rangeAttribute is not null)
         {
             var value = (float)(fieldInfo.GetValue(component) ?? 0);
-
-            CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                rangeAttribute.Min, rangeAttribute.Max,
-                interactedValue => { fieldInfo.SetValue(component, interactedValue); });
+            
+            switch (rangeAttribute.TargetRangeType)
+            {
+                case RangeType.Drag:
+                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                        rangeAttribute.Speed, rangeAttribute.Min, rangeAttribute.Max,
+                        interactedValue => { fieldInfo.SetValue(component, interactedValue); });
+                    break;
+                case RangeType.Slider:
+                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                        rangeAttribute.Min, rangeAttribute.Max,
+                        interactedValue => { fieldInfo.SetValue(component, interactedValue); });
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         else
         {

@@ -1,11 +1,11 @@
 ﻿namespace CopperFramework.Data;
 
-public sealed class Color
+public struct Color
 {
-    public float R;
-    public float G;
-    public float B;
-    public float A;
+    public float R = 255;
+    public float G = 255;
+    public float B = 255;
+    public float A = 255;
 
     public Color(float r, float g, float b, float a)
     {

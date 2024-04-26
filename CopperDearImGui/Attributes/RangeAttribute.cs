@@ -5,6 +5,8 @@ public sealed class RangeAttribute : Attribute
 {
     public readonly float Min;
     public readonly float Max;
+    public RangeType TargetRangeType = RangeType.Slider;
+    public float Speed = 1;
 
     public RangeAttribute(float min, float max)
     {
@@ -15,4 +17,10 @@ public sealed class RangeAttribute : Attribute
     public RangeAttribute(float max) : this(0, max)
     {
     }
+}
+
+public enum RangeType
+{
+    Drag,
+    Slider
 }

@@ -4,7 +4,7 @@ namespace CopperDearImGui;
 
 public static partial class CopperImGui
 {
-    public static void Setup<T>(bool isDockingEnabled = true) where T : ICopperImGuiRenderer, new()
+    public static void Setup<T>(bool isDockingEnabled = true) where T : IImGuiRenderer, new()
     {
         currentRenderer = new T();
 
@@ -28,9 +28,10 @@ public static partial class CopperImGui
 
         currentRenderer.Begin();
 
+        PreRendered?.Invoke();
+        
         if (dockingEnabled)
-            ImGui.DockSpaceOverViewport(ImGui.GetMainViewport(),
-                ImGuiDockNodeFlags.PassthruCentralNode | ImGuiDockNodeFlags.AutoHideTabBar);
+            ImGui.DockSpaceOverViewport(ImGui.GetMainViewport(), ImGuiDockNodeFlags.PassthruCentralNode | ImGuiDockNodeFlags.AutoHideTabBar);
 
         RenderWindows();
         RenderBuiltInWindows();

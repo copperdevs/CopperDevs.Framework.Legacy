@@ -11,7 +11,8 @@ public class EngineSettings
     public Vector2Int WindowSize = new(650, 400);
     [Range(-1, 10000)] public int TargetFps = 60;
     public string WindowTitle = "Window";
-    public bool DisableDevUi;
+    public bool DisableDevTools = true;
+    public bool EnableDevToolsAtStart;
 
     public static EngineSettings DefaultSettings => new()
     {
@@ -20,7 +21,8 @@ public class EngineSettings
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 60,
         WindowTitle = "CopperFramework - Default",
-        DisableDevUi = true
+        DisableDevTools = true,
+        EnableDevToolsAtStart = false
     };
 
     public static EngineSettings UncappedFps => new()
@@ -29,7 +31,8 @@ public class EngineSettings
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Uncapped Fps",
-        DisableDevUi = true
+        DisableDevTools = true,
+        EnableDevToolsAtStart = false
     };
 
     public static EngineSettings Development => new()
@@ -38,6 +41,7 @@ public class EngineSettings
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Development",
-        DisableDevUi = false
+        DisableDevTools = false,
+        EnableDevToolsAtStart = true
     };
 }

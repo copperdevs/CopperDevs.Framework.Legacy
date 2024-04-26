@@ -9,7 +9,9 @@ public abstract class BaseSystem<T> : ISystem where T : BaseSystem<T>, new()
 
     public virtual int GetPriority() => 0;
 
-    public abstract void UpdateSystem();
+    public virtual void UpdateSystem()
+    {
+    }
 
     public virtual void LoadSystem()
     {

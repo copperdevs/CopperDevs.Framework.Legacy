@@ -2,5 +2,7 @@
 
 public class Button : UiElement
 {
-    
+    public override void DrawElement()
+    {
+    }
 }

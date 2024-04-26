@@ -12,10 +12,22 @@ public class Vector3FieldRenderer : FieldRenderer
         if (rangeAttribute is not null)
         {
             var value = (Vector3)(fieldInfo.GetValue(component) ?? Vector3.Zero);
-
-            CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                rangeAttribute.Min, rangeAttribute.Max,
-                newValue => { fieldInfo.SetValue(component, newValue); });
+            
+            switch (rangeAttribute.TargetRangeType)
+            {
+                case RangeType.Drag:
+                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                        rangeAttribute.Speed, rangeAttribute.Min, rangeAttribute.Max,
+                        newValue => { fieldInfo.SetValue(component, newValue); });
+                    break;
+                case RangeType.Slider:
+                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                        rangeAttribute.Min, rangeAttribute.Max,
+                        newValue => { fieldInfo.SetValue(component, newValue); });
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         else
         {

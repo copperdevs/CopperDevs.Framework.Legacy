@@ -1,4 +1,5 @@
-﻿using CopperCore;
+﻿using System.Diagnostics;
+using CopperCore;
 using CopperFramework.Elements;
 using CopperFramework.Elements.Systems;
 using CopperFramework.Utility;
@@ -7,10 +8,14 @@ namespace CopperFramework;
 
 public class Engine : Singleton<Engine>
 {
-    public static EngineWindow CurrentWindow => Instance.Window;
-    
-    public readonly EngineWindow Window;
-    public readonly EngineSettings Settings;
+    public static EngineWindow CurrentWindow => Instance.window;
+
+    private readonly EngineWindow window;
+    internal readonly EngineSettings Settings;
+
+    public bool ShouldRun;
+
+    private readonly Stopwatch stopwatch;
 
     public Engine() : this(EngineSettings.DefaultSettings)
     {
@@ -18,20 +23,26 @@ public class Engine : Singleton<Engine>
 
     public Engine(EngineSettings settings)
     {
+        stopwatch = Stopwatch.StartNew();
+        
         CopperLogger.Initialize();
         ConsoleUtil.Initialize();
 
         SetInstance(this);
 
         Settings = settings;
-        Window = new EngineWindow(settings);
+        window = new EngineWindow(settings);
+
+        ShouldRun = true;
+        
+        Log.Info($"Time elapsed during engine creation: {stopwatch.Elapsed}");
     }
 
     public void Run()
     {
         Start();
 
-        while (!Raylib.WindowShouldClose())
+        while (!Raylib.WindowShouldClose() && ShouldRun)
             Update();
 
         Stop();
@@ -39,14 +50,16 @@ public class Engine : Singleton<Engine>
 
     private void Start()
     {
-        Window.Start();
+        window.Start();
 
         ElementManager.Initialize();
+        
+        Log.Info($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }
 
     private void Update()
     {
-        Window.Update(() =>
+        window.Update(() =>
             {
                 ElementManager.Update(ElementManager.ElementUpdateType.Update);
                 ElementManager.Update(ElementManager.ElementUpdateType.Render);
@@ -67,7 +80,8 @@ public class Engine : Singleton<Engine>
 
     private void Stop()
     {
+        Log.Info($"Time elapsed during the runtime of the engine: {stopwatch.Elapsed}");
         ElementManager.Shutdown();
-        Window.Shutdown();
+        window.Shutdown();
     }
 }

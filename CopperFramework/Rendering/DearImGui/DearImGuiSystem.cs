@@ -12,7 +12,7 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
 
     public override void UpdateSystem()
     {
-        if (DebugSystem.Instance.DebugEnabled)
+        if (DebugSystem.Instance.DebugEnabled && !Engine.Instance.Settings.DisableDevTools)
             CopperImGui.Render();
     }
 
@@ -23,7 +23,7 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
         CopperImGui.RegisterFieldRenderer<RenderTexture2D, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
 
-        CopperImGui.Setup<CopperRlCopperImGui>();
+        CopperImGui.Setup<CopperRlImGui>();
         CopperImGui.Rendered += RenderImGuiWindowsMenu;
     }
 

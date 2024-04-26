@@ -13,9 +13,21 @@ public class Vector4FieldRenderer : FieldRenderer
         {
             var value = (Vector4)(fieldInfo.GetValue(component) ?? Vector4.Zero);
 
-            CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                rangeAttribute.Min, rangeAttribute.Max,
-                newValue => { fieldInfo.SetValue(component, newValue); });
+            switch (rangeAttribute.TargetRangeType)
+            {
+                case RangeType.Drag:
+                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                        rangeAttribute.Speed, rangeAttribute.Min, rangeAttribute.Max,
+                        newValue => { fieldInfo.SetValue(component, newValue); });
+                    break;
+                case RangeType.Slider:
+                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
+                        rangeAttribute.Min, rangeAttribute.Max,
+                        newValue => { fieldInfo.SetValue(component, newValue); });
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         else
         {

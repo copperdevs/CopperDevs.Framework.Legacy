@@ -100,10 +100,10 @@ public static class MathUtil
     {
         return (v - a) / (b - a);
     }
-
-    public static float Remap(float iMin, float iMax, float oMin, float oMax, float v)
+    
+    private static float ReMap(float input, float inputMin, float inputMax, float min, float max)
     {
-        return Lerp(oMin, oMax, InverseLerp(iMin, iMax, v));
+        return min + (input - inputMin) * (max - min) / (inputMax - inputMin);
     }
 
     public static Vector3 Lerp(Vector3 a, Vector3 b, float t)
@@ -131,12 +131,12 @@ public static class MathUtil
         return new Vector2(x, y);
     }
 
-    public static Vector2 Remap(Vector2 iMin, Vector2 iMax, Vector2 oMin, Vector2 oMax, Vector2 value)
+    public static Vector2 ReMap(Vector2 input, Vector2 inputMin, Vector2 inputMax, Vector2 outputMin, Vector2 outputMax)
     {
         return new Vector2
         (
-            Remap(iMin.X, iMax.X, oMin.X, oMax.X, value.X),
-            Remap(iMin.Y, iMax.Y, oMin.Y, oMax.Y, value.Y)
+            ReMap(input.X, inputMin.X, inputMax.X, outputMin.X, outputMax.X),
+            ReMap(input.Y, inputMin.Y, inputMax.Y, outputMin.Y, outputMax.Y)
         );
     }
 

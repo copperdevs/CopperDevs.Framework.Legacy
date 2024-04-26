@@ -16,8 +16,8 @@ public static class Extensions
         };
     }
 
-    public static Vector2 Remap(this Vector2 value, Vector2 iMin, Vector2 iMax, Vector2 oMin, Vector2 oMax) =>
-        MathUtil.Remap(iMin, iMax, oMin, oMax, value);
+    public static Vector2 Remap(this Vector2 input, Vector2 inputMin, Vector2 inputMax, Vector2 outputMin, Vector2 outputMax) =>
+        MathUtil.ReMap(input, inputMin, inputMax, outputMin, outputMax);
 
     public static Matrix4x4 ToRowMajor(this Matrix4x4 columnMatrix)
     {

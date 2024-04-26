@@ -20,19 +20,14 @@ public static class ImGuiReflection
             if (Attribute.GetCustomAttribute(info, typeof(HideInInspectorAttribute)) is not null)
                 continue;
 
-            var currentReadOnlyAttribute = (ReadOnlyAttribute?)Attribute.GetCustomAttribute(info, typeof(ReadOnlyAttribute))!;
-
-            if (currentReadOnlyAttribute is not null)
-            {
-                using (new DisabledScope())
-                    Render();
-            }
-            else
-            {
+            var currentReadOnlyAttribute =
+                (ReadOnlyAttribute?)Attribute.GetCustomAttribute(info, typeof(ReadOnlyAttribute))!;
+            
+            using (new DisabledScope(currentReadOnlyAttribute is not null))
                 Render();
-            }
 
-            var currentTooltipAttribute = (TooltipAttribute)Attribute.GetCustomAttribute(info, typeof(TooltipAttribute))!;
+            var currentTooltipAttribute =
+                (TooltipAttribute)Attribute.GetCustomAttribute(info, typeof(TooltipAttribute))!;
 
             if (currentTooltipAttribute is null)
                 continue;
@@ -128,7 +123,10 @@ public static class ImGuiReflection
                     () =>
                     {
                         CopperImGui.Button($"+##{fieldInfo.Name}{id}",
-                            () => { value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType())); });
+                            () =>
+                            {
+                                value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType()));
+                            });
                     },
                     () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
 

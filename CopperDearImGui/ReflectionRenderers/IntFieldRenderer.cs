@@ -13,9 +13,21 @@ public class IntFieldRenderer : FieldRenderer
         {
             var value = (int)(fieldInfo.GetValue(component) ?? 0);
 
-            CopperImGui.SliderValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
-                (int)rangeAttribute.Min, (int)rangeAttribute.Max,
-                newValue => { fieldInfo.SetValue(component, newValue); });
+            switch (rangeAttribute.TargetRangeType)
+            {
+                case RangeType.Drag:
+                    CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
+                        (int)rangeAttribute.Min,(int)rangeAttribute.Min, (int)rangeAttribute.Max,
+                        newValue => { fieldInfo.SetValue(component, newValue); });
+                    break;
+                case RangeType.Slider:
+                    CopperImGui.SliderValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
+                        (int)rangeAttribute.Min, (int)rangeAttribute.Max,
+                        newValue => { fieldInfo.SetValue(component, newValue); });
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         else
         {
