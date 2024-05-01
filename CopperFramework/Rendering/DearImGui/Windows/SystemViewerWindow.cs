@@ -35,18 +35,17 @@ public class SystemViewerWindow : BaseWindow
         CopperImGui.Group("system_viewer_inspector_window", () =>
         {
             var system = SystemManager.GetSystems()[currentSystemIndex];
-            
+
             CopperImGui.Separator("System Info");
-            
+
             CopperImGui.Text(system.GetType().Name, "Name");
             CopperImGui.Text(system.GetType().FullName!, "Full Name");
             CopperImGui.Text(system.GetUpdateType().ToString(), "System Type");
             CopperImGui.Text(system.GetPriority().ToString(), "System Priority");
-            
+
             CopperImGui.Separator();
-            
+
             CopperImGui.RenderObjectValues(system);
-            
         }, ImGuiChildFlags.Border);
     }
 }

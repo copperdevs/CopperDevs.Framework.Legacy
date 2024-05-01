@@ -4,9 +4,24 @@ namespace CopperDearImGui;
 
 public static partial class CopperImGui
 {
-    public static void RenderObjectValues(object component, int id = 0)
+    static CopperImGui()
     {
-        ImGuiReflection.RenderValues(component, id);
+        RegisterFieldRenderer<bool, BoolFieldRenderer>();
+        RegisterFieldRenderer<Enum, EnumFieldRenderer>();
+        RegisterFieldRenderer<float, FloatFieldRenderer>();
+        RegisterFieldRenderer<Guid, GuidFieldRenderer>();
+        RegisterFieldRenderer<int, IntFieldRenderer>();
+        RegisterFieldRenderer<Quaternion, QuaternionFieldRenderer>();
+        RegisterFieldRenderer<string, StringFieldRenderer>();
+        RegisterFieldRenderer<Vector2, Vector2FieldRenderer>();
+        RegisterFieldRenderer<Vector2Int, Vector2IntFieldRenderer>();
+        RegisterFieldRenderer<Vector4, Vector4FieldRenderer>();
+        RegisterFieldRenderer<Vector3, Vector3FieldRenderer>();
+    }
+
+    public static void RenderObjectValues(object component, int id = 0, RenderingType renderingType = RenderingType.All)
+    {
+        ImGuiReflection.RenderValues(component, id, renderingType);
     }
 
     /// <summary>

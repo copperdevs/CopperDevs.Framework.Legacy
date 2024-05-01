@@ -1,25 +1,24 @@
 ﻿using CopperCore.Utility;
 using CopperDearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.Windows;
-using CopperFramework.Utility;
 
 namespace CopperFramework.Elements.Components;
 
 public class ParticleSystem : GameComponent
 {
-    [Seperator("Settings")] [Range(16, 512)]
-    private float maxParticles = 128;
+    [Seperator("Settings")] 
+    [Range(16, 512), Exposed] private float maxParticles = 128;
+    [Range(.01f, 10), Exposed] private Vector2 lifetimeRandomRange = new(2.5f, 5f);
+    [Range(.01f, 10), Exposed] private Vector2 speedRandomRange = new(1.5f, 5.25f);
+    [Range(1, 128), Exposed] private Vector2 sizeRandomRange = new(16, 32);
+    [Exposed] private List<Color> particleColors = new() { Color.White };
 
-    [Range(.01f, 10)] private Vector2 lifetimeRandomRange = new(2.5f, 5f);
-    [Range(.01f, 10)] private Vector2 speedRandomRange = new(1.5f, 5.25f);
-    [Range(1, 128)] private Vector2 sizeRandomRange = new(16, 32);
-    private List<Color> particleColors = new() { Color.White };
+    [Seperator] 
+    [Exposed] private bool isActive = true;
+    [Exposed] private bool destroyComponentOnZeroParticles = false;
+    [Exposed] private bool destroyObjectOnZeroParticles = false;
 
-    [Seperator] private bool isActive = true;
-    private bool destroyComponentOnZeroParticles = false;
-    private bool destroyObjectOnZeroParticles = false;
-
-    [Seperator("Info")] private List<Particle> particles = new();
+    [Seperator("Info")] [Exposed] private List<Particle> particles = new();
 
     public override void Update()
     {

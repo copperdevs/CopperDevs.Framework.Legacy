@@ -1,6 +1,4 @@
-﻿using CopperCore;
-using CopperDearImGui;
-using CopperDearImGui.Utility;
+﻿using CopperDearImGui;
 
 namespace CopperFramework.Rendering.DearImGui.Windows;
 

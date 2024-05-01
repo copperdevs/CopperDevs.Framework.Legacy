@@ -1,11 +1,12 @@
 ﻿using CopperCore;
+using CopperDearImGui.Attributes;
 using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Testing;
 
 public class LogComponent : GameComponent
 {
-    private bool shouldLog;
+    [Exposed] private bool shouldLog;
 
     public override void Start()
     {

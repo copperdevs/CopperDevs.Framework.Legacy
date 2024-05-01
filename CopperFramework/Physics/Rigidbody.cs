@@ -10,9 +10,8 @@ namespace CopperFramework.Physics;
 [Disabled]
 public class Rigidbody : GameComponent
 {
-    [HideInInspector] private Collider targetCollider;
-    
-    private bool isStatic;
+    private Collider targetCollider;
+    [Exposed] private bool isStatic = false;
     
 
     public override void Start()

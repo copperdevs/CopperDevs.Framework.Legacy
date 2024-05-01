@@ -5,15 +5,43 @@ using CopperDearImGui.Utility;
 
 namespace CopperDearImGui;
 
+
+public enum RenderingType
+{
+    Public,
+    Exposed,
+    All
+}
+
 [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
 public static class ImGuiReflection
 {
-    internal static void RenderValues(object component, int id = 0)
+    internal static readonly Dictionary<Type, FieldRenderer> ImGuiRenderers = new();
+    internal static FieldRenderer? GetImGuiRenderer<T>()
     {
-        var fields = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-            .ToList();
+        return ImGuiRenderers.GetValueOrDefault(typeof(T));
+    }
+    
+    internal static void RenderValues(object component, int id = 0, RenderingType renderingType = RenderingType.All)
+    {
+        var bindingFlags = renderingType switch
+        {
+            RenderingType.Public => BindingFlags.Instance | BindingFlags.Public,
+            RenderingType.Exposed => BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+            RenderingType.All => BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+            _ => throw new ArgumentOutOfRangeException(nameof(renderingType), renderingType, null)
+        };
+
+        var fields = component.GetType().GetFields(bindingFlags).ToList();
+        
         foreach (var info in fields)
         {
+            if (renderingType == RenderingType.Exposed && !info.IsPublic)
+            {
+                if (Attribute.GetCustomAttribute(info, typeof(ExposedAttribute)) is null)
+                    continue;
+            }
+            
             SpaceAttributeRenderer(info);
             SeperatorAttributeRenderer(info);
 
@@ -77,37 +105,7 @@ public static class ImGuiReflection
             }
         }
     }
-
-    private static void SpaceAttributeRenderer(MemberInfo info)
-    {
-        ((SpaceAttribute?)Attribute.GetCustomAttribute(info, typeof(SpaceAttribute)))?.Render();
-    }
-
-    private static void SeperatorAttributeRenderer(MemberInfo info)
-    {
-        ((SeperatorAttribute?)Attribute.GetCustomAttribute(info, typeof(SeperatorAttribute)))?.Render();
-    }
-
-    internal static FieldRenderer? GetImGuiRenderer<T>()
-    {
-        return ImGuiRenderers.GetValueOrDefault(typeof(T));
-    }
-
-    internal static readonly Dictionary<Type, FieldRenderer> ImGuiRenderers = new()
-    {
-        { typeof(float), new FloatFieldRenderer() },
-        { typeof(int), new IntFieldRenderer() },
-        { typeof(bool), new BoolFieldRenderer() },
-        { typeof(string), new StringFieldRenderer() },
-        { typeof(Vector2), new Vector2FieldRenderer() },
-        { typeof(Vector3), new Vector3FieldRenderer() },
-        { typeof(Vector4), new Vector4FieldRenderer() },
-        { typeof(Quaternion), new QuaternionFieldRenderer() },
-        { typeof(Guid), new GuidFieldRenderer() },
-        { typeof(Enum), new EnumFieldRenderer() },
-        { typeof(Vector2Int), new Vector2IntFieldRenderer() }
-    };
-
+    
     private static void ListRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var value = (IList)fieldInfo.GetValue(component)!;
@@ -148,10 +146,7 @@ public static class ImGuiReflection
                     try
                     {
                         CopperImGui.CollapsingHeader($"{item.GetType().Name}##{value.IndexOf(item)}",
-                            () =>
-                            {
-                                RenderValues(item, int.Parse($"{value.IndexOf(item)}{i}{id}"));
-                            });
+                            () => { RenderValues(item, int.Parse($"{value.IndexOf(item)}{i}{id}")); });
                     }
                     catch (Exception e)
                     {
@@ -165,4 +160,16 @@ public static class ImGuiReflection
 
         fieldInfo.SetValue(component, value);
     }
+    
+    private static void SpaceAttributeRenderer(MemberInfo info)
+    {
+        ((SpaceAttribute?)Attribute.GetCustomAttribute(info, typeof(SpaceAttribute)))?.Render();
+    }
+
+    private static void SeperatorAttributeRenderer(MemberInfo info)
+    {
+        ((SeperatorAttribute?)Attribute.GetCustomAttribute(info, typeof(SeperatorAttribute)))?.Render();
+    }
+
+
 }

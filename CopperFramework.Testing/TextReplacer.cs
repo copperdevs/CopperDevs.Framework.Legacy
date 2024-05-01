@@ -1,12 +1,13 @@
 ﻿using CopperCore.Utility;
+using CopperDearImGui.Attributes;
 using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Testing;
 
 public class TextReplacer : GameComponent
 {
-    private string input = "";
-    private string output = "";
+    [Exposed] private string input = "";
+    [Exposed] private string output = "";
 
     public override void Update()
     {
