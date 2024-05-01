@@ -1,7 +1,4 @@
-﻿using CopperCore.Utility;
-using CopperDearImGui.Attributes;
-using CopperFramework.Elements.Components;
-
+﻿
 namespace CopperFramework.Testing;
 
 public class TextReplacer : GameComponent

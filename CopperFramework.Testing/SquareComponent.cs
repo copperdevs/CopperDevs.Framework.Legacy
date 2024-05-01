@@ -1,9 +1,4 @@
-﻿using CopperDearImGui.Attributes;
-using CopperFramework.Elements.Components;
-using Raylib_cs;
-using Color = CopperFramework.Data.Color;
-
-namespace CopperFramework.Testing;
+﻿namespace CopperFramework.Testing;
 
 public class SquareComponent : GameComponent
 {

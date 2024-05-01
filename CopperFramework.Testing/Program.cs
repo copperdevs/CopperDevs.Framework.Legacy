@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-using CopperFramework.Data;
-using CopperFramework.Rendering;
+﻿using CopperFramework.Data;
 using CopperFramework.Ui;
 using CopperFramework.Utility;
 

@@ -1,8 +1,4 @@
-﻿using CopperCore;
-using CopperDearImGui.Attributes;
-using CopperFramework.Elements.Components;
-
-namespace CopperFramework.Testing;
+﻿namespace CopperFramework.Testing;
 
 public class LogComponent : GameComponent
 {

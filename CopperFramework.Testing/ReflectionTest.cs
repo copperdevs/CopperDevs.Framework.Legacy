@@ -1,9 +1,4 @@
-﻿using CopperCore;
-using CopperCore.Data;
-using CopperFramework.Data;
-using CopperFramework.Elements.Components;
-
-namespace CopperFramework.Testing;
+﻿namespace CopperFramework.Testing;
 
 public class ReflectionTest : GameComponent
 {
