@@ -1,5 +1,8 @@
-﻿using CopperFramework.Data;
+﻿using System.Numerics;
+using CopperFramework.Data;
 using CopperFramework.Rendering;
+using CopperFramework.Ui;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Testing;
 
@@ -9,19 +12,38 @@ public static class Program
     {
         var engine = new Engine(EngineSettings.Development);
 
-        Shader.Load("Empty");
-        
-        Shader.Load(Shader.IncludedShaders.Bloom);
-        Shader.Load(Shader.IncludedShaders.Blur);
-        Shader.Load(Shader.IncludedShaders.CrossStitching);
-        Shader.Load(Shader.IncludedShaders.DreamVision);
-        Shader.Load(Shader.IncludedShaders.Fisheye);
-        Shader.Load(Shader.IncludedShaders.Grayscale);
-        Shader.Load(Shader.IncludedShaders.Pixelizer);
-        Shader.Load(Shader.IncludedShaders.Posterization);
-        Shader.Load(Shader.IncludedShaders.Predator);
-        Shader.Load(Shader.IncludedShaders.Scanlines);
-        Shader.Load(Shader.IncludedShaders.Sobel);
+        Font.Load("Inter",
+            ResourceLoader.LoadEmbeddedResourceBytes("CopperFramework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
+
+        var uiScreen = new UiScreen("testing-screen", "Testing Screen")
+        {
+            new Box("Background")
+            {
+                Size = new Vector2(.98f, .975f),
+                Position = new Vector2(0.01f),
+                Color = Color.Black
+            },
+            new Button("Quit Button")
+            {
+                BackgroundColor = Color.Red,
+                Size = new Vector2(.2f, .1f),
+                Position = new Vector2(.4f, .65f),
+                ClickAction = () => engine.ShouldRun = false
+            },
+            new Text("Title Text")
+            {
+                Position = new Vector2(.07f, .1f),
+                TextColor = Color.White,
+                TextValue = "The quick brown fox jumps over the lazy dog",
+                FontSize = 48
+            }
+        };
+
+        engine.OnLoad += () =>
+        {
+            uiScreen.Register();
+            uiScreen.Load();
+        };
 
         engine.Run();
     }

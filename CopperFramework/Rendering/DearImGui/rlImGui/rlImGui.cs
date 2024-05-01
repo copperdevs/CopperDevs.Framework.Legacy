@@ -251,7 +251,14 @@ public static class rlImGui
 
     unsafe internal static void rlImGuiSetClipText(IntPtr userData, sbyte* text)
     {
-        Raylib.SetClipboardText(text);
+        try
+        {
+            Raylib.SetClipboardText(text);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e);
+        }
     }
 
     private unsafe delegate sbyte* GetClipTextCallback(IntPtr userData);
@@ -273,8 +280,7 @@ public static class rlImGui
         {
             unsafe
             {
-                fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes(
-                           "CopperFramework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
+                fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperFramework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
                     fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
             }
         }
@@ -333,8 +339,8 @@ public static class rlImGui
         // copy/paste callbacks
         unsafe
         {
-            GetClipTextCallback getClip = new GetClipTextCallback(rImGuiGetClipText);
-            SetClipTextCallback setClip = new SetClipTextCallback(rlImGuiSetClipText);
+            GetClipTextCallback getClip = rImGuiGetClipText;
+            SetClipTextCallback setClip = rlImGuiSetClipText;
 
             io.SetClipboardTextFn = Marshal.GetFunctionPointerForDelegate(setClip);
             io.GetClipboardTextFn = Marshal.GetFunctionPointerForDelegate(getClip);

@@ -3,12 +3,8 @@ using CopperFramework.Utility;
 
 namespace CopperFramework.Rendering;
 
-// ReSharper disable once ClassNeverInstantiated.Global
-public sealed class Shader : IRenderable
+public sealed class Shader : BaseRenderable
 {
-    private static readonly List<Shader> ShaderLoadQueue = new();
-    private static bool requireQueue = true;
-
     public readonly string Name;
     public readonly string? VertexShaderData;
     public readonly string? FragmentShaderData;
@@ -23,9 +19,11 @@ public sealed class Shader : IRenderable
         DreamVision,
         Fisheye,
         Grayscale,
+        // ReSharper disable once IdentifierTypo
         Pixelizer,
         Posterization,
         Predator,
+        // ReSharper disable once IdentifierTypo
         Scanlines,
         Sobel
     }
@@ -43,38 +41,27 @@ public sealed class Shader : IRenderable
             ResourceLoader.LoadTextResource($"CopperFramework.Resources.Shaders.{includedShaders.ToString()}.frag"));
     }
 
+
     public Shader(string shaderName, string? newVertexShaderData = null, string? newFragmentShaderData = null)
     {
         Name = shaderName;
         VertexShaderData = newVertexShaderData;
         FragmentShaderData = newFragmentShaderData;
+        
+        BaseLoad(this);
+    }
 
-        if (requireQueue)
-            ShaderLoadQueue.Add(this);
-        else
-            LoadShader();
+    public override void LoadRenderable()
+    {
+        rlShader = Raylib.LoadShaderFromMemory(VertexShaderData, FragmentShaderData);
+        RenderingSystem.Instance.RegisterRenderableItem(this);
+    }
+
+    public override void UnLoadRenderable()
+    {
+        RenderingSystem.Instance.DeregisterRenderableItem(this);
+        Raylib.UnloadShader(rlShader);
     }
 
     public static implicit operator rlShader(Shader shader) => shader.rlShader;
-
-
-    #region Queue Methods
-
-    internal static void LoadQueue()
-    {
-        requireQueue = false;
-
-        foreach (var shader in ShaderLoadQueue)
-            shader.LoadShader();
-    }
-
-    private void LoadShader()
-    {
-        Log.Info($"Loading Shader");
-        rlShader = Raylib.LoadShaderFromMemory(VertexShaderData, FragmentShaderData);
-
-        RenderingManager.RegisterRenderableItem(this);
-    }
-
-    #endregion
 }

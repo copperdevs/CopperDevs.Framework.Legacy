@@ -17,6 +17,8 @@ public class Engine : Singleton<Engine>
 
     private readonly Stopwatch stopwatch;
 
+    public Action OnLoad = null!;
+
     public Engine() : this(EngineSettings.DefaultSettings)
     {
     }
@@ -37,7 +39,7 @@ public class Engine : Singleton<Engine>
         
         Log.Info($"Time elapsed during engine creation: {stopwatch.Elapsed}");
     }
-
+    
     public void Run()
     {
         Start();
@@ -51,8 +53,10 @@ public class Engine : Singleton<Engine>
     private void Start()
     {
         window.Start();
-
+        
         ElementManager.Initialize();
+        
+        OnLoad?.Invoke();
         
         Log.Info($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }

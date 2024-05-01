@@ -12,4 +12,5 @@
       <ProjectReference Include="..\CopperFramework\CopperFramework.csproj" />
     </ItemGroup>
 
+
 </Project>

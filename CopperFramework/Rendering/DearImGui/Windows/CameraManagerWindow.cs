@@ -8,9 +8,7 @@ public class CameraManagerWindow : BaseWindow
 
     public override void Update()
     {
-        CopperImGui.TabGroup("camera_manager_window_tab_bar",
-            ("Engine Camera Info", EngineCameraInfo),
-            ("Something", Something));
+        EngineCameraInfo();
     }
 
     private static void EngineCameraInfo()

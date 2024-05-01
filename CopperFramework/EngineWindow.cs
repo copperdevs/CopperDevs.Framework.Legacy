@@ -41,7 +41,6 @@ public class EngineWindow
         };
 
         RenderTexture = LoadRenderTexture(settings.WindowSize.X, settings.WindowSize.Y);
-        Shader.LoadQueue();
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)

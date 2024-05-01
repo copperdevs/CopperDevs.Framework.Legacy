@@ -1,16 +1,26 @@
-﻿using CopperFramework.Ui.Serialized;
-
+﻿
 namespace CopperFramework.Ui;
 
-public class UiScreen
+public class UiScreen : IEnumerable
 {
-    public string DisplayName = "Untitled Ui Screen";
-    public string ScreenId = "untitled-ui-screen";
+    public string DisplayName;
+    public string ScreenId;
 
     public List<UiElement> UiElements = new();
 
-    public string ToJson()
+    public UiScreen(string screenId, string displayName)
     {
-        return new SerializedUiScreen(this).ToJson();
+        ScreenId = screenId;
+        DisplayName = displayName;
     }
+
+    public void Register() => UiRendererSystem.Instance.RegisterUiScreen(this);
+    public void Load() => UiRendererSystem.Instance.ChangeActiveScreen(this);
+
+    public void Add(UiElement element)
+    {
+        UiElements.Add(element);
+    }
+
+    public IEnumerator GetEnumerator() => UiElements.GetEnumerator();
 }

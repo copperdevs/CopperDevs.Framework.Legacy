@@ -60,10 +60,10 @@ public static partial class CopperImGui
         ImGui.EndChild();
     }
 
-    public static void Selectable(string text, Action? clickEvent = null)
+    public static void Selectable(object text, Action? clickEvent = null)
     {
         if (canRender)
-            Selectable(text, false, clickEvent);
+            Selectable($"{text}", false, clickEvent);
     }
 
     public static void Selectable(string text, bool enabled, Action? clickEvent = null)
@@ -152,15 +152,16 @@ public static partial class CopperImGui
         ImGui.EndTooltip();
     }
 
-    public static void CollapsingHeader(string name, Action group)
+    public static void CollapsingHeader(string name, Action group, bool indent = true)
     {
         if (!canRender)
             return;
 
-        if (ImGui.CollapsingHeader(name))
-        {
+        if (!ImGui.CollapsingHeader(name)) 
+            return;
+        
+        using (new IndentScope(indent))
             group.Invoke();
-        }
     }
 
     public static void Button(string name, Action? clickEvent = null)

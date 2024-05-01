@@ -23,7 +23,7 @@ public class SceneWindow : BaseWindow
             CopperImGui.Selectable(scene.Id.ToString(), scene.Id == SceneManager.ActiveScene.Id, () =>
             {
                 SceneManager.LoadScene(scene);
-                ComponentBrowserWindow.CurrentObjectBrowserTarget = null;
+                ComponentsManagerWindow.CurrentObjectBrowserTarget = null;
             });
         }
     }

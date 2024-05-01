@@ -7,13 +7,19 @@ namespace CopperFramework.Elements.Components;
 
 public class ParticleSystem : GameComponent
 {
-    private bool isActive = true;
-    [Range(16, 512)] private float maxParticles = 128;
+    [Seperator("Settings")] [Range(16, 512)]
+    private float maxParticles = 128;
+
     [Range(.01f, 10)] private Vector2 lifetimeRandomRange = new(2.5f, 5f);
     [Range(.01f, 10)] private Vector2 speedRandomRange = new(1.5f, 5.25f);
     [Range(1, 128)] private Vector2 sizeRandomRange = new(16, 32);
     private List<Color> particleColors = new() { Color.White };
-    private List<Particle> particles = new();
+
+    [Seperator] private bool isActive = true;
+    private bool destroyComponentOnZeroParticles = false;
+    private bool destroyObjectOnZeroParticles = false;
+
+    [Seperator("Info")] private List<Particle> particles = new();
 
     public override void Update()
     {
@@ -46,7 +52,8 @@ public class ParticleSystem : GameComponent
         foreach (var particle in particles)
         {
             particle.Lifetime -= Time.DeltaTime;
-            particle.Transform.Position += MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed;
+            particle.Transform.Position +=
+                MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed;
         }
     }
 
@@ -69,8 +76,16 @@ public class ParticleSystem : GameComponent
         if (particles.Count != 0 || isActive)
             return;
 
+        if (destroyComponentOnZeroParticles)
+            Parent.Remove(this);
+
+        if (!destroyObjectOnZeroParticles)
+            return;
+
         ComponentRegistry.CurrentComponents.Remove(Parent);
-        ComponentBrowserWindow.CurrentObjectBrowserTarget = null;
+
+        if (ComponentsManagerWindow.CurrentObjectBrowserTarget == Parent)
+            ComponentsManagerWindow.CurrentObjectBrowserTarget = null;
     }
 
     public override void DebugUpdate()

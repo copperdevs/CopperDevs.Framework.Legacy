@@ -22,7 +22,7 @@ public static class ImGuiReflection
 
             var currentReadOnlyAttribute =
                 (ReadOnlyAttribute?)Attribute.GetCustomAttribute(info, typeof(ReadOnlyAttribute))!;
-            
+
             using (new DisabledScope(currentReadOnlyAttribute is not null))
                 Render();
 
@@ -59,15 +59,12 @@ public static class ImGuiReflection
                         {
                             CopperImGui.CollapsingHeader($"{info.Name}##{id + 1}", () =>
                             {
-                                using (new IndentScope())
-                                {
-                                    var subComponent = info.GetValue(component);
-                                    if (subComponent is not null)
-                                    {
-                                        RenderValues(subComponent, id + 1);
-                                        info.SetValue(component, subComponent);
-                                    }
-                                }
+                                var subComponent = info.GetValue(component);
+                                if (subComponent is null)
+                                    return;
+
+                                RenderValues(subComponent, id + 1);
+                                info.SetValue(component, subComponent);
                             });
                         }
                         catch (Exception e)
@@ -117,55 +114,52 @@ public static class ImGuiReflection
 
         CopperImGui.CollapsingHeader($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", () =>
         {
-            using (new IndentScope())
-            {
-                CopperImGui.HorizontalGroup(() => { CopperImGui.Text($"{value.Count} Items"); },
-                    () =>
-                    {
-                        CopperImGui.Button($"+##{fieldInfo.Name}{id}",
-                            () =>
-                            {
-                                value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType()));
-                            });
-                    },
-                    () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
-
-                CopperImGui.Separator();
-
-                for (var i = 0; i < value.Count; i++)
+            CopperImGui.HorizontalGroup(() => { CopperImGui.Text($"{value.Count} Items"); },
+                () =>
                 {
-                    var item = value[i];
+                    CopperImGui.Button($"+##{fieldInfo.Name}{id}",
+                        () =>
+                        {
+                            value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType()));
+                        });
+                },
+                () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
+
+            CopperImGui.Separator();
+
+            for (var i = 0; i < value.Count; i++)
+            {
+                var item = value[i];
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                    var itemType = item.GetType();
+                var itemType = item.GetType();
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
-                    if (itemType.IsEnum)
-                    {
-                        ImGuiRenderers[typeof(Enum)].ValueRenderer(ref item, id);
-                    }
-                    else if (ImGuiRenderers.TryGetValue(itemType, out var renderer))
-                    {
-                        renderer.ValueRenderer(ref item, int.Parse($"{i}{id}"));
-                    }
-                    else
-                    {
-                        try
-                        {
-                            CopperImGui.CollapsingHeader($"{item.GetType().Name}##{value.IndexOf(item)}", () =>
-                            {
-                                using (new IndentScope())
-                                    RenderValues(item, value.IndexOf(item));
-                            });
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Info(e);
-                        }
-                    }
-
-                    value[i] = item;
+                if (itemType.IsEnum)
+                {
+                    ImGuiRenderers[typeof(Enum)].ValueRenderer(ref item, id);
                 }
+                else if (ImGuiRenderers.TryGetValue(itemType, out var renderer))
+                {
+                    renderer.ValueRenderer(ref item, int.Parse($"{i}{id}"));
+                }
+                else
+                {
+                    try
+                    {
+                        CopperImGui.CollapsingHeader($"{item.GetType().Name}##{value.IndexOf(item)}",
+                            () =>
+                            {
+                                RenderValues(item, int.Parse($"{value.IndexOf(item)}{i}{id}"));
+                            });
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Info(e);
+                    }
+                }
+
+                value[i] = item;
             }
         });
 

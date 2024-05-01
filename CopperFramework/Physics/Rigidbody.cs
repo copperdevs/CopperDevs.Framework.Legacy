@@ -1,10 +1,13 @@
 ﻿using CopperDearImGui.Attributes;
+using CopperFramework.Attributes;
 using CopperFramework.Elements.Components;
 
 namespace CopperFramework.Physics;
 
 // references
     // https://code.tutsplus.com/how-to-create-a-custom-2d-physics-engine-oriented-rigid-bodies--gamedev-8032t
+
+[Disabled]
 public class Rigidbody : GameComponent
 {
     [HideInInspector] private Collider targetCollider;

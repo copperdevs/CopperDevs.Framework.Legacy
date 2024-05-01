@@ -1,5 +1,8 @@
-﻿namespace CopperFramework.Physics;
+﻿using CopperFramework.Attributes;
 
+namespace CopperFramework.Physics;
+
+[Disabled]
 public class CircleCollider : Collider
 {
     public override void DebugUpdate()

@@ -45,7 +45,7 @@ public class SystemViewerWindow : BaseWindow
             
             CopperImGui.Separator();
             
-            CopperImGui.RenderValues(system);
+            CopperImGui.RenderObjectValues(system);
             
         }, ImGuiChildFlags.Border);
     }

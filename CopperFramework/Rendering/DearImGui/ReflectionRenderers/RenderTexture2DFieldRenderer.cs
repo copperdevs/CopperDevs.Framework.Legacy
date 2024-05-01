@@ -24,26 +24,16 @@ public class RenderTexture2DFieldRenderer : FieldRenderer
     {
         CopperImGui.CollapsingHeader(title, () =>
         {
-            using (new IndentScope())
+            CopperImGui.CollapsingHeader("Texture Info", () =>
             {
-                CopperImGui.CollapsingHeader("Texture Info", () =>
-                {
-                    using (new IndentScope())
-                    {
-                        CopperImGui.Text(textureValue.Id, "Render texture id");
-                        CopperImGui.Text(textureValue.Texture.Format, "Format");
-                        CopperImGui.Text($"{textureValue.Texture.Width},{textureValue.Texture.Height}", "Size");
-                        CopperImGui.Text(textureValue.Texture.Id, "OpenGL id");
-                        CopperImGui.Text(textureValue.Texture.Mipmaps, "Mipmap level");
-                    }
-                });
+                CopperImGui.Text(textureValue.Id, "Render texture id");
+                CopperImGui.Text(textureValue.Texture.Format, "Format");
+                CopperImGui.Text($"{textureValue.Texture.Width},{textureValue.Texture.Height}", "Size");
+                CopperImGui.Text(textureValue.Texture.Id, "OpenGL id");
+                CopperImGui.Text(textureValue.Texture.Mipmaps, "Mipmap level");
+            });
 
-                CopperImGui.CollapsingHeader("Texture", () =>
-                {
-                    using (new IndentScope())
-                        rlImGui.ImageFit(textureValue.Texture);
-                });
-            }
+            CopperImGui.CollapsingHeader("Texture", () => { rlImGui.ImageFit(textureValue.Texture); });
         });
     }
 }
