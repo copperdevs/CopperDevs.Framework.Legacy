@@ -1,17 +1,15 @@
 ﻿using CopperCore;
 using CopperDearImGui.Attributes;
-using CopperFramework.Physics;
 using CopperFramework.Scenes;
-using CopperFramework.Utility;
 
 namespace CopperFramework.Elements.Components;
 
-public class GameObject : IEnumerable
+public sealed class GameObject : IEnumerable
 {
     [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
     [HideInInspector] internal List<GameComponent> Components = new();
-    [HideInInspector] protected internal Scene? Scene { get; internal set; }
+    [HideInInspector] internal Scene? Scene { get; set; }
 
     public GameObject()
     {
@@ -33,14 +31,19 @@ public class GameObject : IEnumerable
     {
         gameComponent.Parent = this;
         Components.Add(gameComponent);
+        
+        gameComponent.Transform = Transform;
         gameComponent.Start();
+        Transform = gameComponent.Transform;
     }
 
     public void Remove(GameComponent gameComponent)
     {
         Components.Remove(gameComponent);
+        gameComponent.Transform = Transform;
         gameComponent.Stop();
         gameComponent.Sleep();
+        Transform = gameComponent.Transform;
     }
 
     public IEnumerator GetEnumerator()

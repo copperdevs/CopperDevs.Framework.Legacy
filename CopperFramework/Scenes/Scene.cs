@@ -35,14 +35,10 @@ public class Scene : IEnumerable<GameObject>
     public void Add(GameObject gameObject)
     {
         SceneObjects.Add(gameObject);
-        
-        gameObject.Transform.Position = Vector2.Zero;
-        gameObject.Transform.Scale = 1;
-        gameObject.Transform.Rotation = 0;
 
         gameObject.Scene = this;
         
-        gameObject.UpdateComponents(component => component.Update());
+        // gameObject.UpdateComponents(component => component.Start());
     }
 
     public void Remove(GameObject gameObject)

@@ -1,4 +1,7 @@
-﻿namespace TopDownShooter;
+﻿using CopperFramework.Scenes;
+using TopDownShooter.Components;
+
+namespace TopDownShooter;
 
 public static class Program
 {
@@ -13,6 +16,20 @@ public static class Program
         };
         
         var engine = new Engine(engineSettings);
+        engine.SetWindowColor(Color.Black);
+        engine.SetWindowShader(Shader.IncludedShaders.Bloom);
+
+        var gameScene = new Scene("Game Scene")
+        {
+            new("Player Object")
+            {
+                new PlayerController()
+            },
+            new("Mouse Manager")
+            {
+                new MouseDrawer()
+            }
+        };
         
         engine.Run();
     }

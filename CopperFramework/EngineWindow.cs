@@ -6,7 +6,7 @@ namespace CopperFramework;
 
 public class EngineWindow
 {
-    public static Vector2 Size => new Vector2(GetScreenWidth(), GetScreenHeight());
+    public static Vector2 Size => new(GetScreenWidth(), GetScreenHeight());
     
     public EngineWindow(EngineSettings settings)
     {
@@ -22,9 +22,12 @@ public class EngineWindow
 
     public RenderTexture2D RenderTexture { get; private set; }
     public bool ScreenShaderEnabled = true;
+    
     public Shader? ScreenShader { get; private set; }
+    public Color BackgroundColor { get; private set; } = Color.RayWhite;
     
     public void SetScreenShader(Shader? shader) => ScreenShader = shader;
+    public void SetWindowColor(Color color) => BackgroundColor = color;
 
     public void Start()
     {
@@ -61,7 +64,7 @@ public class EngineWindow
         BeginTextureMode(RenderTexture);
         
         BeginDrawing();
-        ClearBackground(Color.RayWhite);
+        ClearBackground(BackgroundColor);
         
         BeginMode2D(Camera);
         

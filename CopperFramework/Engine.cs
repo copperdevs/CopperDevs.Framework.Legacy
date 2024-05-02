@@ -88,4 +88,8 @@ public class Engine : Singleton<Engine>
         ElementManager.Shutdown();
         window.Shutdown();
     }
+
+    public void SetWindowColor(Color color) => window.SetWindowColor(color);
+    public void SetWindowShader(Shader shader) => window.SetScreenShader(shader);
+    public void SetWindowShader(Shader.IncludedShaders includedShader) => window.SetScreenShader(Shader.Load(includedShader));
 }

@@ -20,7 +20,7 @@ public class SceneWindow : BaseWindow
 
         foreach (var scene in scenes)
         {
-            CopperImGui.Selectable(scene.Id.ToString(), scene.Id == SceneManager.ActiveScene.Id, () =>
+            CopperImGui.Selectable(scene.DisplayName == scene.Id.ToString() ? scene.Id.ToString() : $"{scene.DisplayName} ({scene.Id})", scene.Id == SceneManager.ActiveScene.Id, () =>
             {
                 SceneManager.LoadScene(scene);
                 ComponentsManagerWindow.CurrentObjectBrowserTarget = null;

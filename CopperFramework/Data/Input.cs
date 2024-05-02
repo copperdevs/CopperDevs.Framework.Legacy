@@ -1,8 +1,17 @@
-﻿namespace CopperFramework.Data;
+﻿using CopperCore.Utility;
+
+namespace CopperFramework.Data;
 
 public static class Input
 {
-    public static Vector2 MousePosition => Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), Engine.CurrentWindow.Camera);
+    public static Vector2 MousePosition
+    {
+        get
+        {
+            var pos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), Engine.CurrentWindow.Camera);
+            return pos.WithY(-pos.Y);
+        }
+    }
 
     public static float IsKeyDown(KeyboardKey upKey, KeyboardKey downKey)
     {
