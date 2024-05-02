@@ -7,5 +7,6 @@ internal interface ISystem
 
     public void Start();
     public void Update();
+    public void UiUpdate();
     public void Stop();
 }

@@ -8,7 +8,7 @@ public class SystemViewerWindow : BaseWindow
 {
     public override string WindowName { get; protected set; } = "System Viewer";
     private int currentSystemIndex = 0;
-
+    
     public override void Update()
     {
         var systems = SystemManager.GetSystems();
@@ -45,7 +45,7 @@ public class SystemViewerWindow : BaseWindow
 
             CopperImGui.Separator();
 
-            CopperImGui.RenderObjectValues(system);
+            system.UiUpdate();
         }, ImGuiChildFlags.Border);
     }
 }

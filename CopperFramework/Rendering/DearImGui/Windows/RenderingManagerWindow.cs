@@ -21,7 +21,8 @@ public class RenderingManagerWindow : BaseWindow
         CopperImGui.TabGroup("rendering_manager_window_tab_group",
             ("Shader Info", ShaderInfo),
             ("Window Render Texture", WindowRenderTexture),
-            ("Font Info", FontInfo));
+            ("Font Info", FontInfo),
+            ("Reflection Renderers Info", ImGuiReflectionRenderersInfo));
     }
 
     private static void ShaderInfo()
@@ -86,6 +87,14 @@ public class RenderingManagerWindow : BaseWindow
         foreach (var includedShader in Enum.GetValues(typeof(Shader.IncludedShaders)))
         {
             CopperImGui.Selectable(includedShader, () => { Shader.Load((Shader.IncludedShaders)includedShader); });
+        }
+    }
+
+    private static void ImGuiReflectionRenderersInfo()
+    {
+        foreach (var renderer in CopperImGui.GetAllImGuiRenderers())
+        {
+            CopperImGui.Text($"{renderer.Value}", $"{renderer.Key.Name}");
         }
     }
 }

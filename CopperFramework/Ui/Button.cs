@@ -28,6 +28,11 @@ public class Button : UiElement
         return Raylib.CheckCollisionPointRec(Input.MousePosition, new Rectangle(ScaledPosition, ScaledSize));
     }
 
+    public Button() : base("Unnamed Button")
+    {
+        
+    }
+    
     public Button(string name) : base(name)
     {
     }

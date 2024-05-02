@@ -24,17 +24,20 @@ public static partial class CopperImGui
         ImGuiReflection.RenderValues(component, id, renderingType);
     }
 
-    /// <summary>
-    /// Uses registered field renderers to render values of a targetObject
-    /// </summary>
-    /// <param name="targetObject">Target object to render</param>
-    /// <param name="id">Basically DearImGui rendering Id</param>
-    /// <typeparam name="TTargetType">Type of the object to render</typeparam>
-    public static void RenderObjectValues<TTargetType>(ref TTargetType targetObject, int id = 0)
+    public static void RenderObjectValues<TTargetType>(ref TTargetType targetObject, int id = 0, RenderingType renderingType = RenderingType.All)
     {
-        var targetObjectCasted = (object)targetObject!;
-        ImGuiReflection.GetImGuiRenderer<TTargetType>()?.ValueRenderer(ref targetObjectCasted, id);
-        targetObject = (TTargetType)targetObjectCasted;
+        var renderer = ImGuiReflection.GetImGuiRenderer<TTargetType>();
+
+        if (renderer is not null)
+        {
+            var targetObjectCasted = (object)targetObject!;
+            renderer.ValueRenderer(ref targetObjectCasted, id);
+            targetObject = (TTargetType)targetObjectCasted;
+        }
+        else
+        {
+            ImGuiReflection.RenderValues(targetObject!, id, renderingType);
+        }
     }
 
     public static FieldRenderer? GetFieldRenderer<T>()
@@ -45,5 +48,10 @@ public static partial class CopperImGui
     public static void RegisterFieldRenderer<TType, TRenderer>() where TRenderer : FieldRenderer, new()
     {
         ImGuiReflection.ImGuiRenderers.TryAdd(typeof(TType), new TRenderer());
+    }
+
+    public static Dictionary<Type, FieldRenderer> GetAllImGuiRenderers()
+    {
+        return ImGuiReflection.ImGuiRenderers;
     }
 }
