@@ -58,7 +58,7 @@ public class RenderingManagerWindow : BaseWindow
     private static void WindowRenderTexture()
     {
         var renderTexture = (object)Engine.CurrentWindow.RenderTexture;
-        CopperImGui.GetFieldRenderer<RenderTexture2D>()?.ValueRenderer(ref renderTexture, 0);
+        CopperImGui.RenderObjectValues(ref renderTexture);
     }
 
     private static void FontInfo()

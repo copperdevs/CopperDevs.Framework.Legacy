@@ -23,9 +23,6 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
         CopperImGui.RegisterFieldRenderer<Texture2D, Texture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<RenderTexture2D, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<Box, BoxFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<Button, ButtonFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<Text, TextFieldRenderer>();
 
         CopperImGui.Setup<CopperRlImGui>();
         CopperImGui.Rendered += RenderImGuiWindowsMenu;

@@ -98,7 +98,8 @@ public class ComponentsManagerWindow : BaseWindow
                                         () => CurrentObjectBrowserTarget.Remove(component));
                                     CopperImGui.Separator("Component Settings");
 
-                                    CopperImGui.RenderObjectValues(component, component.GetHashCode(), RenderingType.Exposed);
+                                    CopperImGui.RenderObjectValues(component, component.GetHashCode(),
+                                        RenderingType.Exposed);
                                 }
                             });
                     }

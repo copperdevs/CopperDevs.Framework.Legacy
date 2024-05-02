@@ -19,7 +19,7 @@ public static partial class CopperImGui
         RegisterFieldRenderer<Vector3, Vector3FieldRenderer>();
     }
 
-    public static void RenderObjectValues(object component, int id = 0, RenderingType renderingType = RenderingType.All)
+    public static void RenderObjectValues<TTargetType>(TTargetType component, int id = 0, RenderingType renderingType = RenderingType.All)
     {
         ImGuiReflection.RenderValues(component, id, renderingType);
     }
