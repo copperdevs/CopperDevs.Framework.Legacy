@@ -1,9 +1,10 @@
-﻿using CopperDearImGui.Attributes;
+﻿using CopperCore;
+using CopperDearImGui.Attributes;
 using CopperFramework.Scenes;
 
 namespace CopperFramework.Elements.Components;
 
-public abstract class GameComponent
+public abstract class GameComponent : IUpdatable
 {
     protected internal GameObject Parent { get; internal set; }
 

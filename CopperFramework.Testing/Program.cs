@@ -1,17 +1,10 @@
-﻿using CopperFramework.Data;
-using CopperFramework.Ui;
-using CopperFramework.Utility;
-
-namespace CopperFramework.Testing;
+﻿namespace CopperFramework.Testing;
 
 public static class Program
 {
     public static void Main()
     {
         var engine = new Engine(EngineSettings.Development);
-
-        Font.Load("Inter",
-            ResourceLoader.LoadEmbeddedResourceBytes("CopperFramework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
 
         var uiScreen = new UiScreen("testing-screen", "Testing Screen")
         {

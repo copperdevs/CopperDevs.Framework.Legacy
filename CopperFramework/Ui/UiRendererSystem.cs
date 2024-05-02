@@ -10,7 +10,7 @@ public class UiRendererSystem : BaseSystem<UiRendererSystem>
     public override SystemUpdateType GetUpdateType() => SystemUpdateType.Renderer;
     public override int GetPriority() => 1000;
 
-    public override void UpdateSystem()
+    public override void Update()
     {
         if (currentUiScreen is null)
             return;

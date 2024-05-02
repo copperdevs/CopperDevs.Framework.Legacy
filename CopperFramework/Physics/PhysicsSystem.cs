@@ -11,17 +11,17 @@ public class PhysicsSystem : BaseSystem<PhysicsSystem>
 
     public override SystemUpdateType GetUpdateType() => SystemUpdateType.Fixed;
 
-    public override void UpdateSystem()
+    public override void Update()
     {
     }
 
-    public override void LoadSystem()
+    public override void Start()
     {
         ComponentRegistry.RegisterAbstractSubclass<Collider, BoxCollider>();
         ComponentRegistry.RegisterAbstractSubclass<Collider, CircleCollider>();
     }
 
-    public override void ShutdownSystem()
+    public override void Stop()
     {
     }
 

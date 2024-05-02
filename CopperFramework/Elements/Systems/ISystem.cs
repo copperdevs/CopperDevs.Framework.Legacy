@@ -5,7 +5,7 @@ internal interface ISystem
     public int GetPriority();
     public SystemUpdateType GetUpdateType();
 
-    public void LoadSystem();
-    public void UpdateSystem();
-    public void ShutdownSystem();
+    public void Start();
+    public void Update();
+    public void Stop();
 }

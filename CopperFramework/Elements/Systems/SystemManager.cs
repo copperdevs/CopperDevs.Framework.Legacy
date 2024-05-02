@@ -13,12 +13,12 @@ public static class SystemManager
 
         foreach (var system in systems)
         {
-            system.LoadSystem();
+            system.Start();
 
             if (SystemActions.TryGetValue(system.GetUpdateType(), out var value))
-                value.Add(system.UpdateSystem);
+                value.Add(system.Update);
             else
-                SystemActions.Add(system.GetUpdateType(), new List<Action> { system.UpdateSystem });
+                SystemActions.Add(system.GetUpdateType(), new List<Action> { system.Update });
         }
     }
 
@@ -26,7 +26,7 @@ public static class SystemManager
     {
         foreach (var system in systems)
         {
-            system.ShutdownSystem();
+            system.Stop();
         }
     }
 

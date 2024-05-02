@@ -10,13 +10,13 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
 
     public override int GetPriority() => 100;
 
-    public override void UpdateSystem()
+    public override void Update()
     {
         if (DebugSystem.Instance.DebugEnabled && !Engine.Instance.Settings.DisableDevTools)
             CopperImGui.Render();
     }
 
-    public override void LoadSystem()
+    public override void Start()
     {
         CopperImGui.RegisterFieldRenderer<Color, ColorFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Texture2D, Texture2DFieldRenderer>();
@@ -27,7 +27,7 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
         CopperImGui.Rendered += RenderImGuiWindowsMenu;
     }
 
-    public override void ShutdownSystem()
+    public override void Stop()
     {
         CopperImGui.Rendered -= RenderImGuiWindowsMenu;
         CopperImGui.Shutdown();

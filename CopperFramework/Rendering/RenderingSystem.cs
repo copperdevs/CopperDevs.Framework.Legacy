@@ -1,4 +1,5 @@
 ﻿using CopperFramework.Elements.Systems;
+using CopperFramework.Utility;
 
 namespace CopperFramework.Rendering;
 
@@ -26,15 +27,16 @@ public class RenderingSystem : BaseSystem<RenderingSystem>
         LoadedRenderableItems[typeof(T)] = targetList;
     }
     
-    public override void LoadSystem()
+    public override void Start()
     {
         BaseRenderable.LoadQueuedItems();
         
         Shader.Load("Empty");
+        Font.Load("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperFramework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
         Font.Load();
     }
 
-    public override void ShutdownSystem()
+    public override void Stop()
     {
         foreach (var renderable in LoadedRenderableItems.Values.SelectMany(renderables => renderables).ToList())
         {

@@ -1,6 +1,6 @@
 ﻿namespace CopperDearImGui;
 
-public abstract class BaseWindow
+public abstract class BaseWindow : IUpdatable
 {
     public abstract string WindowName { get; protected internal set; }
     internal bool WindowOpen = false;
