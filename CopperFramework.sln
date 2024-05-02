@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperCore", "CopperCore\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDearImGui", "CopperDearImGui\CopperDearImGui.csproj", "{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{B0469968-E4D6-4D0E-A91E-69454700274D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopDownShooter", "TopDownShooter\TopDownShooter.csproj", "{3F4382B6-3B88-4408-83F6-8910DF0D8E77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F4382B6-3B88-4408-83F6-8910DF0D8E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F4382B6-3B88-4408-83F6-8910DF0D8E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F4382B6-3B88-4408-83F6-8910DF0D8E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F4382B6-3B88-4408-83F6-8910DF0D8E77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3F4382B6-3B88-4408-83F6-8910DF0D8E77} = {B0469968-E4D6-4D0E-A91E-69454700274D}
 	EndGlobalSection
 EndGlobal
