@@ -6,35 +6,24 @@ namespace CopperFramework.Utility;
 
 public static unsafe class ConsoleUtil
 {
-    [DllImport("msvcrt.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-    private static extern int vsprintf(StringBuilder buffer, string format, IntPtr args);
-
-    [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
-    private static extern int _vscprintf(string format, IntPtr ptr);
-
     [UnmanagedCallersOnly(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
     private static void RayLibLog(int msgType, sbyte* text, sbyte* args)
     {
-        var textStr = Marshal.PtrToStringUTF8((IntPtr)text) ?? "";
-
-        var sb = new StringBuilder(_vscprintf(textStr, (IntPtr)args) + 1);
-        vsprintf(sb, textStr, (IntPtr)args);
-
-        var messageLog = sb.ToString();
+        var message = Logging.GetLogMessage(new IntPtr(text), new IntPtr(args));
 
         switch ((TraceLogLevel)msgType)
         {
             case TraceLogLevel.Info:
-                Log.Info(messageLog);
+                Log.Info(message);
                 break;
             case TraceLogLevel.Error:
-                Log.Error(messageLog);
+                Log.Error(message);
                 break;
             case TraceLogLevel.Warning:
-                Log.Warning(messageLog);
+                Log.Warning(message);
                 break;
             default:
-                Log.Info(messageLog);
+                Log.Info(message);
                 break;
         }
     }

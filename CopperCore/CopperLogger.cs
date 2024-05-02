@@ -1,54 +1,29 @@
-﻿namespace CopperCore;
+﻿using System.Diagnostics;
+using System.Reflection;
 
-/// <summary>
-/// Log class 
-/// </summary>
+namespace CopperCore;
+
 public static class Log
 {
-    /// <summary>
-    /// Logs an info message to the console
-    /// </summary>
-    /// <param name="message">Message to log</param>
     public static void Info(object message) => CopperLogger.LogInfo(message);
-        
-    /// <summary>
-    /// Logs an warning message to the console
-    /// </summary>
-    /// <param name="message">Message to log</param>
-    public static void Warning(object message) => CopperLogger.LogWarning(message);
-        
-    /// <summary>
-    /// Logs an error message to the console
-    /// </summary>
-    /// <param name="message">Message to log</param>
-    public static void Error(object message) => CopperLogger.LogError(message);
-        
-    /// <summary>
-    /// Logs an exception to the console
-    /// </summary>
-    /// <param name="e">Error to log</param>
-    public static void Error(Exception e) => Error($"[{e.GetType()}] {e.Message} \n {e.StackTrace}");
 
-    /// <summary>
-    /// Checks for a condition, and if false logs the message
-    /// </summary>
-    /// <param name="condition">Condition to check</param>
-    /// <param name="message">Message to log</param>
+    public static void Warning(object message) => CopperLogger.LogWarning(message);
+
+    public static void Error(object message) => CopperLogger.LogError(message);
+
+    public static void Error(Exception e) => CopperLogger.LogError($"[{e.GetType()}] {e.Message} \n {e.StackTrace}");
+
     public static void Assert(bool condition, object message)
     {
-        if (!condition)
-            Error(message);
+        if (condition) 
+            return;
+        
+        CopperLogger.LogError(message);
     }
 }
 
-/// <summary>
-/// Main logger class
-/// </summary>
 public static class CopperLogger
 {
-    /// <summary>
-    /// Log action
-    /// </summary>
     public delegate void BaseLog(object message);
 
     private static BaseLog? info;
@@ -66,7 +41,7 @@ public static class CopperLogger
     /// <param name="timestamps">Log messages with timestamp</param>
     public static void Initialize(bool timestamps = true)
     {
-        Initialize(InternalLogInfo, InternalLogWarning, InternalLogError, includeTimestamps);
+        Initialize(null!, null!, null!, timestamps);
     }
 
     /// <summary>
@@ -88,53 +63,40 @@ public static class CopperLogger
 
         includeTimestamps = timestamps;
     }
-        
-    /// <summary>
-    /// Uses log action to log a message
-    /// </summary>
-    /// <param name="message"></param>
-    public static void LogInfo(object message) => info?.Invoke(message);
 
-    /// <summary>
-    /// Uses warning log action to log a message
-    /// </summary>
-    /// <param name="message"></param>
-    public static void LogWarning(object message) => warning?.Invoke(message);
+    public static void LogInfo(object message)
+    {
+        if (info is not null)
+            info.Invoke(message);
+        else
+            InternalLog("INFO", message, ConsoleColor.DarkGray);
+    }
 
-    /// <summary>
-    /// Uses error log action to log a message
-    /// </summary>
-    /// <param name="message"></param>
-    public static void LogError(object message) => error?.Invoke(message);
-        
-    /// <summary>
-    /// Base internal info log
-    /// </summary>
-    /// <param name="message"></param>
-    public static void InternalLogInfo(object message) => WriteBaseLog("INFO", message, ConsoleColor.DarkGray);
-        
-    /// <summary>
-    /// Base internal warning log
-    /// </summary>
-    /// <param name="message"></param>
-    public static void InternalLogWarning(object message) => WriteBaseLog("WARN", message, ConsoleColor.DarkYellow);
-        
-    /// <summary>
-    /// Base internal error
-    /// </summary>
-    /// <param name="message"></param>
-    public static void InternalLogError(object message) => WriteBaseLog("ERROR", message, ConsoleColor.DarkRed);
+    public static void LogWarning(object message)
+    {
+        if (warning is not null)
+            warning.Invoke(message);
+        else
+            InternalLog("WARN", message, ConsoleColor.DarkYellow);
+    }
 
-    private static void WriteBaseLog(string prefix, object message, ConsoleColor color)
+    public static void LogError(object message)
+    {
+        if (error is not null)
+            error.Invoke(message);
+        else
+            InternalLog("ERROR", message, ConsoleColor.DarkRed);
+    }
+    
+    private static void InternalLog(string prefix, object message, ConsoleColor color)
     {
         Console.ForegroundColor = color;
 
-        var logString = "";
+        var timeStampLog = includeTimestamps ? $"[{DateTime.Now:HH:mm:ss}]" : "";
+        var prefixLog = $"[{prefix}]";
 
-        if (includeTimestamps)
-            logString += $"[{DateTime.Now:HH:mm:ss}] ";
-        logString += $"[{prefix}] {message}";
-
+        var logString = $"{prefixLog} {timeStampLog} {message}";
+        
         Console.WriteLine(logString);
         Console.ResetColor();
     }
