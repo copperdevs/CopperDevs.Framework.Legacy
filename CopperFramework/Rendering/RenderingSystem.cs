@@ -36,6 +36,12 @@ public class RenderingSystem : BaseSystem<RenderingSystem>
         Font.Load();
     }
 
+    public override void Update()
+    {
+        if (Input.IsKeyPressed(KeyboardKey.F3))
+            Engine.CurrentWindow.ScreenShaderEnabled = !Engine.CurrentWindow.ScreenShaderEnabled;
+    }
+
     public override void Stop()
     {
         foreach (var renderable in LoadedRenderableItems.Values.SelectMany(renderables => renderables).ToList())

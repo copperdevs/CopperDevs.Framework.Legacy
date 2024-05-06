@@ -23,7 +23,8 @@ public static class Program
         {
             new("Player Object")
             {
-                new PlayerController()
+                new PlayerController(),
+                new PlayerWeapon()
             },
             new("Mouse Manager")
             {

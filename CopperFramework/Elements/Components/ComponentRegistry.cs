@@ -61,7 +61,6 @@ public static class ComponentRegistry
         return (T)Instantiate(typeof(T), targetScene, name);
     }
 
-
     public static T Instantiate<T>(GameObject targetGameObject) where T : GameComponent
     {
         return (T)Instantiate(typeof(T), targetGameObject);

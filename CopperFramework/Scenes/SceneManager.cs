@@ -1,4 +1,6 @@
-﻿namespace CopperFramework.Scenes;
+﻿using Force.DeepCloner;
+
+namespace CopperFramework.Scenes;
 
 public static class SceneManager
 {
@@ -20,16 +22,16 @@ public static class SceneManager
         return currentScene;
     }
 
-    public static void LoadScene(Guid sceneId)
+    public static void LoadScene(Guid sceneId, bool clone = true)
     {
-        LoadScene(Scenes[sceneId]);
+        LoadScene(Scenes[sceneId], clone);
     }
 
-    public static void LoadScene(Scene targetScene)
+    public static void LoadScene(Scene targetScene, bool clone = true)
     {
         currentScene?.SceneObjects.ForEach(gameObject => gameObject.UpdateComponents(component => component.Sleep()));
         if (Scenes.ContainsKey(targetScene))
-            currentScene = targetScene;
+            currentScene = clone ? targetScene.DeepClone() : targetScene;
         targetScene?.SceneObjects.ForEach(gameObject => gameObject.UpdateComponents(component => component.Awake()));
     }
 

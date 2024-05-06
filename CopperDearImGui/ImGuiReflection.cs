@@ -24,6 +24,8 @@ public static class ImGuiReflection
     
     internal static void RenderValues(object component, int id = 0, RenderingType renderingType = RenderingType.All)
     {
+        // CopperImGui.Text(id);
+        
         var bindingFlags = renderingType switch
         {
             RenderingType.Public => BindingFlags.Instance | BindingFlags.Public,
@@ -110,6 +112,11 @@ public static class ImGuiReflection
     {
         var value = (IList)fieldInfo.GetValue(component)!;
 
+        // foreach (var type in value.GetType().GenericTypeArguments)
+        // {
+            // CopperImGui.Text(type.FullName);
+        // }
+
         CopperImGui.CollapsingHeader($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", () =>
         {
             CopperImGui.HorizontalGroup(() => { CopperImGui.Text($"{value.Count} Items"); },
@@ -118,7 +125,7 @@ public static class ImGuiReflection
                     CopperImGui.Button($"+##{fieldInfo.Name}{id}",
                         () =>
                         {
-                            value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(component.GetType()));
+                            value.Add(value.Count > 0 ? value[^1] : Activator.CreateInstance(value.GetType().GenericTypeArguments[0]));
                         });
                 },
                 () => { CopperImGui.Button($"-##{fieldInfo.Name}{id}", () => value.RemoveAt(value.Count - 1)); });
@@ -146,7 +153,10 @@ public static class ImGuiReflection
                     try
                     {
                         CopperImGui.CollapsingHeader($"{item.GetType().Name}##{value.IndexOf(item)}",
-                            () => { RenderValues(item, int.Parse($"{value.IndexOf(item)}{i}{id}")); });
+                            () =>
+                            {
+                                RenderValues(item, (int)MathUtil.Clamp(float.Parse($"{value.IndexOf(item)}{i}{id}"), int.MinValue, int.MaxValue));
+                            });
                     }
                     catch (Exception e)
                     {

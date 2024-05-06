@@ -6,7 +6,7 @@ public class QuaternionFieldRenderer : FieldRenderer
     {
         var value = ((Quaternion)(fieldInfo.GetValue(component) ?? Quaternion.Identity)).ToVector();
 
-        CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
+        CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{id}", ref value,
             newValue => { fieldInfo.SetValue(component, newValue.ToQuaternion()); });
     }
 

@@ -45,7 +45,7 @@ internal static class ElementManager
                 break;
 
             case ElementUpdateType.Debug:
-                UpdateComponents(true, component => component.DebugUpdate());
+                UpdateComponents(false, component => component.DebugUpdate());
                 break;
 
             case ElementUpdateType.Fixed:

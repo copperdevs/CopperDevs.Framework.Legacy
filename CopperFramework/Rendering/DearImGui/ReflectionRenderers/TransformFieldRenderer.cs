@@ -32,20 +32,17 @@ public class TransformFieldRenderer : FieldRenderer
 
         CopperImGui.CollapsingHeader(title, () =>
         {
-            using (new IndentScope())
-            {
-                var position = value.Position;
-                var scale = value.Scale;
-                var rotation = value.Rotation;
+            var position = value.Position;
+            var scale = value.Scale;
+            var rotation = value.Rotation;
 
-                CopperImGui.DragValue($"Position##{id}", ref position);
-                CopperImGui.DragValue($"Scale##{id}", ref scale);
-                CopperImGui.DragValue($"Rotation##{id}", ref rotation);
+            CopperImGui.DragValue($"Position##{id}", ref position);
+            CopperImGui.DragValue($"Scale##{id}", ref scale);
+            CopperImGui.DragValue($"Rotation##{id}", ref rotation);
 
-                value.Position = position;
-                value.Scale = scale;
-                value.Rotation = rotation;
-            }
+            value.Position = position;
+            value.Scale = scale;
+            value.Rotation = rotation;
         });
 
         transform = value;
