@@ -33,7 +33,7 @@ public class IntFieldRenderer : FieldRenderer
         {
             var value = (int)(fieldInfo.GetValue(component) ?? 0);
 
-            CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref value,
+            CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{id}", ref value,
                 newValue => { fieldInfo.SetValue(component, newValue); });
         }
     }

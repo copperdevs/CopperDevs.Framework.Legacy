@@ -1,4 +1,5 @@
-﻿using CopperDearImGui;
+﻿using CopperCore.Utility;
+using CopperDearImGui;
 using CopperDearImGui.Attributes;
 using CopperDearImGui.Utility;
 using CopperFramework.Elements.Components;
@@ -88,7 +89,7 @@ public class ComponentsManagerWindow : BaseWindow
                     {
                         var component = CurrentObjectBrowserTarget.Components[i];
 
-                        CopperImGui.CollapsingHeader($"{component.GetType().FullName}###{i}{component.GetHashCode()}",
+                        CopperImGui.CollapsingHeader($"{component.GetType().Name.ToTitleCase()}###{i}{component.GetHashCode()}",
                             () =>
                             {
                                 // ReSharper disable once AccessToModifiedClosure

@@ -23,7 +23,7 @@ public sealed class GameObject : IEnumerable
 
     internal void UpdateComponents(Action<GameComponent> action)
     {
-        foreach (var component in Components)
+        foreach (var component in Components.ToList())
             action?.Invoke(component);
     }
 

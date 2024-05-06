@@ -4,7 +4,7 @@ namespace CopperFramework.Rendering.DearImGui.Windows;
 
 public class CameraManagerWindow : BaseWindow
 {
-    public override string WindowName { get; protected set; } = "Engine Settings";
+    public override string WindowName { get; protected set; } = "Camera Manager";
 
     public override void Update()
     {

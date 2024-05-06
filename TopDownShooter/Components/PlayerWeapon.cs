@@ -4,53 +4,55 @@ namespace TopDownShooter.Components;
 
 public class PlayerWeapon : GameComponent
 {
-    private static PlayerWeapon weapon;
+    private static PlayerWeapon staticWeapon;
     
     [Exposed] private List<PlayerWeaponPreset> weaponPresets = new()
     {
-        new PlayerWeaponPreset(),
-        new PlayerWeaponPreset(),
         new PlayerWeaponPreset()
+        {
+            BulletCount = 2,
+            BulletRotationSpread = 16,
+            BulletPositionSpread = 8
+        },
+        new PlayerWeaponPreset()
+        {
+            BulletCount = 3,
+            BulletRotationSpread = 48,
+            BulletPositionSpread = 16
+        },
+        new PlayerWeaponPreset()
+        {
+            BulletCount = 4,
+            BulletRotationSpread = 1,
+            BulletPositionSpread = 64
+        },
     };
 
-    [Exposed] private int currentWeaponPresetIndex = 0;
+    [Exposed] [Range(0, 2)] private int currentWeaponPresetIndex = 0;
 
     public class PlayerWeaponPreset
     {
-        [Exposed] private int bulletCount = 1;
-        [Exposed] private float bulletSpread = 4;
-        [Exposed] private List<Bullet> bullets = new();
+        public int BulletCount = 1;
+        public float BulletRotationSpread = 4;
+        public float BulletPositionSpread = 4;
 
         public void Shoot()
         {
-            for (var i = 0; i < bulletCount; i++)
+            for (var i = 0; i < BulletCount; i++)
                 if (!CopperImGui.AnyElementHovered)
-                    bullets.Add(new Bullet());
-        }
-
-        public void Render()
-        {
-            foreach (var bullet in bullets)
-            {
-                bullet.Render();   
-            }
-        }
-
-        public class Bullet
-        {
-            public Vector2 Position;
-            public Vector2 Direction;
-
-            public void Render()
-            {
-                Raylib.DrawCircleV((-weapon.Transform.Position) + Position, 6, Color.RayWhite);
-            }
+                {
+                    var bullet = ComponentRegistry.Instantiate<Bullet>();
+                    ref var transform = ref bullet.GetTransform();
+                    transform.Position = staticWeapon.Transform.Position + new Vector2(Random.Range(-BulletPositionSpread, BulletPositionSpread), Random.Range(-BulletPositionSpread, BulletPositionSpread));
+                    transform.Rotation = staticWeapon.Transform.Rotation + Random.Range(-BulletRotationSpread, BulletRotationSpread);
+                    bullet.UpdateStartPosition(transform.Position);
+                }
         }
     }
 
     public override void Start()
     {
-        weapon = this;
+        staticWeapon = this;
     }
 
     public override void Update()
@@ -60,7 +62,11 @@ public class PlayerWeapon : GameComponent
         if (Input.IsMouseButtonDown(MouseButton.Left))
             weaponPresets[currentWeaponPresetIndex].Shoot();
 
-        foreach (var weapon in weaponPresets) 
-            weapon.Render();
+        if (Input.IsKeyPressed(KeyboardKey.One))
+            currentWeaponPresetIndex = 0;
+        if (Input.IsKeyPressed(KeyboardKey.Two))
+            currentWeaponPresetIndex = 1;
+        if (Input.IsKeyPressed(KeyboardKey.Three))
+            currentWeaponPresetIndex = 2;
     }
 }

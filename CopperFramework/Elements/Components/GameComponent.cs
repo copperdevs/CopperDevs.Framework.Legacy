@@ -6,11 +6,14 @@ namespace CopperFramework.Elements.Components;
 
 public abstract class GameComponent : IUpdatable
 {
-    protected internal GameObject Parent { get; internal set; }
+    protected internal GameObject Parent = null!;
 
     [HideInInspector] protected internal Transform Transform;
 
     protected internal Scene? ParentScene => Parent.Scene;
+
+    public ref GameObject GetParent() => ref Parent;
+    public ref Transform GetTransform() => ref Parent.Transform;
 
     public T GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
     {

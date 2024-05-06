@@ -2,12 +2,8 @@
 
 public class PlayerController : GameComponent
 {
-    [Seperator("Stats")]
     [Exposed] [Range(1, 32)] private int moveSpeed = 10;
-
-    [Seperator("Input")]
     [Exposed] [ReadOnly] private Vector2 moveInput;
-
     [Exposed] [Range(0, 16)] private float inputSmoothTime = 12;
 
     public override void Start()
