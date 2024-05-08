@@ -1,5 +1,7 @@
 ﻿using CopperCore;
+using CopperDearImGui;
 using CopperDearImGui.Attributes;
+using CopperFramework.Rendering.DearImGui.Windows;
 using CopperFramework.Scenes;
 
 namespace CopperFramework.Elements.Components;
@@ -17,14 +19,18 @@ public abstract class GameComponent : IUpdatable
 
     public T GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
     {
-        return Parent.GetComponent<T>(addIfNotFound);
+        return Parent.GetComponent<T>(addIfNotFound)!;
     }
     
     public T AddComponent<T>() where T : GameComponent
     {
         return Parent.AddComponent<T>();
     }
-    
+
+    public bool IsCurrentInspectionTarget()
+    {
+        return CopperImGui.GetWindow<ComponentsManagerWindow>()?.CurrentObjectBrowserTarget == Parent;
+    }
     
     public virtual void Start()
     {

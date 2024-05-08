@@ -1,4 +1,5 @@
 ﻿using CopperCore.Utility;
+using CopperDearImGui;
 using CopperDearImGui.Attributes;
 using CopperFramework.Rendering.DearImGui.Windows;
 
@@ -83,8 +84,8 @@ public class ParticleSystem : GameComponent
 
         ComponentRegistry.CurrentComponents.Remove(Parent);
 
-        if (ComponentsManagerWindow.CurrentObjectBrowserTarget == Parent)
-            ComponentsManagerWindow.CurrentObjectBrowserTarget = null;
+        if (IsCurrentInspectionTarget())
+            CopperImGui.GetWindow<ComponentsManagerWindow>()!.CurrentObjectBrowserTarget = null;
     }
 
     public override void DebugUpdate()

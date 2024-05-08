@@ -31,6 +31,16 @@ public static class Program
                 new MouseDrawer()
             }
         };
+
+        var enemyTestingScene = new Scene()
+        {
+            new("Enemy Spawner")
+            {
+                new EnemyManager()
+            }
+        };
+        
+        enemyTestingScene.Load();
         
         engine.Run();
     }

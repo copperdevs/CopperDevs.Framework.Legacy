@@ -12,7 +12,7 @@ namespace CopperFramework.Rendering.DearImGui.Windows;
 public class ComponentsManagerWindow : BaseWindow
 {
     public override string WindowName { get; protected set; } = "Components Manager";
-    internal static GameObject? CurrentObjectBrowserTarget = null!;
+    public GameObject? CurrentObjectBrowserTarget = null!;
 
     public override void Start()
     {
@@ -34,7 +34,7 @@ public class ComponentsManagerWindow : BaseWindow
             ("Components Viewer", ComponentsViewerTab));
     }
 
-    private static void SceneComponentsBrowser()
+    private void SceneComponentsBrowser()
     {
         CopperImGui.HorizontalGroup(SelectorWindow, InspectorWindow);
         return;
@@ -169,7 +169,7 @@ public class ComponentsManagerWindow : BaseWindow
             CopperImGui.Selectable(componentType.Name, () => ComponentRegistry.Instantiate(componentType));
     }
 
-    private static void AddComponentPopup()
+    private void AddComponentPopup()
     {
         foreach (var componentType in ComponentRegistry.ComponentTypes.Where(component =>
                      !component.HasAttribute<HideInInspectorAttribute>()))

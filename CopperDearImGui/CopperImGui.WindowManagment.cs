@@ -44,4 +44,9 @@ public static partial class CopperImGui
             }
         });
     }
+
+    public static T? GetWindow<T>() where T : BaseWindow
+    {
+        return windows.Where(window => window.GetType() == typeof(T)).Cast<T>().FirstOrDefault();
+    }
 }

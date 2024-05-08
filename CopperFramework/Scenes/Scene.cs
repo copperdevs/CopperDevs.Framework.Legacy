@@ -37,8 +37,6 @@ public class Scene : IEnumerable<GameObject>
         SceneObjects.Add(gameObject);
 
         gameObject.Scene = this;
-        
-        // gameObject.UpdateComponents(component => component.Start());
     }
 
     public void Remove(GameObject gameObject)
@@ -56,5 +54,23 @@ public class Scene : IEnumerable<GameObject>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public void Load(bool clone = true)
+    {
+        SceneManager.LoadScene(this, clone);
+    }
+
+    public T FindFirstObjectByType<T>() where T : GameComponent
+    {
+        foreach (var gameObject in SceneObjects)
+        {
+            var component = gameObject.GetComponent<T>(false);
+
+            if (component is not null)
+                return component;
+        }
+
+        return ComponentRegistry.Instantiate<T>(this, typeof(T).Name);
     }
 }

@@ -21,6 +21,11 @@ public class PlayerController : GameComponent
         Raylib.DrawCircleV(Vector2.Zero, 1, Color.Red);
     }
 
+    public override void FixedUpdate()
+    {
+        EnemyManager.Instance.EnemyTargetPosition = Transform.Position;
+    }
+
     private Vector2 PlayerMoveInput()
     {
         var value = Vector2.Normalize(

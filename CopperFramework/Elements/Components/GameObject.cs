@@ -4,7 +4,7 @@ using CopperFramework.Scenes;
 
 namespace CopperFramework.Elements.Components;
 
-public sealed class GameObject : IEnumerable
+public class GameObject : IEnumerable
 {
     [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
@@ -51,7 +51,7 @@ public sealed class GameObject : IEnumerable
         return Components.GetEnumerator();
     }
 
-    public T GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
+    public T? GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
     {
         foreach (var component in Components)
         {

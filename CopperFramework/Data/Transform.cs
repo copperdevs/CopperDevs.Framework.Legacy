@@ -17,4 +17,9 @@ public struct Transform
     {
         Rotation = -MathF.Atan2(Position.Y - point.Y, Position.X - point.X) * (180 / MathF.PI) + 180;
     }
+
+    public float Distance(Vector2 position)
+    {
+        return Vector2.Distance(Position, position);
+    }
 }
