@@ -1,4 +1,5 @@
-﻿using CopperDearImGui;
+﻿using CopperDevs.Core.Utility;
+using CopperDevs.DearImGui;
 
 namespace TopDownShooter.Components;
 

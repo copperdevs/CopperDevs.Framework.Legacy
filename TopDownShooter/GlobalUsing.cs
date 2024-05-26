@@ -2,21 +2,20 @@
 global using System.Numerics;
 global using Raylib_cs;
 
-global using CopperFramework;
-global using CopperFramework.Elements.Components;
-global using CopperDearImGui.Attributes;
-global using CopperCore;
-global using CopperFramework.Data;
-global using CopperFramework.Ui;
-global using CopperFramework.Utility;
-global using CopperCore.Data;
-global using CopperCore.Utility;
+global using CopperDevs.Framework;
+global using CopperDevs.Framework.Elements.Components;
+global using CopperDevs.DearImGui.Attributes;
+global using CopperDevs.Core;
+global using CopperDevs.Framework.Data;
+global using CopperDevs.Framework.Ui;
+global using CopperDevs.Framework.Utility;
+global using CopperDevs.Core.Utility;
 
-global using Color = CopperFramework.Data.Color;
-global using Random = CopperFramework.Utility.Random;
-global using Transform = CopperFramework.Data.Transform;
-global using Shader = CopperFramework.Rendering.Shader;
-global using Font = CopperFramework.Rendering.Font;
+global using Color = CopperDevs.Framework.Data.Color;
+global using Random = CopperDevs.Framework.Utility.Random;
+global using Transform = CopperDevs.Framework.Data.Transform;
+global using Shader = CopperDevs.Framework.Rendering.Shader;
+global using Font = CopperDevs.Framework.Rendering.Font;
 
 global using rlTransform = Raylib_cs.Transform;
 global using rlColor = Raylib_cs.Color;

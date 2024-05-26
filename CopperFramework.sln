@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperFramework", "CopperFramework\CopperFramework.csproj", "{2A38C51D-C3D8-49CB-BD93-49EF4837E173}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDevs.Framework", "CopperDevs.Framework\CopperDevs.Framework.csproj", "{2A38C51D-C3D8-49CB-BD93-49EF4837E173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperFramework.Testing", "CopperFramework.Testing\CopperFramework.Testing.csproj", "{F2FF6B05-7A56-4AF9-878C-F013191A1C0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDevs.Framework.Testing", "CopperDevs.Framework.Testing\CopperDevs.Framework.Testing.csproj", "{F2FF6B05-7A56-4AF9-878C-F013191A1C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperCore", "CopperCore\CopperCore.csproj", "{5A5BF56F-9155-4061-A169-B0366854DE98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDevs.Core", "CopperDevs.Core\CopperDevs.Core.csproj", "{5A5BF56F-9155-4061-A169-B0366854DE98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDearImGui", "CopperDearImGui\CopperDearImGui.csproj", "{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopperDevs.DearImGui", "CopperDevs.DearImGui\CopperDevs.DearImGui.csproj", "{E159CBC6-20FA-4E37-8C72-A7A8C59B58DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{B0469968-E4D6-4D0E-A91E-69454700274D}"
 EndProject

@@ -1,4 +1,4 @@
-﻿using CopperFramework.Scenes;
+﻿using CopperDevs.Framework.Scenes;
 using TopDownShooter.Components;
 
 namespace TopDownShooter;

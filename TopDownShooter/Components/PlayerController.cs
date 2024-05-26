@@ -1,4 +1,7 @@
-﻿namespace TopDownShooter.Components;
+﻿using CopperDevs.Core.Utility;
+using CopperDevs.DearImGui.Attributes;
+
+namespace TopDownShooter.Components;
 
 public class PlayerController : GameComponent
 {
