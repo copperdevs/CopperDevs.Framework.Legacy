@@ -70,5 +70,7 @@ public class PlayerWeapon : GameComponent
             currentWeaponPresetIndex = 1;
         if (Input.IsKeyPressed(KeyboardKey.Three))
             currentWeaponPresetIndex = 2;
+
+        staticWeapon = this;
     }
 }

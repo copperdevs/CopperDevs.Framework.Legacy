@@ -1,4 +1,5 @@
-﻿using Force.DeepCloner;
+﻿using CopperDevs.Framework.Elements.Components;
+using Force.DeepCloner;
 
 namespace CopperDevs.Framework.Scenes;
 
@@ -11,12 +12,12 @@ public static class SceneManager
         get => GetCurrentScene();
         set => LoadScene(value);
     }
-    
+
     private static Scene? currentScene;
 
     public static Scene GetCurrentScene()
     {
-        if(currentScene is null && Scenes.Count >= 1) 
+        if (currentScene is null && Scenes.Count >= 1)
             currentScene = Scenes[Scenes.Keys.First()];
         currentScene ??= [];
         return currentScene;

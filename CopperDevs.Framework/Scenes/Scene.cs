@@ -13,7 +13,7 @@ public class Scene : IEnumerable<GameObject>
     {
         Id = Guid.NewGuid();
         DisplayName = Id.ToString();
-        
+
         SceneManager.RegisterScene(this);
     }
 
@@ -25,7 +25,7 @@ public class Scene : IEnumerable<GameObject>
     {
         DisplayName = displayName;
         Id = id;
-        
+
         SceneManager.RegisterScene(this);
     }
 
@@ -42,7 +42,7 @@ public class Scene : IEnumerable<GameObject>
     public void Remove(GameObject gameObject)
     {
         SceneObjects.Remove(gameObject);
-        
+
         gameObject.UpdateComponents(component => component.Stop());
     }
 
@@ -63,14 +63,20 @@ public class Scene : IEnumerable<GameObject>
 
     public T FindFirstObjectByType<T>() where T : GameComponent
     {
-        foreach (var gameObject in SceneObjects)
-        {
-            var component = gameObject.GetComponent<T>(false);
-
-            if (component is not null)
-                return component;
-        }
+        foreach (var component in SceneObjects.Select(gameObject => gameObject.GetComponent<T>(false)).OfType<T>())
+            return component;
 
         return ComponentRegistry.Instantiate<T>(this, typeof(T).Name);
+    }
+
+
+    public List<GameObject> GetAllObjectsWithComponent<T>() where T : GameComponent
+    {
+        return SceneObjects.Where(gameObject => gameObject.HasComponent<T>()).ToList();
+    }
+
+    public List<T> GetAllComponents<T>() where T : GameComponent
+    {
+        return GetAllObjectsWithComponent<T>().Select(foundObject => foundObject.GetComponent<T>()).Cast<T>().ToList();
     }
 }

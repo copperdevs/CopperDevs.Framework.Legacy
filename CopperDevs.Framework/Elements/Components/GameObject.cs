@@ -3,7 +3,7 @@ using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Elements.Components;
 
-public class GameObject : IEnumerable
+public class GameObject : IEnumerable<GameComponent>
 {
     [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
@@ -45,19 +45,12 @@ public class GameObject : IEnumerable
         Transform = gameComponent.Transform;
     }
 
-    public IEnumerator GetEnumerator()
-    {
-        return Components.GetEnumerator();
-    }
-
     public T? GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
     {
         foreach (var component in Components)
         {
             if (ComponentRegistry.AbstractChildren.Any(abstractChild => component.GetType().IsSubclassOf(abstractChild.Key)))
-            {
                 return (T)component;
-            }
 
             if (component.GetType() == typeof(T))
                 return (T)component;
@@ -74,5 +67,20 @@ public class GameObject : IEnumerable
     public GameComponent AddComponent(Type type)
     {
         return ComponentRegistry.Instantiate(type, this);
+    }
+
+    public IEnumerator<GameComponent> GetEnumerator()
+    {
+        return Components.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public bool HasComponent<T>() where T : GameComponent
+    {
+        return Components.Any(component => component.GetType() == typeof(T));
     }
 }

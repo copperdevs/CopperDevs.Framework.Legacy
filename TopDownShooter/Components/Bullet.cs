@@ -15,12 +15,19 @@ public class Bullet : GameComponent
 
     public override void Update()
     {
-        Transform.Position += (Transform.Rotation.ToRotatedUnitVector() * 8);
+        Transform.Position += Transform.Rotation.ToRotatedUnitVector() * 8;
         Raylib.DrawCircleV(Vector2.Zero, 6, Color.RayWhite);
 
         if (Vector2.Distance(startPosition, Transform.Position) > maxDistance)
         {
             SceneManager.ActiveScene.Remove(Parent);
+        }
+
+        // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+        foreach (var enemy in ParentScene?.GetAllComponents<Enemy>()!)
+        {
+            if(Vector2.Distance(Transform.Position, enemy.GetTransform().Position) <= 32)
+                ParentScene?.Remove(enemy.GetParent());
         }
     }
 
