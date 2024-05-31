@@ -29,7 +29,6 @@ public static class Extensions
         );
     }
 
-    // Extension method to convert a row-major Matrix4x4 to a column-major Matrix4x4
     public static Matrix4x4 ToColumnMajor(this Matrix4x4 rowMatrix)
     {
         return new Matrix4x4(
@@ -45,12 +44,11 @@ public static class Extensions
         return (int)(object)value;
     }
 
-    
     public static bool HasAttribute<T>(this object value) where T : Attribute
     {
         return value.GetType().IsDefined(typeof(T), false);
     }
-    
+
     public static bool HasAttribute<T>(this Type value) where T : Attribute
     {
         return value.IsDefined(typeof(T), false);

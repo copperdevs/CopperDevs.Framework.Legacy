@@ -7,7 +7,7 @@ public static class Program
     public static void Main()
     {
         var engine = new Engine(EngineSettings.Development);
-
+        
         var uiScreen = new UiScreen("testing-screen", "Testing Screen")
         {
             new Box("Background")
@@ -31,13 +31,13 @@ public static class Program
                 FontSize = 48
             }
         };
-
+        
         engine.OnLoad += () =>
         {
             uiScreen.Register();
             uiScreen.Load();
         };
-
+        
         engine.Run();
     }
 }

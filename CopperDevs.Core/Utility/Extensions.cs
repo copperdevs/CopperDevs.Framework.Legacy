@@ -11,7 +11,6 @@ public static class Extensions
     public static Vector3 ToEulerAngles(this Quaternion quaternion) => MathUtil.ToEulerAngles(quaternion);
     public static Vector3 Clamp(this Vector3 value, Vector3 min, Vector3 max) => MathUtil.Clamp(value, min, max);
     public static Vector2 ToRotatedUnitVector(this float value) => MathUtil.CreateRotatedUnitVector(value);
-    
     public static Vector2 WithX(this Vector2 vector, float value) => vector with { X = value };
     public static Vector2 WithY(this Vector2 vector, float value) => vector with { Y = value };
     public static Vector3 WithX(this Vector3 vector, float value) => vector with { X = value };
@@ -33,4 +32,7 @@ public static class Extensions
     public static Vector3 ToVector3(this Vector2 vector, float z = 0) => new(vector.X, vector.Y, z);
     public static Vector4 ToVector4(this Vector2 vector, float z = 0, float w = 0) => new(vector.X, vector.Y, z, w);
     public static Vector4 ToVector4(this Vector3 vector, float w = 0) => new(vector.X, vector.Y, vector.Z, w);
+    public static Vector2 ToVector2<T>(this T value) where T : INumber<T> => new((float)Convert.ChangeType(value, typeof(float)));
+    public static Vector3 ToVector3<T>(this T value) where T : INumber<T> => new((float)Convert.ChangeType(value, typeof(float)));
+    public static Vector4 ToVector4<T>(this T value) where T : INumber<T> => new((float)Convert.ChangeType(value, typeof(float)));
 }
