@@ -4,27 +4,27 @@ using System.Numerics;
 
 namespace CopperDevs.Core.Data;
 
-public struct Vector2Int : IEquatable<Vector2Int>, IFormattable
+public struct Vector3Int : IEquatable<Vector3Int>, IFormattable
 {
     public int X;
     public int Y;
+    public int Z;
 
-    public static Vector2Int Zero => default;
-    public static Vector2Int One => new(1);
-    public static Vector2Int UnitX => new(1, 0);
-    public static Vector2Int UnitY => new(0, 1);
+    public static Vector3Int Zero => default;
+    public static Vector3Int One => new(1);
 
-    public Vector2Int(int value) : this(value, value)
+    public Vector3Int(int value) : this(value, value, value)
     {
     }
 
-    public Vector2Int(int x, int y)
+    public Vector3Int(int x, int y, int z)
     {
         X = x;
         Y = y;
+        Z = z;
     }
 
-    public bool Equals(Vector2Int other)
+    public bool Equals(Vector3Int other)
     {
         return X.Equals(other.X) && Y.Equals(other.Y);
     }
@@ -50,59 +50,59 @@ public struct Vector2Int : IEquatable<Vector2Int>, IFormattable
         return obj is Vector2Int vector2Int && Equals(vector2Int);
     }
 
-    public static bool operator ==(Vector2Int left, Vector2Int right)
+    public static bool operator ==(Vector3Int left, Vector3Int right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(Vector2Int left, Vector2Int right)
+    public static bool operator !=(Vector3Int left, Vector3Int right)
     {
         return !(left == right);
     }
 
-    public static Vector2Int operator +(Vector2Int left, Vector2Int right)
+    public static Vector2Int operator +(Vector3Int left, Vector3Int right)
     {
         return new Vector2Int(left.X + right.X, left.Y + right.Y);
     }
 
-    public static Vector2Int operator /(Vector2Int left, Vector2Int right)
+    public static Vector2Int operator /(Vector3Int left, Vector3Int right)
     {
         return new Vector2Int(left.X / right.X, left.Y / right.Y);
     }
 
-    public static Vector2Int operator /(Vector2Int value1, int value2)
+    public static Vector2Int operator /(Vector3Int value1, int value2)
     {
-        return value1 / new Vector2Int(value2);
+        return value1 / new Vector3Int(value2);
     }
 
-    public static Vector2Int operator *(Vector2Int left, Vector2Int right)
+    public static Vector2Int operator *(Vector3Int left, Vector3Int right)
     {
         return new Vector2Int(left.X * right.X, left.Y * right.Y);
     }
 
-    public static Vector2Int operator *(Vector2Int left, int right)
+    public static Vector2Int operator *(Vector3Int left, int right)
     {
-        return left * new Vector2Int(right);
+        return left * new Vector3Int(right);
     }
 
-    public static Vector2Int operator *(int left, Vector2Int right)
+    public static Vector2Int operator *(int left, Vector3Int right)
     {
         return right * left;
     }
 
-    public static Vector2Int operator -(Vector2Int left, Vector2Int right)
+    public static Vector2Int operator -(Vector3Int left, Vector3Int right)
     {
         return new Vector2Int(left.X - right.X, left.Y - right.Y);
     }
 
-    public static implicit operator Vector2(Vector2Int value)
+    public static implicit operator Vector3(Vector3Int value)
     {
-        return new Vector2(value.X, value.Y);
+        return new Vector3(value.X, value.Y, value.Z);
     }
 
-    public static implicit operator Vector2Int(Vector2 value)
+    public static implicit operator Vector3Int(Vector3 value)
     {
-        return new Vector2Int((int)value.X, (int)value.Y);
+        return new Vector3Int((int)value.X, (int)value.Y, (int)value.Z);
     }
 
     public override int GetHashCode()
