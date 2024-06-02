@@ -52,14 +52,14 @@ public sealed class Shader : BaseRenderable
 
     public override void LoadRenderable()
     {
-        rlShader = Raylib.LoadShaderFromMemory(VertexShaderData, FragmentShaderData);
+        rlShader = rlShader.LoadFromMemory(VertexShaderData!, FragmentShaderData!);
         RenderingSystem.Instance.RegisterRenderableItem(this);
     }
 
     public override void UnLoadRenderable()
     {
         RenderingSystem.Instance.DeregisterRenderableItem(this);
-        Raylib.UnloadShader(rlShader);
+        rlShader.Unload();
     }
 
     public static implicit operator rlShader(Shader shader) => shader.rlShader;

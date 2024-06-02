@@ -1,10 +1,11 @@
 ﻿using CopperDevs.Core.Utility;
+using Raylib_CSharp.Interact;
 
 namespace CopperDevs.Framework.Data;
 
 public static class Input
 {
-    public static Vector2 MousePosition => Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), Engine.CurrentWindow.Camera).FlipY();
+    public static Vector2 MousePosition => Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition()).FlipY();
 
     public static float IsKeyDown(KeyboardKey upKey, KeyboardKey downKey)
     {
@@ -18,23 +19,18 @@ public static class Input
         {
             // down: 1
             // up: 0
-            var keyDownValue = Raylib.IsKeyDown(key) ? 1 : 0;
+            var keyDownValue = rlInput.IsKeyDown(key) ? 1 : 0;
             return float.IsNaN(keyDownValue) ? 0 : keyDownValue;
         }
     }
     
-    public static bool IsKeyDown(KeyboardKey key)
-    {
-        return Raylib.IsKeyDown(key);
-    }
-    
-    public static bool IsKeyPressed(KeyboardKey key)
-    {
-        return Raylib.IsKeyPressed(key);
-    }
-    
-    public static bool IsMouseButtonDown(MouseButton key)
-    {
-        return Raylib.IsMouseButtonDown(key);
-    }
+    public static bool IsKeyDown(KeyboardKey key) => rlInput.IsKeyDown(key);
+
+    public static bool IsKeyPressed(KeyboardKey key) => rlInput.IsKeyPressed(key);
+
+    public static bool IsMouseButtonDown(MouseButton key) => rlInput.IsMouseButtonDown(key);
+
+    public static bool IsMouseButtonPressed(MouseButton button) => rlInput.IsMouseButtonPressed(button);
+
+    public static bool IsMouseButtonReleased(MouseButton button) => rlInput.IsMouseButtonReleased(button);
 }

@@ -16,6 +16,6 @@ public class Box : UiElement
 
     public override void DrawElement()
     {
-        Raylib.DrawRectangleV(ScaledPosition, ScaledSize, Color);
+        rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, Color);
     }
 }

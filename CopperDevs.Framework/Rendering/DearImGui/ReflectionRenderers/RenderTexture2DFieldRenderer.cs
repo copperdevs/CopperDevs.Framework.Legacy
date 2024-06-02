@@ -2,6 +2,7 @@
 using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.ReflectionRenderers;
+using Raylib_CSharp.Textures;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
 

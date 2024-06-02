@@ -14,7 +14,7 @@ public class Enemy : GameComponent
 
     public override void Update()
     {
-        Raylib.DrawCircle(0, 0, 1, Color.Blue);
+        rlGraphics.DrawCircle(0, 0, 1, Color.Blue);
 
         if (Transform.Distance(TargetPosition) < 32) 
             SceneManager.ActiveScene.Remove(Parent);
@@ -28,6 +28,6 @@ public class Enemy : GameComponent
 
     public override void DebugUpdate()
     {
-        Raylib.DrawLineV(Transform.Position.FlipY(), TargetPosition.FlipY(), Color.Green);
+        rlGraphics.DrawLineV(Transform.Position.FlipY(), TargetPosition.FlipY(), Color.Green);
     }
 }

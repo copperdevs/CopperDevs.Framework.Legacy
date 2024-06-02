@@ -1,4 +1,7 @@
-﻿namespace CopperDevs.Framework.Elements.Systems;
+﻿
+using Raylib_CSharp.Interact;
+
+namespace CopperDevs.Framework.Elements.Systems;
 
 public class DebugSystem : BaseSystem<DebugSystem>
 {

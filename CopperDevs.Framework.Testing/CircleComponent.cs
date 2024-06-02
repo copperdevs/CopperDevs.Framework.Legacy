@@ -1,4 +1,6 @@
 ﻿
+using Raylib_CSharp.Rendering;
+
 namespace CopperDevs.Framework.Testing;
 
 public class CircleComponent : GameComponent
@@ -7,6 +9,6 @@ public class CircleComponent : GameComponent
     
     public override void Update()
     {
-        Raylib.DrawCircle(0, 0, 1, circleColor);
+        rlGraphics.DrawCircle(0, 0, 1, circleColor);
     }
 }

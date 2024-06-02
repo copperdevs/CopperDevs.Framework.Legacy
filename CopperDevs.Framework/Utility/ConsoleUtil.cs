@@ -1,17 +1,15 @@
 ﻿using System.Runtime.InteropServices;
 using CopperDevs.Core;
+using Raylib_CSharp.Logging;
 
 namespace CopperDevs.Framework.Utility;
 
-public static unsafe class ConsoleUtil
+public static unsafe partial class ConsoleUtil
 {
-    // ReSharper disable once UseCollectionExpression
-    [UnmanagedCallersOnly(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-    private static void RayLibLog(int msgType, sbyte* text, sbyte* args)
+    private static bool RayLibLog(TraceLogLevel level, string message)
     {
-        var message = Logging.GetLogMessage(new IntPtr(text), new IntPtr(args));
-
-        switch ((TraceLogLevel)msgType)
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+        switch (level)
         {
             case TraceLogLevel.Info:
                 Log.Info(message);
@@ -26,19 +24,23 @@ public static unsafe class ConsoleUtil
                 Log.Info(message);
                 break;
         }
+
+        return true;
     }
 
     internal static void Initialize()
     {
-        Raylib.SetTraceLogCallback(&RayLibLog);
-        Raylib.SetTraceLogLevel(TraceLogLevel.All);
+        Logger.Init();
+        Logger.Message += RayLibLog;
+        Logger.SetTraceLogLevel(TraceLogLevel.All);
     }
     
-    [DllImport("kernel32.dll")]
-    private static extern IntPtr GetConsoleWindow();
+    [LibraryImport("kernel32.dll")]
+    private static partial IntPtr GetConsoleWindow();
 
-    [DllImport("user32.dll")]
-    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
     private const int SW_HIDE = 0;
     private const int SW_SHOW = 5;

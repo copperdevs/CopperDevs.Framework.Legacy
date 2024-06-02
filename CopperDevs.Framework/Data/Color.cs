@@ -1,4 +1,6 @@
-﻿namespace CopperDevs.Framework.Data;
+﻿using CopperDevs.Core.Utility;
+
+namespace CopperDevs.Framework.Data;
 
 public struct Color
 {
@@ -66,7 +68,7 @@ public struct Color
 
     public static implicit operator rlColor(Color color)
     {
-        return new rlColor((int)color.R, (int)color.G, (int)color.B, (int)color.A);
+        return new rlColor((byte)color.R, (byte)color.G, (byte)color.B, (byte)color.A);
     }
 
     public static implicit operator Color(rlColor color)

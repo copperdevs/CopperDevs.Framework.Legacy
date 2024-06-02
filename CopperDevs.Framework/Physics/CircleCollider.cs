@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Framework.Attributes;
+using Raylib_CSharp.Rendering;
 
 namespace CopperDevs.Framework.Physics;
 
@@ -7,6 +8,6 @@ public class CircleCollider : Collider
 {
     public override void DebugUpdate()
     {
-        Raylib.DrawCircleV(Vector2.Zero, 1, Color.Green);
+        rlGraphics.DrawCircleV(Vector2.Zero, 1, Color.Green);
     }
 }

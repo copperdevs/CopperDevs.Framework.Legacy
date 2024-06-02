@@ -1,5 +1,7 @@
 ﻿using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui.Attributes;
+using Raylib_CSharp.Collision;
+using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;
 
@@ -21,7 +23,7 @@ public class PlayerController : GameComponent
         Transform.Position += moveInput * moveSpeed;
         Transform.LookAt(Input.MousePosition);
 
-        Raylib.DrawCircleV(Vector2.Zero, 1, Color.Red);
+        rlGraphics.DrawCircleV(Vector2.Zero, 1, Color.Red);
     }
 
     public override void FixedUpdate()
@@ -49,11 +51,10 @@ public class PlayerController : GameComponent
     {
         var playerPos = Transform.Position.FlipY();
 
-        Raylib.DrawLineV(playerPos, playerPos + (moveInput.FlipY() * Transform.Scale), Color.Green);
-        Raylib.DrawLineV(playerPos, playerPos + (PlayerMoveInput().FlipY() * Transform.Scale), Color.Blue);
+        rlGraphics.DrawLineV(playerPos, playerPos + (moveInput.FlipY() * Transform.Scale), Color.Green);
+        rlGraphics.DrawLineV(playerPos, playerPos + (PlayerMoveInput().FlipY() * Transform.Scale), Color.Blue);
 
-        var directionRay = new Ray(new Vector3(playerPos.X, playerPos.Y, 0),
-            Transform.Rotation.ToRotatedUnitVector().FlipY().ToVector3());
-        Raylib.DrawRay(directionRay, Color.Red);
+        var directionRay = new Ray(new Vector3(playerPos.X, playerPos.Y, 0), Transform.Rotation.ToRotatedUnitVector().FlipY().ToVector3());
+        rlGraphics.DrawRay(directionRay, Color.Red);
     }
 }

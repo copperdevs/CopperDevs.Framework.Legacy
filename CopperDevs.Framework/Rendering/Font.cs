@@ -1,4 +1,8 @@
-﻿namespace CopperDevs.Framework.Rendering;
+﻿using Raylib_CSharp.Fonts;
+using Raylib_CSharp.Textures;
+using Raylib_CSharp.Transformations;
+
+namespace CopperDevs.Framework.Rendering;
 
 public class Font : BaseRenderable
 {
@@ -11,8 +15,6 @@ public class Font : BaseRenderable
     public int GlyphCount => font.GlyphCount;
     public int GlyphPadding => font.GlyphPadding;
     public Texture2D Texture => font.Texture;
-    public unsafe Rectangle* Recs => font.Recs;
-    public unsafe GlyphInfo* Glyphs => font.Glyphs;
 
     // loading stuff
     private readonly byte[]? fontData;
@@ -35,11 +37,11 @@ public class Font : BaseRenderable
     public override void LoadRenderable()
     {
         if (fontData is not null)
-            font = Raylib.LoadFontFromMemory(".ttf", fontData, 144, null, 256);
+            font = rlFont.LoadFromMemory(".ttf", fontData, 144, null);
         else if (fontPath is not null)
-            font = Raylib.LoadFont(fontPath);
+            font = rlFont.Load(fontPath);
         else
-            font = Raylib.GetFontDefault();
+            font = rlFont.GetDefault();
         
         RenderingSystem.Instance.RegisterRenderableItem(this);
     }
@@ -47,7 +49,7 @@ public class Font : BaseRenderable
     public override void UnLoadRenderable()
     {
         RenderingSystem.Instance.DeregisterRenderableItem(this);
-        Raylib.UnloadFont(font);
+        font.Unload();
     }
 
     public static implicit operator rlFont(Font font) => font.font;

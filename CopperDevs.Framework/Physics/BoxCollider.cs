@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Framework.Attributes;
+using Raylib_CSharp.Rendering;
 
 namespace CopperDevs.Framework.Physics;
 
@@ -11,6 +12,6 @@ public class BoxCollider : Collider
 
     public override void DebugUpdate()
     {
-        Raylib.DrawRectangle(-1, -1, 2, 2, Color.Green);
+        rlGraphics.DrawRectangle(-1, -1, 2, 2, Color.Green);
     }
 }

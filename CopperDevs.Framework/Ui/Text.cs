@@ -11,7 +11,7 @@ public class Text : UiElement
     
     public override void DrawElement()
     {
-        Raylib.DrawTextEx(RenderingSystem.Instance.GetRenderableItems<Font>()[0], TextValue, ScaledPosition, FontSize, TextSpacing, TextColor);
+        rlGraphics.DrawTextEx(RenderingSystem.Instance.GetRenderableItems<Font>()[0], TextValue, ScaledPosition, FontSize, TextSpacing, TextColor);
     }
 
     public Text() : base("Unnamed Text")

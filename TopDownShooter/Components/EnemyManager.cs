@@ -1,5 +1,6 @@
 ﻿using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
+using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;
 
@@ -41,14 +42,14 @@ public class EnemyManager : SingletonGameComponent<EnemyManager>
         if (!IsCurrentInspectionTarget())
             return;
 
-        Raylib.DrawCircleLinesV(EnemyTargetPosition.FlipY(), spawnRadius.X, Color.Green);
-        Raylib.DrawCircleLinesV(EnemyTargetPosition.FlipY(), spawnRadius.Y, Color.DarkGreen);
+        rlGraphics.DrawCircleLinesV(EnemyTargetPosition.FlipY(), spawnRadius.X, Color.Green);
+        rlGraphics.DrawCircleLinesV(EnemyTargetPosition.FlipY(), spawnRadius.Y, Color.DarkGreen);
 
-        Raylib.DrawCircleV(EnemyTargetPosition.FlipY(), 8, Color.Red);
+        rlGraphics.DrawCircleV(EnemyTargetPosition.FlipY(), 8, Color.Red);
 
         foreach (var position in previousSpawnPositions)
         {
-            Raylib.DrawCircleV(position.FlipY(), 4, Color.Red);
+            rlGraphics.DrawCircleV(position.FlipY(), 4, Color.Red);
         }
 
         if (!CopperImGui.AnyElementHovered && Input.IsMouseButtonDown(MouseButton.Left))

@@ -7,14 +7,14 @@ namespace CopperDevs.Framework.Elements.Components;
 
 public class ParticleSystem : GameComponent
 {
-    [Seperator("Settings")] 
+    [Seperator("Settings")]
     [Range(16, 512), Exposed] private float maxParticles = 128;
     [Range(.01f, 10), Exposed] private Vector2 lifetimeRandomRange = new(2.5f, 5f);
     [Range(.01f, 10), Exposed] private Vector2 speedRandomRange = new(1.5f, 5.25f);
     [Range(1, 128), Exposed] private Vector2 sizeRandomRange = new(16, 32);
     [Exposed] private List<Color> particleColors = new() { Color.White };
 
-    [Seperator] 
+    [Seperator]
     [Exposed] private bool isActive = true;
     [Exposed] private bool destroyComponentOnZeroParticles = false;
     [Exposed] private bool destroyObjectOnZeroParticles = false;
@@ -34,13 +34,13 @@ public class ParticleSystem : GameComponent
     {
         var particle = new Particle
         {
-            Lifetime = Utility.Random.Range(lifetimeRandomRange),
-            Speed = Utility.Random.Range(speedRandomRange),
-            Color = Utility.Random.Item(particleColors, Color.White),
+            Lifetime = Random.Range(lifetimeRandomRange),
+            Speed = Random.Range(speedRandomRange),
+            Color = Random.Item(particleColors, Color.White),
             Transform = new Transform
             {
                 Position = Transform.Position,
-                Scale = Utility.Random.Range(sizeRandomRange),
+                Scale = Random.Range(sizeRandomRange),
                 Rotation = Random.Range(360)
             },
         };
@@ -52,8 +52,7 @@ public class ParticleSystem : GameComponent
         foreach (var particle in particles)
         {
             particle.Lifetime -= Time.DeltaTime;
-            particle.Transform.Position +=
-                MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed;
+            particle.Transform.Position += MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed;
         }
     }
 
@@ -61,8 +60,7 @@ public class ParticleSystem : GameComponent
     {
         foreach (var particle in particles)
         {
-            Raylib.DrawCircleV(particle.Transform.Position - Transform.Position, particle.Transform.Scale,
-                particle.Color);
+            rlGraphics.DrawCircleV(particle.Transform.Position - Transform.Position, particle.Transform.Scale, particle.Color);
         }
     }
 
@@ -90,7 +88,7 @@ public class ParticleSystem : GameComponent
 
     public override void DebugUpdate()
     {
-        Raylib.DrawCircleV(Vector2.Zero, 8, Color.Red);
+        rlGraphics.DrawCircleV(Vector2.Zero, 8, Color.Red);
     }
 
 

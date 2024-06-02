@@ -45,7 +45,7 @@ public class Engine : Singleton<Engine>
     {
         Start();
 
-        while (!Raylib.WindowShouldClose() && ShouldRun)
+        while (!rlWindow.ShouldClose() && ShouldRun)
             Update();
 
         Stop();

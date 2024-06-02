@@ -11,12 +11,12 @@ public class ShaderScope : Scope
         this.condition = condition;
         
         if(condition)
-            Raylib.BeginShaderMode(shader);
+            rlGraphics.BeginShaderMode(shader);
     }
     
     protected override void CloseScope()
     {
         if(condition)
-            Raylib.EndShaderMode();
+            rlGraphics.EndShaderMode();
     }
 }

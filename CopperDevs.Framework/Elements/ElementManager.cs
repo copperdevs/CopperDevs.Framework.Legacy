@@ -66,10 +66,10 @@ internal static class ElementManager
         {
             foreach (var gameObject in components)
             {
-                Rlgl.PushMatrix();
-                Rlgl.Translatef(gameObject.Transform.Position.X, -gameObject.Transform.Position.Y, 0);
-                Rlgl.Rotatef(gameObject.Transform.Rotation, 0, 0, -1);
-                Rlgl.Scalef(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
+                RlGl.PushMatrix();
+                RlGl.TranslateF(gameObject.Transform.Position.X, -gameObject.Transform.Position.Y, 0);
+                RlGl.RotateF(gameObject.Transform.Rotation, 0, 0, -1);
+                RlGl.ScaleF(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
 
                 gameObject.UpdateComponents(component =>
                 {
@@ -78,7 +78,7 @@ internal static class ElementManager
                     gameObject.Transform = component.Transform;
                 });
 
-                Rlgl.PopMatrix();
+                RlGl.PopMatrix();
             }
         }
         else

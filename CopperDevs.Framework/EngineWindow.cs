@@ -1,12 +1,15 @@
 ﻿using System.Reflection;
+using CopperDevs.Core.Data;
 using CopperDevs.Framework.Utility;
-using static Raylib_cs.Raylib;
+using Raylib_CSharp.Audio;
+using Raylib_CSharp.Textures;
+using Raylib_CSharp.Transformations;
 
 namespace CopperDevs.Framework;
 
 public class EngineWindow
 {
-    public static Vector2 Size => new(GetScreenWidth(), GetScreenHeight());
+    public static Vector2Int Size => new(rlWindow.GetScreenWidth(), rlWindow.GetScreenHeight());
     
     public EngineWindow(EngineSettings settings)
     {
@@ -20,7 +23,7 @@ public class EngineWindow
     internal static float FixedDeltaTime = 0;
     private const float FixedFrameTime = 0.02f;
 
-    public RenderTexture2D RenderTexture { get; private set; }
+    public rlRenderTexture RenderTexture { get; private set; }
     public bool ScreenShaderEnabled = true;
     
     public Shader? ScreenShader { get; private set; }
@@ -31,10 +34,10 @@ public class EngineWindow
 
     public void Start()
     {
-        SetConfigFlags(settings.WindowFlags);
-        InitWindow(settings.WindowSize.X, settings.WindowSize.Y, string.IsNullOrWhiteSpace(settings.WindowTitle) ? Assembly.GetEntryAssembly()?.FullName : settings.WindowTitle);
-        InitAudioDevice();
-        SetTargetFPS(settings.TargetFps);
+        Raylib.SetConfigFlags(settings.WindowFlags);
+        rlWindow.Init(settings.WindowSize.X, settings.WindowSize.Y, (string.IsNullOrWhiteSpace(settings.WindowTitle) ? Assembly.GetEntryAssembly()?.FullName : settings.WindowTitle)!);
+        rlAudio.Init();
+        rlTime.SetTargetFPS(settings.TargetFps);
 
         Camera = new EngineWindowCamera
         {
@@ -43,7 +46,7 @@ public class EngineWindow
             Zoom = 1
         };
 
-        RenderTexture = LoadRenderTexture(settings.WindowSize.X, settings.WindowSize.Y);
+        RenderTexture = rlRenderTexture.Load(settings.WindowSize.X, settings.WindowSize.Y);
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
@@ -55,39 +58,39 @@ public class EngineWindow
             fixedUpdate.Invoke();
         }
         
-        if (IsWindowResized())
+        if (rlWindow.IsResized())
         {
-            UnloadRenderTexture(RenderTexture);
-            RenderTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+            RenderTexture.Unload();
+            RenderTexture = rlRenderTexture.Load(Size.X, Size.Y);
         }
         
-        BeginTextureMode(RenderTexture);
+        rlGraphics.BeginTextureMode(RenderTexture);
         
-        BeginDrawing();
-        ClearBackground(BackgroundColor);
+        rlGraphics.BeginDrawing();
+        rlGraphics.ClearBackground(BackgroundColor);
         
-        BeginMode2D(Camera);
+        rlGraphics.BeginMode2D(Camera);
         
         cameraRenderUpdate.Invoke();
         
-        EndMode2D();
+        rlGraphics.EndMode2D();
         
-        EndTextureMode();
+        rlGraphics.EndTextureMode();
         
         using (new ShaderScope(ScreenShader!, (ScreenShader is not null) && ScreenShaderEnabled))
         {
-            DrawTextureRec(RenderTexture.Texture, new Rectangle(0, 0, RenderTexture.Texture.Width, -RenderTexture.Texture.Height), Vector2.Zero, Color.White);
+            rlGraphics.DrawTextureRec(RenderTexture.Texture, new Rectangle(0, 0, RenderTexture.Texture.Width, -RenderTexture.Texture.Height), Vector2.Zero, Color.White);
         }
         
         uiRenderUpdate.Invoke();
         
-        EndDrawing();
+        rlGraphics.EndDrawing();
     }
 
     public void Shutdown()
     {
-        CloseAudioDevice();
-        CloseWindow();
+        rlAudio.Close();
+        rlWindow.Close();
     }
 
     public struct EngineWindowCamera
@@ -124,5 +127,17 @@ public class EngineWindow
             get => camera2D.Rotation;
             set => camera2D.Rotation = value;
         }
+        
+        public Vector2 GetScreenToWorld(Vector2 position)
+        {
+            return camera2D.GetScreenToWorld(position);
+        }
+
+        public Vector2 GetWorldToScreen(Vector2 position)
+        {
+            return camera2D.GetWorldToScreen(position);
+        }
+
+        public Matrix4x4 GetMatrix() => camera2D.GetMatrix();
     }
 }
