@@ -1,6 +1,7 @@
-﻿using SystemRandom = System.Random;
+﻿using System.Numerics;
+using SystemRandom = System.Random;
 
-namespace CopperDevs.Framework.Utility;
+namespace CopperDevs.Core.Utility;
 
 public static class Random
 {

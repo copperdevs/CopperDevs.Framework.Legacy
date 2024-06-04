@@ -70,7 +70,7 @@ public static class ComponentRegistry
         var targetType = type;
 
         if (AbstractChildren.TryGetValue(type, out var childTypes))
-            targetType = Utility.Random.Item(childTypes);
+            targetType = Random.Item(childTypes);
 
         var createdComponent = Activator.CreateInstance(targetType) as GameComponent ?? null!;
         targetObject.Add(createdComponent);

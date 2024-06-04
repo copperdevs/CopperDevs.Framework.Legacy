@@ -1,5 +1,5 @@
-﻿using CopperDevs.DearImGui.Attributes;
-using CopperDevs.Framework.Utility;
+﻿using CopperDevs.Core.Utility;
+using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.Framework.Ui;
 

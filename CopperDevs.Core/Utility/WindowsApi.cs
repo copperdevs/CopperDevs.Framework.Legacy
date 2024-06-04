@@ -1,11 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace CopperDevs.Framework.Utility;
+namespace CopperDevs.Core.Utility;
 
 public static partial class WindowsApi
 {
     private static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-    private static IntPtr WindowHandle => rlWindow.GetHandle();
     private static int IntSize => sizeof(int);
 
     [LibraryImport("dwmapi.dll")]
@@ -20,37 +19,37 @@ public static partial class WindowsApi
     [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool ShowWindow(IntPtr hWnd, int nCmdShow);
-    
+
     [LibraryImport("user32.dll")]
     private static partial IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
-    public static void SetDwmWindowAttribute(WindowAttribute dwAttribute, int pvAttribute)
+    public static void SetDwmWindowAttribute(IntPtr windowHandle, WindowAttribute dwAttribute, int pvAttribute)
     {
-        DwmSetWindowAttribute(WindowHandle, dwAttribute, ref pvAttribute, IntSize);
+        DwmSetWindowAttribute(windowHandle, dwAttribute, ref pvAttribute, IntSize);
     }
 
-    public static void SetDwmImmersiveDarkMode(bool enableDarkMode)
+    public static void SetDwmImmersiveDarkMode(IntPtr windowHandle, bool enableDarkMode)
     {
         if (IsWindows)
-            SetDwmWindowAttribute(WindowAttribute.UseImmersiveDarkMode, enableDarkMode.ToInt());
+            SetDwmWindowAttribute(windowHandle, WindowAttribute.UseImmersiveDarkMode, enableDarkMode.ToInt());
     }
 
-    public static void SetDwmSystemBackdropType(SystemBackdropType backdropType)
+    public static void SetDwmSystemBackdropType(IntPtr windowHandle, SystemBackdropType backdropType)
     {
         if (IsWindows)
-            SetDwmWindowAttribute(WindowAttribute.SystemBackdropType, (int)backdropType);
+            SetDwmWindowAttribute(windowHandle, WindowAttribute.SystemBackdropType, (int)backdropType);
     }
 
-    public static void SetDwmWindowCornerPreference(WindowCornerPreference preference)
+    public static void SetDwmWindowCornerPreference(IntPtr windowHandle, WindowCornerPreference preference)
     {
         if (IsWindows)
-            SetDwmWindowAttribute(WindowAttribute.WindowCornerPreference, (int)preference);
+            SetDwmWindowAttribute(windowHandle, WindowAttribute.WindowCornerPreference, (int)preference);
     }
 
-    public static void ExtendFrameIntoClientArea(Margins margins)
+    public static void ExtendFrameIntoClientArea(IntPtr windowHandle, Margins margins)
     {
         if (IsWindows)
-            DwmExtendFrameIntoClientArea(WindowHandle, ref margins);
+            DwmExtendFrameIntoClientArea(windowHandle, ref margins);
     }
 
     public static IntPtr GetConsoleWindowPointer()
@@ -70,7 +69,7 @@ public static partial class WindowsApi
     {
         SetParent(child, parent);
     }
-    
+
     public enum WindowAttribute
     {
         UseImmersiveDarkMode = 20,

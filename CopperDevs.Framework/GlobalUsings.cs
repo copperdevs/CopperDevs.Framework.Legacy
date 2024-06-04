@@ -4,7 +4,7 @@ global using CopperDevs.Framework.Data;
 global using Raylib_CSharp;
 
 global using Color = CopperDevs.Framework.Data.Color;
-global using Random = CopperDevs.Framework.Utility.Random;
+global using Random = CopperDevs.Core.Utility.Random;
 global using Transform = CopperDevs.Framework.Data.Transform;
 global using Shader = CopperDevs.Framework.Rendering.Shader;
 global using Font = CopperDevs.Framework.Rendering.Font;

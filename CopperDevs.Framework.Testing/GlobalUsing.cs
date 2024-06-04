@@ -12,7 +12,7 @@ global using CopperDevs.Framework.Utility;
 global using CopperDevs.Core.Utility;
 
 global using Color = CopperDevs.Framework.Data.Color;
-global using Random = CopperDevs.Framework.Utility.Random;
+global using Random = CopperDevs.Core.Utility.Random;
 global using Transform = CopperDevs.Framework.Data.Transform;
 global using Shader = CopperDevs.Framework.Rendering.Shader;
 global using Font = CopperDevs.Framework.Rendering.Font;

@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 using CopperDevs.Core;
+using CopperDevs.Core.Utility;
 using CopperDevs.Framework.Utility;
 using ImGuiNET;
 using Raylib_CSharp.Images;
