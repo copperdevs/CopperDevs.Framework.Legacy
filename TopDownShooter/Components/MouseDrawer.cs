@@ -18,6 +18,6 @@ public class MouseDrawer : GameComponent
 
     public override void DebugUpdate()
     {
-        rlGraphics.DrawCircleV(Input.MousePosition.FlipY(), 8, Color.Red);
+        rlGraphics.DrawCircleV(Input.MousePosition, 8, Color.Red);
     }
 }

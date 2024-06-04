@@ -5,7 +5,7 @@ namespace CopperDevs.Framework.Data;
 
 public static class Input
 {
-    public static Vector2 MousePosition => Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition()).FlipY();
+    public static Vector2 MousePosition => Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
 
     public static float IsKeyDown(KeyboardKey upKey, KeyboardKey downKey)
     {

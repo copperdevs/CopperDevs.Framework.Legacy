@@ -27,6 +27,6 @@ public class Enemy : GameComponent
 
     public override void DebugUpdate()
     {
-        rlGraphics.DrawLineV(Transform.Position.FlipY(), TargetPosition.FlipY(), Color.Green);
+        rlGraphics.DrawLineV(Transform.Position, TargetPosition, Color.Green);
     }
 }

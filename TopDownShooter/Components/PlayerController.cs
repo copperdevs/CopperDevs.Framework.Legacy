@@ -34,7 +34,7 @@ public class PlayerController : GameComponent
         var value = Vector2.Normalize(
             new Vector2(
                 Input.IsKeyDown(KeyboardKey.D, KeyboardKey.A),
-                Input.IsKeyDown(KeyboardKey.W, KeyboardKey.S)
+                Input.IsKeyDown(KeyboardKey.S, KeyboardKey.W)
             ));
 
         if (float.IsNaN(value.X))
@@ -47,12 +47,12 @@ public class PlayerController : GameComponent
 
     public override void DebugUpdate()
     {
-        var playerPos = Transform.Position.FlipY();
+        var playerPos = Transform.Position;
 
-        rlGraphics.DrawLineV(playerPos, playerPos + (moveInput.FlipY() * Transform.Scale), Color.Green);
-        rlGraphics.DrawLineV(playerPos, playerPos + (PlayerMoveInput().FlipY() * Transform.Scale), Color.Blue);
+        rlGraphics.DrawLineV(playerPos, playerPos + (moveInput * Transform.Scale), Color.Green);
+        rlGraphics.DrawLineV(playerPos, playerPos + (PlayerMoveInput() * Transform.Scale), Color.Blue);
 
-        var directionRay = new Ray(new Vector3(playerPos.X, playerPos.Y, 0), Transform.Rotation.ToRotatedUnitVector().FlipY().ToVector3());
+        var directionRay = new Ray(new Vector3(playerPos.X, playerPos.Y, 0), Transform.Rotation.ToRotatedUnitVector().ToVector3());
         rlGraphics.DrawRay(directionRay, Color.Red);
     }
 }

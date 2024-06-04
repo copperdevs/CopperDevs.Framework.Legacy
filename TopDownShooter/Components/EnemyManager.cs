@@ -41,14 +41,14 @@ public class EnemyManager : SingletonGameComponent<EnemyManager>
         if (!IsCurrentInspectionTarget())
             return;
 
-        rlGraphics.DrawCircleLinesV(EnemyTargetPosition.FlipY(), spawnRadius.X, Color.Green);
-        rlGraphics.DrawCircleLinesV(EnemyTargetPosition.FlipY(), spawnRadius.Y, Color.DarkGreen);
+        rlGraphics.DrawCircleLinesV(EnemyTargetPosition, spawnRadius.X, Color.Green);
+        rlGraphics.DrawCircleLinesV(EnemyTargetPosition, spawnRadius.Y, Color.DarkGreen);
 
-        rlGraphics.DrawCircleV(EnemyTargetPosition.FlipY(), 8, Color.Red);
+        rlGraphics.DrawCircleV(EnemyTargetPosition, 8, Color.Red);
 
         foreach (var position in previousSpawnPositions)
         {
-            rlGraphics.DrawCircleV(position.FlipY(), 4, Color.Red);
+            rlGraphics.DrawCircleV(position, 4, Color.Red);
         }
 
         if (!CopperImGui.AnyElementHovered && Input.IsMouseButtonDown(MouseButton.Left))

@@ -59,7 +59,7 @@ public class Engine : Singleton<Engine>
 
         ElementManager.Initialize();
 
-        OnLoad.Invoke();
+        OnLoad?.Invoke();
 
         Log.Info($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }

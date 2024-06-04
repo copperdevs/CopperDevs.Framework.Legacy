@@ -43,7 +43,7 @@ public static class rlImGui
     /// <summary>
     /// Callback for cases where the user wants to install additional fonts.
     /// </summary>
-    private static readonly SetupUserFontsCallback SetupUserFonts = null!;
+    private static SetupUserFontsCallback SetupUserFonts = null!;
 
     /// <summary>
     /// Sets up ImGui, loads fonts and themes
@@ -331,7 +331,7 @@ public static class rlImGui
 
         var io = ImGui.GetIO();
 
-        SetupUserFonts.Invoke(io);
+        SetupUserFonts?.Invoke(io);
 
         io.BackendFlags |= ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos | ImGuiBackendFlags.HasGamepad;
 
