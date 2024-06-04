@@ -4,13 +4,12 @@ using Raylib_CSharp.Windowing;
 
 namespace CopperDevs.Framework.Data;
 
+[HideInInspector]
 public class EngineSettings
 {
-    [HideInInspector] public ConfigFlags WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint |
-                                                       ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow;
-
+    public ConfigFlags WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow;
     public Vector2Int WindowSize = new(650, 400);
-    [Range(-1, 10000)] public int TargetFps = 60;
+    public int TargetFps = 60;
     public string WindowTitle = "Window";
     public bool DisableDevTools = true;
     public bool EnableDevToolsAtStart;

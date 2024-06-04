@@ -6,7 +6,7 @@ namespace CopperDevs.Core.Utility;
 public static class Random
 {
     private static readonly SystemRandom SystemRandom = new(new Guid().GetHashCode());
-    
+
     public static Vector2 InsideUnitCircle
     {
         get
@@ -15,7 +15,7 @@ public static class Random
             return new Vector2(MathF.Cos(theta), MathF.Sin(theta) * MathF.Sqrt(Range(0, 1f)));
         }
     }
-    
+
     public static float Range(float min, float max)
     {
         if ((int)(MathF.Round(min * 1000) / 1000) == (int)(MathF.Round(max * 1000) / 1000))
@@ -62,14 +62,14 @@ public static class Random
     {
         return items.Count is 0 ? defaultValue : items[SystemRandom.Next(items.Count - 1)];
     }
-    
-    public static Vector2 PointInAnnulus(Vector2 origin, float minRadius, float maxRadius){
- 
+
+    public static Vector2 PointInAnnulus(Vector2 origin, float minRadius, float maxRadius)
+    {
         var randomDirection = Vector2.Normalize(InsideUnitCircle * origin);
         var randomDistance = Range(minRadius, maxRadius);
         return origin + randomDirection * randomDistance;
     }
-    
+
     public static Vector2 PointInAnnulus(Vector2 origin, Vector2 radius)
     {
         return PointInAnnulus(origin, radius.X, radius.Y);

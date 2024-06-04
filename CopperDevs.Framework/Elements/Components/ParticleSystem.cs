@@ -12,14 +12,14 @@ public class ParticleSystem : GameComponent
     [Range(.01f, 10), Exposed] private Vector2 lifetimeRandomRange = new(2.5f, 5f);
     [Range(.01f, 10), Exposed] private Vector2 speedRandomRange = new(1.5f, 5.25f);
     [Range(1, 128), Exposed] private Vector2 sizeRandomRange = new(16, 32);
-    [Exposed] private List<Color> particleColors = new() { Color.White };
+    [Exposed] private List<Color> particleColors = [Color.White];
 
     [Seperator]
     [Exposed] private bool isActive = true;
     [Exposed] private bool destroyComponentOnZeroParticles = false;
     [Exposed] private bool destroyObjectOnZeroParticles = false;
 
-    [Seperator("Info")] [Exposed] private List<Particle> particles = new();
+    [Seperator("Info")] [Exposed] private List<Particle> particles = [];
 
     public override void Update()
     {

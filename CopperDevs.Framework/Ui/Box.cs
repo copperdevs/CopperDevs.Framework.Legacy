@@ -1,5 +1,4 @@
-﻿
-namespace CopperDevs.Framework.Ui;
+﻿namespace CopperDevs.Framework.Ui;
 
 public class Box : UiElement
 {
@@ -7,9 +6,8 @@ public class Box : UiElement
 
     public Box() : base("Unnamed Box")
     {
-        
     }
-    
+
     public Box(string name) : base(name)
     {
     }

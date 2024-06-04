@@ -1,6 +1,4 @@
-﻿using Raylib_CSharp.Fonts;
-using Raylib_CSharp.Textures;
-using Raylib_CSharp.Transformations;
+﻿using Raylib_CSharp.Textures;
 
 namespace CopperDevs.Framework.Rendering;
 
@@ -14,7 +12,7 @@ public class Font : BaseRenderable
     public int BaseSize => font.BaseSize;
     public int GlyphCount => font.GlyphCount;
     public int GlyphPadding => font.GlyphPadding;
-    public Texture2D Texture => font.Texture;
+    public rlTexture Texture => font.Texture;
 
     // loading stuff
     private readonly byte[]? fontData;

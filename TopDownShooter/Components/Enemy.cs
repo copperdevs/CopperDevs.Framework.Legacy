@@ -1,12 +1,11 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.Framework.Scenes;
+﻿using CopperDevs.Framework.Scenes;
 
 namespace TopDownShooter.Components;
 
 public class Enemy : GameComponent
 {
     private Vector2 TargetPosition => EnemyManager.Instance.EnemyTargetPosition;
-    
+
     public override void Start()
     {
         Transform.Scale = 16;
@@ -16,7 +15,7 @@ public class Enemy : GameComponent
     {
         rlGraphics.DrawCircle(0, 0, 1, Color.Blue);
 
-        if (Transform.Distance(TargetPosition) < 32) 
+        if (Transform.Distance(TargetPosition) < 32)
             SceneManager.ActiveScene.Remove(Parent);
     }
 

@@ -10,17 +10,17 @@ public class RenderTexture2DFieldRenderer : FieldRenderer
 {
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
-        var value = (RenderTexture2D)(fieldInfo.GetValue(component) ?? new RenderTexture2D());
+        var value = (rlRenderTexture)(fieldInfo.GetValue(component) ?? new rlRenderTexture());
 
         TextureRenderer($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", value);
     }
 
     public override void ValueRenderer(ref object value, int id)
     {
-        TextureRenderer($"{value.GetType().Name.ToTitleCase()}##{id}", (RenderTexture2D)value);
+        TextureRenderer($"{value.GetType().Name.ToTitleCase()}##{id}", (rlRenderTexture)value);
     }
 
-    private static void TextureRenderer(string title, RenderTexture2D textureValue)
+    private static void TextureRenderer(string title, rlRenderTexture textureValue)
     {
         CopperImGui.CollapsingHeader(title, () =>
         {

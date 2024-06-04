@@ -9,14 +9,14 @@ public class ShaderScope : Scope
     public ShaderScope(Shader shader, bool condition)
     {
         this.condition = condition;
-        
-        if(condition)
+
+        if (condition)
             rlGraphics.BeginShaderMode(shader);
     }
-    
+
     protected override void CloseScope()
     {
-        if(condition)
+        if (condition)
             rlGraphics.EndShaderMode();
     }
 }

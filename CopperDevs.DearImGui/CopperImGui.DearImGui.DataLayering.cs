@@ -15,5 +15,5 @@ public static partial class CopperImGui
     public static float CurrentWindowDockId => ImGui.GetWindowDockID();
 
     public static ImFontPtr Font => ImGui.GetFont();
-    public static double Time => ImGui.GetTime();   
+    public static double Time => ImGui.GetTime();
 }

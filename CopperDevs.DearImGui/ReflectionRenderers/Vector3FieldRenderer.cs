@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.DearImGui.ReflectionRenderers;
 
@@ -8,12 +7,12 @@ public class Vector3FieldRenderer : FieldRenderer
     public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
     {
         var rangeAttribute = (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
-        
+
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (rangeAttribute is not null)
         {
             var value = (Vector3)(fieldInfo.GetValue(component) ?? Vector3.Zero);
-            
+
             switch (rangeAttribute.TargetRangeType)
             {
                 case RangeType.Drag:

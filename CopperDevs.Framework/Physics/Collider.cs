@@ -7,5 +7,4 @@ namespace CopperDevs.Framework.Physics;
 [HideInInspector, Disabled]
 public abstract class Collider : GameComponent
 {
-    
 }

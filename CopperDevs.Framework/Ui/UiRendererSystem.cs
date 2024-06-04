@@ -50,20 +50,20 @@ public class UiRendererSystem : BaseSystem<UiRendererSystem>
     {
         if (currentUiScreen is null)
             return;
-        
+
         CopperImGui.CollapsingHeader("Current Screen", () =>
         {
             for (var i = 0; i < currentUiScreen.UiElements.Count; i++)
             {
                 var element = currentUiScreen.UiElements[i];
-                
+
                 CopperImGui.CollapsingHeader($"{element.Name}###{i}", () =>
                 {
                     // ReSharper disable once AccessToModifiedClosure
                     CopperImGui.RenderObjectValues(ref element, i);
                 });
             }
-            
+
             CopperImGui.ForceRenderPopup("UiRenderSystemAddElementPopup");
             CopperImGui.Selectable("Add New Element", () => CopperImGui.ShowPopup("UiRenderSystemAddElementPopup"));
         });

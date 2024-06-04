@@ -8,7 +8,7 @@ public static partial class CopperImGui
     private static IImGuiRenderer currentRenderer = null!;
 
     // windows
-    private static List<BaseWindow> windows = new();
+    private static List<BaseWindow> windows = [];
 
     // dearimgui windows
     public static bool ShowDearImGuiAboutWindow;

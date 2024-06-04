@@ -1,4 +1,4 @@
-﻿namespace CopperDevs.Core.Utility;
+﻿namespace CopperDevs.Framework.Utility;
 
 public static class ResourceLoader
 {

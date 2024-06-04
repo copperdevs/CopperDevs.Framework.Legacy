@@ -1,7 +1,6 @@
 ﻿using CopperDevs.DearImGui;
 using CopperDevs.Framework.Elements.Systems;
 using CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
-using Raylib_CSharp.Textures;
 
 namespace CopperDevs.Framework.Rendering.DearImGui;
 
@@ -20,8 +19,8 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
     public override void Start()
     {
         CopperImGui.RegisterFieldRenderer<Color, ColorFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<Texture2D, Texture2DFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<RenderTexture2D, RenderTexture2DFieldRenderer>();
+        CopperImGui.RegisterFieldRenderer<rlTexture, Texture2DFieldRenderer>();
+        CopperImGui.RegisterFieldRenderer<rlRenderTexture, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
 
         CopperImGui.Setup<CopperRlImGui>();

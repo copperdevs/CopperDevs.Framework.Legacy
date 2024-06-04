@@ -4,7 +4,6 @@ using CopperDevs.DearImGui.Attributes;
 using CopperDevs.DearImGui.Utility;
 using CopperDevs.Framework.Elements.Components;
 using CopperDevs.Framework.Scenes;
-using CopperDevs.Framework.Utility;
 using ImGuiNET;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
@@ -94,7 +93,7 @@ public class ComponentsManagerWindow : BaseWindow
                             {
                                 // ReSharper disable once AccessToModifiedClosure
                                 CopperImGui.Selectable($"Remove Component###{i}", () => CurrentObjectBrowserTarget.Remove(component));
-                                
+
                                 ImGui.Unindent();
                                 CopperImGui.Separator("Component Settings");
                                 ImGui.Indent();

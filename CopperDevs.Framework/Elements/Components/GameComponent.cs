@@ -11,7 +11,7 @@ public abstract class GameComponent
 
     [HideInInspector] protected internal Transform Transform;
 
-    protected internal Scene? ParentScene => Parent.Scene;
+    protected Scene? ParentScene => Parent.Scene;
 
     public ref GameObject GetParent() => ref Parent;
     public ref Transform GetTransform() => ref Parent.Transform;

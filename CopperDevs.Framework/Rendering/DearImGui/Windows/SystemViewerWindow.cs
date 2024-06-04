@@ -8,7 +8,7 @@ public class SystemViewerWindow : BaseWindow
 {
     public override string WindowName { get; protected set; } = "System Viewer";
     private int currentSystemIndex;
-    
+
     public override void Update()
     {
         SystemManager.GetSystems();

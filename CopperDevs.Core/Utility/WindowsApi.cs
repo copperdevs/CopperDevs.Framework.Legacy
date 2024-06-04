@@ -5,6 +5,7 @@ namespace CopperDevs.Core.Utility;
 public static partial class WindowsApi
 {
     private static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    private static bool IsWindows11 => Environment.OSVersion.Version.Build >= 22000;
     private static int IntSize => sizeof(int);
 
     [LibraryImport("dwmapi.dll")]
@@ -25,30 +26,31 @@ public static partial class WindowsApi
 
     public static void SetDwmWindowAttribute(IntPtr windowHandle, WindowAttribute dwAttribute, int pvAttribute)
     {
-        DwmSetWindowAttribute(windowHandle, dwAttribute, ref pvAttribute, IntSize);
+        if (IsWindows && IsWindows11)
+            DwmSetWindowAttribute(windowHandle, dwAttribute, ref pvAttribute, IntSize);
     }
 
     public static void SetDwmImmersiveDarkMode(IntPtr windowHandle, bool enableDarkMode)
     {
-        if (IsWindows)
+        if (IsWindows && IsWindows11)
             SetDwmWindowAttribute(windowHandle, WindowAttribute.UseImmersiveDarkMode, enableDarkMode.ToInt());
     }
 
     public static void SetDwmSystemBackdropType(IntPtr windowHandle, SystemBackdropType backdropType)
     {
-        if (IsWindows)
+        if (IsWindows && IsWindows11)
             SetDwmWindowAttribute(windowHandle, WindowAttribute.SystemBackdropType, (int)backdropType);
     }
 
     public static void SetDwmWindowCornerPreference(IntPtr windowHandle, WindowCornerPreference preference)
     {
-        if (IsWindows)
+        if (IsWindows && IsWindows11)
             SetDwmWindowAttribute(windowHandle, WindowAttribute.WindowCornerPreference, (int)preference);
     }
 
     public static void ExtendFrameIntoClientArea(IntPtr windowHandle, Margins margins)
     {
-        if (IsWindows)
+        if (IsWindows && IsWindows11)
             DwmExtendFrameIntoClientArea(windowHandle, ref margins);
     }
 
@@ -62,12 +64,14 @@ public static partial class WindowsApi
 
     public static void SetWindowState(IntPtr targetWindow, WindowState state)
     {
-        ShowWindow(targetWindow, (int)state);
+        if (IsWindows)
+            ShowWindow(targetWindow, (int)state);
     }
 
     public static void SetWindowParent(IntPtr child, IntPtr parent)
     {
-        SetParent(child, parent);
+        if (IsWindows)
+            SetParent(child, parent);
     }
 
     public enum WindowAttribute

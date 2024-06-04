@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.DearImGui.ReflectionRenderers;
 
@@ -13,7 +12,7 @@ public class FloatFieldRenderer : FieldRenderer
         if (rangeAttribute is not null)
         {
             var value = (float)(fieldInfo.GetValue(component) ?? 0);
-            
+
             switch (rangeAttribute.TargetRangeType)
             {
                 case RangeType.Drag:

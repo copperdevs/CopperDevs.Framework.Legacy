@@ -1,6 +1,5 @@
-﻿using CopperDevs.DearImGui;
-using CopperDevs.Framework.Utility;
-using WindowsApi = CopperDevs.Core.Utility.WindowsApi;
+﻿using CopperDevs.Core.Utility;
+using CopperDevs.DearImGui;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 

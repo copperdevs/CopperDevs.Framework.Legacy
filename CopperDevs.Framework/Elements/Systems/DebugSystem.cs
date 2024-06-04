@@ -14,13 +14,12 @@ public class DebugSystem : BaseSystem<DebugSystem>
 
     public override void Update()
     {
-        if (Input.IsKeyPressed(KeyboardKey.F2))
+        if (Input.IsKeyPressed(KeyboardKey.F2)) 
             DebugEnabled = !DebugEnabled;
     }
 
     public override void UiUpdate()
     {
         CopperImGui.Checkbox("Debug Enabled", ref DebugEnabled);
-
     }
 }

@@ -39,7 +39,8 @@ public static class SystemManager
             action.Invoke();
     }
 
-    private static IEnumerable<ISystem> LoadSystems()
+    // ReSharper disable once ReturnTypeCanBeEnumerable.Local
+    private static List<ISystem> LoadSystems()
     {
         var targetType = typeof(ISystem);
         var types = AppDomain.CurrentDomain.GetAssemblies()

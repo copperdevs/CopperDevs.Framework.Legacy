@@ -14,7 +14,7 @@ public static class Input
         // both: 0
         var value = KeyDown(upKey) + -KeyDown(downKey);
         return float.IsNaN(value) ? 0 : value;
-        
+
         float KeyDown(KeyboardKey key)
         {
             // down: 1
@@ -23,7 +23,7 @@ public static class Input
             return float.IsNaN(keyDownValue) ? 0 : keyDownValue;
         }
     }
-    
+
     public static bool IsKeyDown(KeyboardKey key) => rlInput.IsKeyDown(key);
 
     public static bool IsKeyPressed(KeyboardKey key) => rlInput.IsKeyPressed(key);

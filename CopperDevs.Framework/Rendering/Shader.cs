@@ -37,8 +37,7 @@ public sealed class Shader : BaseRenderable
 
     public static Shader Load(IncludedShaders includedShaders)
     {
-        return Load(includedShaders.ToString(), null,
-            ResourceLoader.LoadTextResource($"CopperDevs.Framework.Resources.Shaders.{includedShaders.ToString()}.frag"));
+        return Load(includedShaders.ToString(), null, ResourceLoader.LoadTextResource($"CopperDevs.Framework.Resources.Shaders.{includedShaders.ToString()}.frag"));
     }
 
 
@@ -47,7 +46,7 @@ public sealed class Shader : BaseRenderable
         Name = shaderName;
         VertexShaderData = newVertexShaderData;
         FragmentShaderData = newFragmentShaderData;
-        
+
         BaseLoad(this);
     }
 

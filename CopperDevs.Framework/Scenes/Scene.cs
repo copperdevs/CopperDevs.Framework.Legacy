@@ -63,14 +63,14 @@ public class Scene : IEnumerable<GameObject>
 
     public T FindFirstObjectByType<T>() where T : GameComponent
     {
-        foreach (var component in SceneObjects.Select(gameObject => gameObject.GetComponent<T>(false)).OfType<T>())
+        foreach (var component in SceneObjects.Select(gameObject => gameObject.GetComponent<T>(false)))
             return component;
 
         return ComponentRegistry.Instantiate<T>(this, typeof(T).Name);
     }
 
 
-    public List<GameObject> GetAllObjectsWithComponent<T>() where T : GameComponent
+    public IEnumerable<GameObject> GetAllObjectsWithComponent<T>() where T : GameComponent
     {
         return SceneObjects.Where(gameObject => gameObject.HasComponent<T>()).ToList();
     }

@@ -11,7 +11,7 @@ public static class RaylibLogger
         Logger.Message += RayLibLog;
         Logger.SetTraceLogLevel(TraceLogLevel.All);
     }
-    
+
     private static bool RayLibLog(TraceLogLevel level, string message)
     {
         // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault

@@ -100,7 +100,7 @@ public static class MathUtil
     {
         return (v - a) / (b - a);
     }
-    
+
     private static float ReMap(float input, float inputMin, float inputMax, float min, float max)
     {
         return min + (input - inputMin) * (max - min) / (inputMax - inputMin);

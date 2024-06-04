@@ -7,7 +7,7 @@ public class GameObject : IEnumerable<GameComponent>
 {
     [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
-    [HideInInspector] internal List<GameComponent> Components = new();
+    [HideInInspector] internal List<GameComponent> Components = [];
     [HideInInspector] internal Scene? Scene { get; set; }
 
     public GameObject()
@@ -30,7 +30,7 @@ public class GameObject : IEnumerable<GameComponent>
     {
         gameComponent.Parent = this;
         Components.Add(gameComponent);
-        
+
         gameComponent.Transform = Transform;
         gameComponent.Start();
         Transform = gameComponent.Transform;
@@ -45,7 +45,7 @@ public class GameObject : IEnumerable<GameComponent>
         Transform = gameComponent.Transform;
     }
 
-    public T? GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
+    public T GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
     {
         foreach (var component in Components)
         {

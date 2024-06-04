@@ -1,5 +1,4 @@
 ﻿using CopperDevs.DearImGui;
-using Raylib_CSharp.Collision;
 using Raylib_CSharp.Interact;
 using Raylib_CSharp.Transformations;
 
@@ -14,12 +13,12 @@ public class Button : UiElement
     {
         rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, BackgroundColor);
 
-        if (!MouseInsideButtonArea()) 
+        if (!MouseInsideButtonArea())
             return;
-        
+
         rlGraphics.DrawCircleV(Input.MousePosition, 8, Color.White);
-            
-        if(rlInput.IsMouseButtonPressed(MouseButton.Left))
+
+        if (rlInput.IsMouseButtonPressed(MouseButton.Left))
             ClickAction?.Invoke();
     }
 
@@ -30,9 +29,8 @@ public class Button : UiElement
 
     public Button() : base("Unnamed Button")
     {
-        
     }
-    
+
     public Button(string name) : base(name)
     {
     }

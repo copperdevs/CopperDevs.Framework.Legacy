@@ -35,7 +35,7 @@ public static class Extensions
     public static Vector2 ToVector2<T>(this T value) where T : INumber<T> => new((float)Convert.ChangeType(value, typeof(float)));
     public static Vector3 ToVector3<T>(this T value) where T : INumber<T> => new((float)Convert.ChangeType(value, typeof(float)));
     public static Vector4 ToVector4<T>(this T value) where T : INumber<T> => new((float)Convert.ChangeType(value, typeof(float)));
-        public static string ToFancyString(this IEnumerable<byte> array) => array.Aggregate("", (current, item) => current + $"<{item}>,");
+    public static string ToFancyString(this IEnumerable<byte> array) => array.Aggregate("", (current, item) => current + $"<{item}>,");
 
     public static string CapitalizeFirstLetter(this string message)
     {
@@ -89,7 +89,7 @@ public static class Extensions
     {
         return potentialDescendant.IsSubclassOf(potentialBase) || potentialDescendant == potentialBase;
     }
-    
+
     public static int ToInt(this bool value)
     {
         return value ? 1 : 0;

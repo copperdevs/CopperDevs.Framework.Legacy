@@ -9,9 +9,9 @@ public class ReflectionTest : GameComponent
     // out of sight out of mind
     // public List<MyEnum> ManyMyEnums = new()
     // {
-        // MyEnum.One,
-        // MyEnum.Two,
-        // MyEnum.Three
+    // MyEnum.One,
+    // MyEnum.Two,
+    // MyEnum.Three
     // };
 
     public enum MyEnum

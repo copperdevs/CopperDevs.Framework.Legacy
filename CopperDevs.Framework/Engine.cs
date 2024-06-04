@@ -7,7 +7,6 @@ using CopperDevs.Framework.Utility;
 
 namespace CopperDevs.Framework;
 
-
 public class Engine : Singleton<Engine>
 {
     public static EngineWindow CurrentWindow => Instance.window;
@@ -28,9 +27,9 @@ public class Engine : Singleton<Engine>
     public Engine(EngineSettings settings)
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
-        
+
         stopwatch = Stopwatch.StartNew();
-        
+
         CopperLogger.Initialize();
         RaylibLogger.Initialize();
 
@@ -40,10 +39,10 @@ public class Engine : Singleton<Engine>
         window = new EngineWindow(settings);
 
         ShouldRun = true;
-        
+
         Log.Info($"Time elapsed during engine creation: {stopwatch.Elapsed}");
     }
-    
+
     public void Run()
     {
         Start();
@@ -57,11 +56,11 @@ public class Engine : Singleton<Engine>
     private void Start()
     {
         window.Start();
-        
+
         ElementManager.Initialize();
-        
-        OnLoad?.Invoke();
-        
+
+        OnLoad.Invoke();
+
         Log.Info($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }
 

@@ -1,6 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-
-namespace CopperDevs.DearImGui.ReflectionRenderers;
+﻿namespace CopperDevs.DearImGui.ReflectionRenderers;
 
 public class GuidFieldRenderer : FieldRenderer
 {

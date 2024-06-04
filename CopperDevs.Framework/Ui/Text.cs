@@ -8,7 +8,7 @@ public class Text : UiElement
     public int FontSize = 16;
     public float TextSpacing = 8;
     public Color TextColor = Color.Black;
-    
+
     public override void DrawElement()
     {
         rlGraphics.DrawTextEx(RenderingSystem.Instance.GetRenderableItems<Font>()[0], TextValue, ScaledPosition, FontSize, TextSpacing, TextColor);
@@ -16,9 +16,8 @@ public class Text : UiElement
 
     public Text() : base("Unnamed Text")
     {
-        
     }
-    
+
     public Text(string name) : base(name)
     {
     }

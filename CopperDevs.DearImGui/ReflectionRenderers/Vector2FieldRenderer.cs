@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.DearImGui.ReflectionRenderers;
 

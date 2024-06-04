@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core;
-using ImGuiNET;
+﻿using ImGuiNET;
 
 namespace CopperDevs.DearImGui;
 

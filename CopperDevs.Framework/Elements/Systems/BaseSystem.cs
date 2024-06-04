@@ -8,7 +8,7 @@ public abstract class BaseSystem<T> : ISystem where T : BaseSystem<T>, new()
     private static T? instance;
 
     public Action? CustomSystemUi { get; set; } = null!;
-    
+
     public virtual SystemUpdateType GetUpdateType() => SystemUpdateType.Update;
     public virtual int GetPriority() => 0;
 
@@ -28,7 +28,7 @@ public abstract class BaseSystem<T> : ISystem where T : BaseSystem<T>, new()
     public virtual void Stop()
     {
     }
-    
+
 
     private static T GetInstance()
     {

@@ -1,6 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui.Attributes;
-using Raylib_CSharp.Collision;
+﻿using Raylib_CSharp.Collision;
 using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;

@@ -12,9 +12,9 @@ public static class Log
 
     public static void Assert(bool condition, object message)
     {
-        if (condition) 
+        if (condition)
             return;
-        
+
         CopperLogger.LogError(message);
     }
 }
@@ -84,7 +84,7 @@ public static class CopperLogger
         else
             InternalLog("ERROR", message, ConsoleColor.DarkRed);
     }
-    
+
     private static void InternalLog(string prefix, object message, ConsoleColor color)
     {
         Console.ForegroundColor = color;
@@ -93,7 +93,7 @@ public static class CopperLogger
         var prefixLog = $"[{prefix}]";
 
         var logString = $"{prefixLog} {timeStampLog} {message}";
-        
+
         Console.WriteLine(logString);
         Console.ResetColor();
     }

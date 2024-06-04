@@ -1,6 +1,4 @@
-﻿using CopperDevs.Core;
-
-namespace CopperDevs.Core.Utility;
+﻿namespace CopperDevs.Core.Utility;
 
 public abstract class Scope : IDisposable
 {

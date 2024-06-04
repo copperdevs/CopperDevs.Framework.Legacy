@@ -24,7 +24,7 @@ public static class ComponentRegistry
         if (AbstractChildren.ContainsKey(typeof(TBase)))
             AbstractChildren[typeof(TBase)].Add(typeof(TSub));
         else
-            AbstractChildren.Add(typeof(TBase), new List<Type> { typeof(TSub) });
+            AbstractChildren.Add(typeof(TBase), [typeof(TSub)]);
 
         Log.Info(
             $"Registering a new subclass of type `{typeof(TSub).FullName}` for abstract class of type `{typeof(TBase).FullName}`");

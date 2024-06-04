@@ -1,10 +1,8 @@
-﻿using CopperDevs.Core.Utility;
-
-namespace TopDownShooter.Components;
+﻿namespace TopDownShooter.Components;
 
 public class MouseDrawer : GameComponent
 {
-    [Exposed] private float smoothingTime = 8;
+    [Exposed] private float smoothingTime = 16;
     [Exposed] private Color color = Color.White;
 
     public override void Start()

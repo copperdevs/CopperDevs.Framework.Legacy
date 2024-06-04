@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.Framework.Scenes;
+﻿using CopperDevs.Framework.Scenes;
 
 namespace TopDownShooter.Components;
 
@@ -7,7 +6,7 @@ public class Bullet : GameComponent
 {
     [Exposed] private float maxDistance = 2048;
     [Exposed] private Vector2 startPosition;
-    
+
     public override void Start()
     {
         startPosition = Transform.Position;
@@ -26,7 +25,7 @@ public class Bullet : GameComponent
         // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
         foreach (var enemy in ParentScene?.GetAllComponents<Enemy>()!)
         {
-            if(Vector2.Distance(Transform.Position, enemy.GetTransform().Position) <= 32)
+            if (Vector2.Distance(Transform.Position, enemy.GetTransform().Position) <= 32)
                 ParentScene?.Remove(enemy.GetParent());
         }
     }

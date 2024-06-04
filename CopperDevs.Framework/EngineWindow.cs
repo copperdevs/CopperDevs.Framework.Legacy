@@ -1,28 +1,21 @@
 ﻿using System.Reflection;
 using CopperDevs.Core.Data;
+using CopperDevs.Core.Utility;
 using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Utility;
 using Raylib_CSharp.Transformations;
 using static Raylib_CSharp.Windowing.Window;
 using static Raylib_CSharp.Rendering.Graphics;
-using WindowsApi = CopperDevs.Core.Utility.WindowsApi;
 
 namespace CopperDevs.Framework;
 
-public class EngineWindow
+public class EngineWindow(EngineSettings settings)
 {
-    public static Vector2Int Size => new(rlWindow.GetScreenWidth(), GetScreenHeight());
-
-    public EngineWindow(EngineSettings settings)
-    {
-        this.settings = settings;
-    }
-
-    private readonly EngineSettings settings;
+    public static Vector2Int Size => new(GetScreenWidth(), GetScreenHeight());
 
     public EngineCamera Camera;
 
-    internal static float FixedDeltaTime = 0;
+    private static float fixedDeltaTime;
     private const float FixedFrameTime = 0.02f;
 
     public rlRenderTexture RenderTexture { get; private set; }
@@ -50,9 +43,9 @@ public class EngineWindow
 
         RenderTexture = rlRenderTexture.Load(settings.WindowSize.X, settings.WindowSize.Y);
 
-        if (!settings.DwpApiCustomization) 
+        if (!settings.DwpApiCustomization)
             return;
-        
+
         WindowsApi.SetDwmImmersiveDarkMode(GetHandle(), true);
         WindowsApi.SetDwmSystemBackdropType(GetHandle(), WindowsApi.SystemBackdropType.Acrylic);
         WindowsApi.SetDwmWindowCornerPreference(GetHandle(), WindowsApi.WindowCornerPreference.Default);
@@ -60,10 +53,10 @@ public class EngineWindow
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
     {
-        FixedDeltaTime += Time.DeltaTime;
-        if (FixedDeltaTime >= FixedFrameTime)
+        fixedDeltaTime += Time.DeltaTime;
+        if (fixedDeltaTime >= FixedFrameTime)
         {
-            FixedDeltaTime = 0;
+            fixedDeltaTime = 0;
             fixedUpdate.Invoke();
         }
 

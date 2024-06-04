@@ -158,9 +158,9 @@ public static partial class CopperImGui
         if (!canRender)
             return;
 
-        if (!ImGui.CollapsingHeader(name)) 
+        if (!ImGui.CollapsingHeader(name))
             return;
-        
+
         using (new IndentScope(indent))
             group.Invoke();
     }

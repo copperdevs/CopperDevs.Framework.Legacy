@@ -11,10 +11,10 @@ public class RenderingSystem : BaseSystem<RenderingSystem>
 
     public void RegisterRenderableItem<T>(T renderable) where T : BaseRenderable
     {
-        if(LoadedRenderableItems.TryGetValue(typeof(T), out var value))
+        if (LoadedRenderableItems.TryGetValue(typeof(T), out var value))
             value.Add(renderable);
         else
-            LoadedRenderableItems.Add(typeof(T), new List<BaseRenderable> {renderable});
+            LoadedRenderableItems.Add(typeof(T), [renderable]);
     }
 
     public List<T> GetRenderableItems<T>() where T : BaseRenderable
@@ -28,11 +28,11 @@ public class RenderingSystem : BaseSystem<RenderingSystem>
         targetList.Remove(renderable);
         LoadedRenderableItems[typeof(T)] = targetList;
     }
-    
+
     public override void Start()
     {
         BaseRenderable.LoadQueuedItems();
-        
+
         Shader.Load("Empty");
         Font.Load("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
         Font.Load();

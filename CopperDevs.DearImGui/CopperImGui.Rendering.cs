@@ -29,7 +29,7 @@ public static partial class CopperImGui
         currentRenderer.Begin();
 
         PreRendered?.Invoke();
-        
+
         if (dockingEnabled)
             ImGui.DockSpaceOverViewport(ImGui.GetMainViewport(), ImGuiDockNodeFlags.PassthruCentralNode | ImGuiDockNodeFlags.AutoHideTabBar);
 

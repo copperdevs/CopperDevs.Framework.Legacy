@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.DearImGui.ReflectionRenderers;
 
@@ -18,7 +17,7 @@ public class IntFieldRenderer : FieldRenderer
             {
                 case RangeType.Drag:
                     CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{id}", ref value,
-                        (int)rangeAttribute.Min,(int)rangeAttribute.Min, (int)rangeAttribute.Max,
+                        (int)rangeAttribute.Min, (int)rangeAttribute.Min, (int)rangeAttribute.Max,
                         newValue => { fieldInfo.SetValue(component, newValue); });
                     break;
                 case RangeType.Slider:

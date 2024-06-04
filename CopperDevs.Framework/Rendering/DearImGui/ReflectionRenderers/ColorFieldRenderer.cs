@@ -13,10 +13,7 @@ public class ColorFieldRenderer : FieldRenderer
         var vectorColor = (Vector4)(value / 255);
 
         CopperImGui.ColorEdit($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref vectorColor,
-            interactedValue =>
-            {
-                fieldInfo.SetValue(component, new Color(interactedValue*255));
-            });
+            interactedValue => { fieldInfo.SetValue(component, new Color(interactedValue * 255)); });
     }
 
     public override void ValueRenderer(ref object value, int id)
@@ -25,6 +22,6 @@ public class ColorFieldRenderer : FieldRenderer
 
         CopperImGui.ColorEdit($"{value.GetType().Name.ToTitleCase()}##{id}", ref colorValue);
 
-        value = colorValue*255;
+        value = colorValue * 255;
     }
 }

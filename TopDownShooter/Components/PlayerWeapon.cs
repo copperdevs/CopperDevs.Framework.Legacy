@@ -1,6 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui;
-using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.DearImGui;
 using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;
@@ -8,7 +6,7 @@ namespace TopDownShooter.Components;
 public class PlayerWeapon : GameComponent
 {
     private static PlayerWeapon staticWeapon;
-    
+
     [Exposed] private List<PlayerWeaponPreset> weaponPresets = new()
     {
         new PlayerWeaponPreset()
@@ -46,7 +44,8 @@ public class PlayerWeapon : GameComponent
                 {
                     var bullet = ComponentRegistry.Instantiate<Bullet>();
                     ref var transform = ref bullet.GetTransform();
-                    transform.Position = staticWeapon.Transform.Position + new Vector2(Random.Range(-BulletPositionSpread, BulletPositionSpread), Random.Range(-BulletPositionSpread, BulletPositionSpread));
+                    transform.Position = staticWeapon.Transform.Position +
+                                         new Vector2(Random.Range(-BulletPositionSpread, BulletPositionSpread), Random.Range(-BulletPositionSpread, BulletPositionSpread));
                     transform.Rotation = staticWeapon.Transform.Rotation + Random.Range(-BulletRotationSpread, BulletRotationSpread);
                     bullet.UpdateStartPosition(transform.Position);
                 }

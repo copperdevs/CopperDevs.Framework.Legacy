@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.DearImGui;
+﻿using CopperDevs.DearImGui;
 using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;
@@ -19,9 +18,9 @@ public class EnemyManager : SingletonGameComponent<EnemyManager>
 
     public override void Update()
     {
-        if(previousSpawnPositions.Count > 8)
+        if (previousSpawnPositions.Count > 8)
             previousSpawnPositions.RemoveAt(0);
-        
+
         currentTime = Time.GameTime;
 
         if (!(currentTime >= targetTime))

@@ -1,7 +1,4 @@
-﻿
-using CopperDevs.Core.Utility;
-
-namespace CopperDevs.Framework.Testing;
+﻿namespace CopperDevs.Framework.Testing;
 
 public class TextReplacer : GameComponent
 {

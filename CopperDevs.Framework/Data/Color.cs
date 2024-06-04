@@ -1,6 +1,4 @@
-﻿using CopperDevs.Core.Utility;
-
-namespace CopperDevs.Framework.Data;
+﻿namespace CopperDevs.Framework.Data;
 
 public struct Color
 {
