@@ -53,9 +53,9 @@ public class EngineWindow
 
         if (settings.DwpApiCustomization)
         {
-            DwmApi.SetImmersiveDarkMode(true);
-            DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.Acrylic);
-            DwmApi.SetWindowCornerPreference(DwmApi.WindowCornerPreference.Default);
+            WindowsApi.SetDwmImmersiveDarkMode(true);
+            WindowsApi.SetDwmSystemBackdropType(WindowsApi.SystemBackdropType.Acrylic);
+            WindowsApi.SetDwmWindowCornerPreference(WindowsApi.WindowCornerPreference.Default);
         }
     }
 

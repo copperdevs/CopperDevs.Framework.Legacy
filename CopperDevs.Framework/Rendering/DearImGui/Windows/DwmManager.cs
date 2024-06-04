@@ -13,25 +13,25 @@ public class DwmManager : BaseWindow
     {
         CopperImGui.CollapsingHeader("Immersive Dark Mode", () =>
         {
-            CopperImGui.Button("Enable", () => DwmApi.SetImmersiveDarkMode(true));
-            CopperImGui.Button("Disable", () => DwmApi.SetImmersiveDarkMode(false));
+            CopperImGui.Button("Enable", () => WindowsApi.SetDwmImmersiveDarkMode(true));
+            CopperImGui.Button("Disable", () => WindowsApi.SetDwmImmersiveDarkMode(false));
         });
         
         CopperImGui.CollapsingHeader("System Backdrop Type", () =>
         {
-            CopperImGui.Button("Auto", () => DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.Auto));
-            CopperImGui.Button("None", () => DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.None));
-            CopperImGui.Button("Mica", () => DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.Mica));
-            CopperImGui.Button("Acrylic", () => DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.Acrylic));
-            CopperImGui.Button("Tabbed", () => DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.Tabbed));
+            CopperImGui.Button("Auto", () => WindowsApi.SetDwmSystemBackdropType(WindowsApi.SystemBackdropType.Auto));
+            CopperImGui.Button("None", () => WindowsApi.SetDwmSystemBackdropType(WindowsApi.SystemBackdropType.None));
+            CopperImGui.Button("Mica", () => WindowsApi.SetDwmSystemBackdropType(WindowsApi.SystemBackdropType.Mica));
+            CopperImGui.Button("Acrylic", () => WindowsApi.SetDwmSystemBackdropType(WindowsApi.SystemBackdropType.Acrylic));
+            CopperImGui.Button("Tabbed", () => WindowsApi.SetDwmSystemBackdropType(WindowsApi.SystemBackdropType.Tabbed));
         });
         
         CopperImGui.CollapsingHeader("Window Corner Preference", () =>
         {
-            CopperImGui.Button("Default", () => DwmApi.SetWindowCornerPreference(DwmApi.WindowCornerPreference.Default));
-            CopperImGui.Button("Do Not Round", () => DwmApi.SetWindowCornerPreference(DwmApi.WindowCornerPreference.DoNotRound));
-            CopperImGui.Button("Round", () => DwmApi.SetWindowCornerPreference(DwmApi.WindowCornerPreference.Round));
-            CopperImGui.Button("Round Small", () => DwmApi.SetWindowCornerPreference(DwmApi.WindowCornerPreference.RoundSmall));
+            CopperImGui.Button("Default", () => WindowsApi.SetDwmWindowCornerPreference(WindowsApi.WindowCornerPreference.Default));
+            CopperImGui.Button("Do Not Round", () => WindowsApi.SetDwmWindowCornerPreference(WindowsApi.WindowCornerPreference.DoNotRound));
+            CopperImGui.Button("Round", () => WindowsApi.SetDwmWindowCornerPreference(WindowsApi.WindowCornerPreference.Round));
+            CopperImGui.Button("Round Small", () => WindowsApi.SetDwmWindowCornerPreference(WindowsApi.WindowCornerPreference.RoundSmall));
         });
         
         CopperImGui.CollapsingHeader("Extend Frame Into Client Area", () =>
@@ -40,7 +40,7 @@ public class DwmManager : BaseWindow
             
             CopperImGui.Button("Set Margins", () =>
             {
-                DwmApi.ExtendFrameIntoClientArea(new DwmApi.Margins()
+                WindowsApi.ExtendFrameIntoClientArea(new WindowsApi.Margins()
                 {
                     CxLeftWidth = (int)margins.X,
                     CxRightWidth = (int)margins.Y,

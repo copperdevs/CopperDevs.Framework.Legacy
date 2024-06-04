@@ -1,11 +1,11 @@
-﻿
+﻿using CopperDevs.DearImGui;
 using Raylib_CSharp.Interact;
 
 namespace CopperDevs.Framework.Elements.Systems;
 
 public class DebugSystem : BaseSystem<DebugSystem>
 {
-    public bool DebugEnabled { get; private set; }
+    public bool DebugEnabled;
 
     public override void Start()
     {
@@ -16,5 +16,11 @@ public class DebugSystem : BaseSystem<DebugSystem>
     {
         if (Input.IsKeyPressed(KeyboardKey.F2))
             DebugEnabled = !DebugEnabled;
+    }
+
+    public override void UiUpdate()
+    {
+        CopperImGui.Checkbox("Debug Enabled", ref DebugEnabled);
+
     }
 }

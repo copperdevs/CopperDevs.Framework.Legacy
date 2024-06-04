@@ -32,7 +32,7 @@ public class Engine : Singleton<Engine>
         stopwatch = Stopwatch.StartNew();
         
         CopperLogger.Initialize();
-        ConsoleUtil.Initialize();
+        RaylibLogger.Initialize();
 
         SetInstance(this);
 

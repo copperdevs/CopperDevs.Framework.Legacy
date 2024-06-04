@@ -14,7 +14,7 @@ public static class Program
             TargetFps = 144,
             WindowTitle = "Copper Framework - Top Down Shooter"
         };
-        
+
         var engine = new Engine(engineSettings);
         engine.SetWindowColor(Color.Black);
         engine.SetWindowShader(Shader.IncludedShaders.Bloom);
@@ -39,9 +39,7 @@ public static class Program
                 new EnemyManager()
             }
         };
-        
-        enemyTestingScene.Load();
-        
+
         engine.Run();
     }
 }
