@@ -12,16 +12,16 @@ public static unsafe partial class ConsoleUtil
         switch (level)
         {
             case TraceLogLevel.Info:
-                Log.Info(message);
+                Log.Info($"[RAYLIB] {message}");
                 break;
             case TraceLogLevel.Error:
-                Log.Error(message);
+                Log.Error($"[RAYLIB] {message}");
                 break;
             case TraceLogLevel.Warning:
-                Log.Warning(message);
+                Log.Warning($"[RAYLIB] {message}");
                 break;
             default:
-                Log.Info(message);
+                Log.Info($"[RAYLIB] {message}");
                 break;
         }
 

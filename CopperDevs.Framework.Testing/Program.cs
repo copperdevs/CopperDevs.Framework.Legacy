@@ -1,13 +1,16 @@
-﻿using CopperDevs.Framework;
-
-namespace CopperDevs.Framework.Testing;
+﻿namespace CopperDevs.Framework.Testing;
 
 public static class Program
 {
     public static void Main()
     {
         var engine = new Engine(EngineSettings.Development);
-        
+
+        engine.Run();
+    }
+
+    private static void LoadTestUi(Engine engine)
+    {
         var uiScreen = new UiScreen("testing-screen", "Testing Screen")
         {
             new Box("Background")
@@ -31,13 +34,11 @@ public static class Program
                 FontSize = 48
             }
         };
-        
+
         engine.OnLoad += () =>
         {
             uiScreen.Register();
             uiScreen.Load();
         };
-        
-        engine.Run();
     }
 }

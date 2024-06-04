@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using CopperDevs.Core;
 using CopperDevs.Framework.Elements;
 using CopperDevs.Framework.Elements.Systems;
@@ -26,6 +27,8 @@ public class Engine : Singleton<Engine>
 
     public Engine(EngineSettings settings)
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+        
         stopwatch = Stopwatch.StartNew();
         
         CopperLogger.Initialize();

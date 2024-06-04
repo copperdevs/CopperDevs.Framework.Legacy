@@ -26,7 +26,7 @@ public struct Vector3Int : IEquatable<Vector3Int>, IFormattable
 
     public bool Equals(Vector3Int other)
     {
-        return X.Equals(other.X) && Y.Equals(other.Y);
+        return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
     }
 
     public readonly override string ToString()

@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
 using CopperDevs.Core.Data;
+using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Utility;
-using Raylib_CSharp.Audio;
-using Raylib_CSharp.Textures;
+
 using Raylib_CSharp.Transformations;
+
+using static Raylib_CSharp.Windowing.Window;
+using static Raylib_CSharp.Rendering.Graphics;
 
 namespace CopperDevs.Framework;
 
@@ -18,7 +21,7 @@ public class EngineWindow
 
     private readonly EngineSettings settings;
 
-    public EngineWindowCamera Camera;
+    public EngineCamera Camera;
     
     internal static float FixedDeltaTime = 0;
     private const float FixedFrameTime = 0.02f;
@@ -35,11 +38,11 @@ public class EngineWindow
     public void Start()
     {
         Raylib.SetConfigFlags(settings.WindowFlags);
-        rlWindow.Init(settings.WindowSize.X, settings.WindowSize.Y, (string.IsNullOrWhiteSpace(settings.WindowTitle) ? Assembly.GetEntryAssembly()?.FullName : settings.WindowTitle)!);
+        Init(settings.WindowSize.X, settings.WindowSize.Y, (string.IsNullOrWhiteSpace(settings.WindowTitle) ? Assembly.GetEntryAssembly()?.FullName : settings.WindowTitle)!);
         rlAudio.Init();
         rlTime.SetTargetFPS(settings.TargetFps);
 
-        Camera = new EngineWindowCamera
+        Camera = new EngineCamera
         {
             Position = Vector2.Zero,
             Rotation = 0,
@@ -47,6 +50,13 @@ public class EngineWindow
         };
 
         RenderTexture = rlRenderTexture.Load(settings.WindowSize.X, settings.WindowSize.Y);
+
+        if (settings.DwpApiCustomization)
+        {
+            DwmApi.SetImmersiveDarkMode(true);
+            DwmApi.SetSystemBackdropType(DwmApi.SystemBackdropType.Acrylic);
+            DwmApi.SetWindowCornerPreference(DwmApi.WindowCornerPreference.Default);
+        }
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)
@@ -58,86 +68,38 @@ public class EngineWindow
             fixedUpdate.Invoke();
         }
         
-        if (rlWindow.IsResized())
+        if (IsResized())
         {
             RenderTexture.Unload();
             RenderTexture = rlRenderTexture.Load(Size.X, Size.Y);
         }
         
-        rlGraphics.BeginTextureMode(RenderTexture);
+        BeginTextureMode(RenderTexture);
         
-        rlGraphics.BeginDrawing();
-        rlGraphics.ClearBackground(BackgroundColor);
+        BeginDrawing();
+        ClearBackground(BackgroundColor);
         
-        rlGraphics.BeginMode2D(Camera);
+        BeginMode2D(Camera);
         
         cameraRenderUpdate.Invoke();
         
-        rlGraphics.EndMode2D();
+        EndMode2D();
         
-        rlGraphics.EndTextureMode();
+        EndTextureMode();
         
         using (new ShaderScope(ScreenShader!, (ScreenShader is not null) && ScreenShaderEnabled))
         {
-            rlGraphics.DrawTextureRec(RenderTexture.Texture, new Rectangle(0, 0, RenderTexture.Texture.Width, -RenderTexture.Texture.Height), Vector2.Zero, Color.White);
+            DrawTextureRec(RenderTexture.Texture, new Rectangle(0, 0, RenderTexture.Texture.Width, -RenderTexture.Texture.Height), Vector2.Zero, Color.White);
         }
         
         uiRenderUpdate.Invoke();
         
-        rlGraphics.EndDrawing();
+        EndDrawing();
     }
 
     public void Shutdown()
     {
         rlAudio.Close();
-        rlWindow.Close();
-    }
-
-    public struct EngineWindowCamera
-    {
-        public EngineWindowCamera()
-        {
-            
-        }
-        
-        private rlCamera2D camera2D = new()
-        {
-            Offset = Vector2.Zero,
-            Zoom = 1,
-            Rotation = 0,
-            Target = Vector2.Zero
-        };
-
-        public static implicit operator rlCamera2D(EngineWindowCamera camera) => camera.camera2D;
-
-        public Vector2 Position
-        {
-            get => camera2D.Target;
-            set => camera2D.Target = value;
-        }
-
-        public float Zoom
-        {
-            get => camera2D.Zoom;
-            set => camera2D.Zoom = value;
-        }
-
-        public float Rotation
-        {
-            get => camera2D.Rotation;
-            set => camera2D.Rotation = value;
-        }
-        
-        public Vector2 GetScreenToWorld(Vector2 position)
-        {
-            return camera2D.GetScreenToWorld(position);
-        }
-
-        public Vector2 GetWorldToScreen(Vector2 position)
-        {
-            return camera2D.GetWorldToScreen(position);
-        }
-
-        public Matrix4x4 GetMatrix() => camera2D.GetMatrix();
+        Close();
     }
 }

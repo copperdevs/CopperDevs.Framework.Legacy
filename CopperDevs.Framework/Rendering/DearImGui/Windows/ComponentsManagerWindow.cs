@@ -93,12 +93,13 @@ public class ComponentsManagerWindow : BaseWindow
                             () =>
                             {
                                 // ReSharper disable once AccessToModifiedClosure
-                                CopperImGui.Selectable($"Remove Component###{i}",
-                                    () => CurrentObjectBrowserTarget.Remove(component));
+                                CopperImGui.Selectable($"Remove Component###{i}", () => CurrentObjectBrowserTarget.Remove(component));
+                                
+                                ImGui.Unindent();
                                 CopperImGui.Separator("Component Settings");
+                                ImGui.Indent();
 
-                                CopperImGui.RenderObjectValues(component, component.GetHashCode(),
-                                    RenderingType.Exposed);
+                                CopperImGui.RenderObjectValues(component, component.GetHashCode(), RenderingType.Exposed);
                             });
                     }
 

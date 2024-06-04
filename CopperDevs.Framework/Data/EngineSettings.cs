@@ -14,6 +14,7 @@ public class EngineSettings
     public string WindowTitle = "Window";
     public bool DisableDevTools = true;
     public bool EnableDevToolsAtStart;
+    public bool DwpApiCustomization = true;
 
     public static EngineSettings DefaultSettings => new()
     {
@@ -23,7 +24,8 @@ public class EngineSettings
         TargetFps = 60,
         WindowTitle = "CopperFramework - Default",
         DisableDevTools = true,
-        EnableDevToolsAtStart = false
+        EnableDevToolsAtStart = false,
+        DwpApiCustomization = true
     };
 
     public static EngineSettings UncappedFps => new()
@@ -33,7 +35,8 @@ public class EngineSettings
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Uncapped Fps",
         DisableDevTools = true,
-        EnableDevToolsAtStart = false
+        EnableDevToolsAtStart = false,
+        DwpApiCustomization = true
     };
 
     public static EngineSettings Development => new()
@@ -43,6 +46,7 @@ public class EngineSettings
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Development",
         DisableDevTools = false,
-        EnableDevToolsAtStart = true
+        EnableDevToolsAtStart = true,
+        DwpApiCustomization = true
     };
 }

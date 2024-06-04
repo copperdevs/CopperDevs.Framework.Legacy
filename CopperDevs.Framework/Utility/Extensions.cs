@@ -54,8 +54,13 @@ public static class Extensions
         return value.IsDefined(typeof(T), false);
     }
 
-    public static bool IsSameOrSubclass(this Type potentialDescendant, Type potentialBase)
+    public static bool IsSameOrSubclass(this Type potentialBase, Type potentialDescendant)
     {
-        return Util.IsSameOrSubclass(potentialBase, potentialDescendant);
+        return potentialDescendant.IsSubclassOf(potentialBase) || potentialDescendant == potentialBase;
+    }
+    
+    public static int ToInt(this bool value)
+    {
+        return value ? 1 : 0;
     }
 }
