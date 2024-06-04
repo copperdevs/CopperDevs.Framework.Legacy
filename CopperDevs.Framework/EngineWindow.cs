@@ -32,7 +32,7 @@ public class EngineWindow(EngineSettings settings)
         Raylib.SetConfigFlags(settings.WindowFlags);
         Init(settings.WindowSize.X, settings.WindowSize.Y, (string.IsNullOrWhiteSpace(settings.WindowTitle) ? Assembly.GetEntryAssembly()?.FullName : settings.WindowTitle)!);
         rlAudio.Init();
-        rlTime.SetTargetFPS(settings.TargetFps);
+        Time.Fps = settings.TargetFps;
 
         Camera = new EngineCamera
         {
@@ -49,6 +49,7 @@ public class EngineWindow(EngineSettings settings)
         WindowsApi.SetDwmImmersiveDarkMode(GetHandle(), true);
         WindowsApi.SetDwmSystemBackdropType(GetHandle(), WindowsApi.SystemBackdropType.Acrylic);
         WindowsApi.SetDwmWindowCornerPreference(GetHandle(), WindowsApi.WindowCornerPreference.Default);
+        WindowsApi.RegisterWindow(GetHandle());
     }
 
     public void Update(Action cameraRenderUpdate, Action uiRenderUpdate, Action fixedUpdate)

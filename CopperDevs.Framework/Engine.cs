@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 using CopperDevs.Core;
+using CopperDevs.Core.Utility;
 using CopperDevs.Framework.Elements;
 using CopperDevs.Framework.Elements.Systems;
 using CopperDevs.Framework.Utility;
@@ -61,6 +62,11 @@ public class Engine : Singleton<Engine>
 
         OnLoad?.Invoke();
 
+        WindowsApi.OnWindowResize += size =>
+        {
+            Update();
+        };
+        
         Log.Info($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }
 

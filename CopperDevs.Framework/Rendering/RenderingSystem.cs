@@ -1,4 +1,5 @@
-﻿using CopperDevs.Core.Utility;
+﻿using CopperDevs.Core;
+using CopperDevs.Core.Utility;
 using CopperDevs.Framework.Elements.Systems;
 using CopperDevs.Framework.Utility;
 using Raylib_CSharp.Interact;
@@ -34,7 +35,8 @@ public class RenderingSystem : BaseSystem<RenderingSystem>
         BaseRenderable.LoadQueuedItems();
 
         Shader.Load("Empty");
-        Font.Load("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
+        
+        new Font("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
         Font.Load();
     }
 

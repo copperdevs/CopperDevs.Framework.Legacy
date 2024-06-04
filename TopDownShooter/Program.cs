@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Framework.Scenes;
+using Raylib_CSharp.Windowing;
 using TopDownShooter.Components;
 
 namespace TopDownShooter;
@@ -11,7 +12,6 @@ public static class Program
         {
             DisableDevTools = false,
             EnableDevToolsAtStart = true,
-            TargetFps = 144,
             WindowTitle = "Copper Framework - Top Down Shooter"
         };
 

@@ -40,8 +40,8 @@ internal static class ElementManager
                 break;
 
             case ElementUpdateType.UiRender:
-                SystemManager.Update(SystemUpdateType.UiRenderer);
                 UpdateComponents(false, component => component.UiUpdate());
+                SystemManager.Update(SystemUpdateType.UiRenderer);
                 break;
 
             case ElementUpdateType.Debug:

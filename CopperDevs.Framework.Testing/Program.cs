@@ -1,4 +1,6 @@
-﻿namespace CopperDevs.Framework.Testing;
+﻿using CopperDevs.Framework.Scenes;
+
+namespace CopperDevs.Framework.Testing;
 
 public static class Program
 {
@@ -6,39 +8,40 @@ public static class Program
     {
         var engine = new Engine(EngineSettings.Development);
 
-        engine.Run();
-    }
-
-    private static void LoadTestUi(Engine engine)
-    {
-        var uiScreen = new UiScreen("testing-screen", "Testing Screen")
+        var starterScene = new Scene("Main")
         {
-            new Box("Background")
+            new("Ui")
             {
-                Size = new Vector2(.98f, .975f),
-                Position = new Vector2(0.01f),
-                Color = Color.Black
-            },
-            new Button("Quit Button")
-            {
-                BackgroundColor = Color.Red,
-                Size = new Vector2(.2f, .1f),
-                Position = new Vector2(.4f, .65f),
-                ClickAction = () => engine.ShouldRun = false
-            },
-            new Text("Title Text")
-            {
-                Position = new Vector2(.07f, .1f),
-                TextColor = Color.White,
-                TextValue = "The quick brown fox jumps over the lazy dog",
-                FontSize = 48
+                new UiRenderer(new UiScreen("testing-screen", "Testing Screen")
+                {
+                    new Box("Background")
+                    {
+                        Size = new Vector2(.98f, .975f),
+                        Position = new Vector2(0.01f),
+                        Color = Color.Black
+                    },
+                    new Button("Quit Button")
+                    {
+                        BackgroundColor = Color.Red,
+                        HoverColor = Color.LightRed,
+                        Size = new Vector2(.2f, .1f),
+                        Position = new Vector2(.4f, .65f),
+                        ClickAction = () => engine.ShouldRun = false,
+                        TextValue = "Quit",
+                        TextColor = Color.White
+                    },
+                    new Text("Title Text")
+                    {
+                        Position = new Vector2(.07f, .1f),
+                        TextColor = Color.White,
+                        TextValue = "The quick brown fox jumps over the lazy dog",
+                        Size = new Vector2(0.6f, .1f),
+                        BackgroundColor = Color.DarkGray
+                    }
+                })
             }
         };
 
-        engine.OnLoad += () =>
-        {
-            uiScreen.Register();
-            uiScreen.Load();
-        };
+        engine.Run();
     }
 }

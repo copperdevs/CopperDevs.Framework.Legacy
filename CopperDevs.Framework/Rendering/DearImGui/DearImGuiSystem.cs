@@ -1,6 +1,7 @@
 ﻿using CopperDevs.DearImGui;
 using CopperDevs.Framework.Elements.Systems;
 using CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
+using CopperDevs.Framework.Ui;
 
 namespace CopperDevs.Framework.Rendering.DearImGui;
 
@@ -22,6 +23,8 @@ public class DearImGuiSystem : BaseSystem<DearImGuiSystem>
         CopperImGui.RegisterFieldRenderer<rlTexture, Texture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<rlRenderTexture, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
+        CopperImGui.RegisterFieldRenderer<UiScreen, UiScreenFieldRenderer>();
+
 
         CopperImGui.Setup<CopperRlImGui>();
         CopperImGui.Rendered += RenderImGuiWindowsMenu;

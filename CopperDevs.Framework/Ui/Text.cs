@@ -1,17 +1,18 @@
-﻿using CopperDevs.Framework.Rendering;
+﻿using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.Framework.Ui;
 
 public class Text : UiElement
 {
     public string TextValue = "";
-    public int FontSize = 16;
-    public float TextSpacing = 8;
     public Color TextColor = Color.Black;
+    public Color BackgroundColor = Color.Black;
+    [Range(0, 1)] public float TextScale = 1;
 
     public override void DrawElement()
     {
-        rlGraphics.DrawTextEx(RenderingSystem.Instance.GetRenderableItems<Font>()[0], TextValue, ScaledPosition, FontSize, TextSpacing, TextColor);
+        rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, BackgroundColor);
+        UiDrawer.DrawText(TextValue, ScaledPosition, ScaledSize, TextScale, TextColor);
     }
 
     public Text() : base("Unnamed Text")

@@ -5,7 +5,7 @@ namespace TopDownShooter.Components;
 
 public class PlayerController : GameComponent
 {
-    [Exposed] [Range(1, 32)] private int moveSpeed = 10;
+    [Exposed] [Range(1, 2048)] private int moveSpeed = 1024;
     [Exposed] [ReadOnly] private Vector2 moveInput;
     [Exposed] [Range(0, 16)] private float inputSmoothTime = 12;
 
@@ -18,7 +18,7 @@ public class PlayerController : GameComponent
     {
         moveInput = MathUtil.Lerp(moveInput, PlayerMoveInput(), Time.DeltaTime * inputSmoothTime);
 
-        Transform.Position += moveInput * moveSpeed;
+        Transform.Position += (moveInput * moveSpeed) * Time.DeltaTime;
         Transform.LookAt(Input.MousePosition);
 
         rlGraphics.DrawCircleV(Vector2.Zero, 1, Color.Red);

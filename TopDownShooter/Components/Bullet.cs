@@ -14,7 +14,7 @@ public class Bullet : GameComponent
 
     public override void Update()
     {
-        Transform.Position += Transform.Rotation.ToRotatedUnitVector() * 8;
+        Transform.Position += (Transform.Rotation.ToRotatedUnitVector() * 2048) * Time.DeltaTime;
         rlGraphics.DrawCircleV(Vector2.Zero, 6, Color.RayWhite);
 
         if (Vector2.Distance(startPosition, Transform.Position) > maxDistance)

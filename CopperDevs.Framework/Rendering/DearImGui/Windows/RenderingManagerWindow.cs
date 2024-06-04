@@ -19,10 +19,16 @@ public class RenderingManagerWindow : BaseWindow
     public override void Update()
     {
         CopperImGui.TabGroup("rendering_manager_window_tab_group",
+            ("General Info", GeneralInfo),
             ("Shader Info", ShaderInfo),
             ("Window Render Texture", WindowRenderTexture),
             ("Font Info", FontInfo),
             ("Reflection Renderers Info", ImGuiReflectionRenderersInfo));
+    }
+
+    private static void GeneralInfo()
+    {
+        CopperImGui.Text(Time.Fps, "Fps");
     }
 
     private static void ShaderInfo()

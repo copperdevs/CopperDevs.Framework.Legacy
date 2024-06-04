@@ -1,12 +1,11 @@
-﻿
-namespace CopperDevs.Framework.Ui;
+﻿namespace CopperDevs.Framework.Ui;
 
-public class UiScreen : IEnumerable
+public class UiScreen : IEnumerable<UiElement>
 {
     public string DisplayName;
     public string ScreenId;
 
-    public List<UiElement> UiElements = [];
+    public readonly List<UiElement> UiElements = [];
 
     public UiScreen(string screenId, string displayName)
     {
@@ -14,13 +13,11 @@ public class UiScreen : IEnumerable
         DisplayName = displayName;
     }
 
-    public void Register() => UiRendererSystem.Instance.RegisterUiScreen(this);
-    public void Load() => UiRendererSystem.Instance.ChangeActiveScreen(this);
-
     public void Add(UiElement element)
     {
         UiElements.Add(element);
     }
-
-    public IEnumerator GetEnumerator() => UiElements.GetEnumerator();
+    
+    public IEnumerator<UiElement> GetEnumerator() => UiElements.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

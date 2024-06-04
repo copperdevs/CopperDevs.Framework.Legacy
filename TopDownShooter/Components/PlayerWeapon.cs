@@ -7,48 +7,65 @@ public class PlayerWeapon : GameComponent
 {
     private static PlayerWeapon staticWeapon;
 
-    [Exposed] private List<PlayerWeaponPreset> weaponPresets = new()
+    [Exposed] private PlayerWeaponSettings primaryWeapon = new()
     {
-        new PlayerWeaponPreset()
-        {
-            BulletCount = 2,
-            BulletRotationSpread = 16,
-            BulletPositionSpread = 8
-        },
-        new PlayerWeaponPreset()
-        {
-            BulletCount = 3,
-            BulletRotationSpread = 48,
-            BulletPositionSpread = 16
-        },
-        new PlayerWeaponPreset()
-        {
-            BulletCount = 4,
-            BulletRotationSpread = 1,
-            BulletPositionSpread = 64
-        },
+        BulletCount = 3,
+        BulletRotationSpread = 16,
+        BulletPositionSpread = 8,
+        ShootDelay = 0.015f
     };
 
-    [Exposed] [Range(0, 2)] private int currentWeaponPresetIndex = 0;
+    [Exposed] private PlayerWeaponSettings secondaryWeapon = new()
+    {
+        BulletCount = 128,
+        BulletRotationSpread = 64,
+        BulletPositionSpread = 16,
+        ShootDelay = 0.5f
+    };
 
-    public class PlayerWeaponPreset
+    [Exposed] private PlayerWeaponSettings specialWeapon = new()
+    {
+        BulletCount = 256,
+        BulletRotationSpread = 360,
+        BulletPositionSpread = 32,
+        ShootDelay = 1
+    };
+    
+    
+
+    public class PlayerWeaponSettings
     {
         public int BulletCount = 1;
         public float BulletRotationSpread = 4;
         public float BulletPositionSpread = 4;
+        public float ShootDelay = 0.15f;
+
+        [ReadOnly] private bool canShoot = true;
 
         public void Shoot()
         {
+            if (!canShoot || CopperImGui.AnyElementHovered)
+                return;
+
+            canShoot = false;
+
             for (var i = 0; i < BulletCount; i++)
-                if (!CopperImGui.AnyElementHovered)
-                {
-                    var bullet = ComponentRegistry.Instantiate<Bullet>();
-                    ref var transform = ref bullet.GetTransform();
-                    transform.Position = staticWeapon.Transform.Position +
-                                         new Vector2(Random.Range(-BulletPositionSpread, BulletPositionSpread), Random.Range(-BulletPositionSpread, BulletPositionSpread));
-                    transform.Rotation = staticWeapon.Transform.Rotation + Random.Range(-BulletRotationSpread, BulletRotationSpread);
-                    bullet.UpdateStartPosition(transform.Position);
-                }
+            {
+                var bullet = ComponentRegistry.Instantiate<Bullet>();
+                ref var transform = ref bullet.GetTransform();
+                transform.Position = staticWeapon.Transform.Position + new Vector2(
+                    Random.Range(-BulletPositionSpread, BulletPositionSpread),
+                    Random.Range(-BulletPositionSpread, BulletPositionSpread));
+                transform.Rotation = staticWeapon.Transform.Rotation + Random.Range(-BulletRotationSpread, BulletRotationSpread);
+                bullet.UpdateStartPosition(transform.Position);
+            }
+
+            Time.Invoke(ResetShoot, ShootDelay);
+        }
+
+        private void ResetShoot()
+        {
+            canShoot = true;
         }
     }
 
@@ -59,17 +76,17 @@ public class PlayerWeapon : GameComponent
 
     public override void Update()
     {
-        currentWeaponPresetIndex = MathUtil.Clamp(currentWeaponPresetIndex, 0, weaponPresets.Count - 1);
-
+        if (Input.IsMouseButtonDown(MouseButton.Left) && Input.IsMouseButtonDown(MouseButton.Right))
+        {
+            specialWeapon.Shoot();
+            return;
+        }
+        
         if (Input.IsMouseButtonDown(MouseButton.Left))
-            weaponPresets[currentWeaponPresetIndex].Shoot();
+            primaryWeapon.Shoot();
 
-        if (Input.IsKeyPressed(KeyboardKey.One))
-            currentWeaponPresetIndex = 0;
-        if (Input.IsKeyPressed(KeyboardKey.Two))
-            currentWeaponPresetIndex = 1;
-        if (Input.IsKeyPressed(KeyboardKey.Three))
-            currentWeaponPresetIndex = 2;
+        if (Input.IsMouseButtonPressed(MouseButton.Right))
+            secondaryWeapon.Shoot();
 
         staticWeapon = this;
     }

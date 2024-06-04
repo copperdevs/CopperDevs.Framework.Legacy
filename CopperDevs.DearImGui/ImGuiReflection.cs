@@ -85,13 +85,13 @@ public static class ImGuiReflection
                     {
                         try
                         {
-                            CopperImGui.CollapsingHeader($"{info.Name}##{id + 1}", () =>
+                            CopperImGui.CollapsingHeader($"{info.Name.ToTitleCase()}##{id + 1}", () =>
                             {
                                 var subComponent = info.GetValue(component);
                                 if (subComponent is null)
                                     return;
 
-                                RenderValues(subComponent, id + 1);
+                                RenderValues(subComponent, id + info.GetHashCode());
                                 info.SetValue(component, subComponent);
                             });
                         }

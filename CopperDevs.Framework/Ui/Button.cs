@@ -1,4 +1,6 @@
 ﻿using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Attributes;
+using CopperDevs.Framework.Rendering;
 using Raylib_CSharp.Interact;
 using Raylib_CSharp.Transformations;
 
@@ -7,18 +9,20 @@ namespace CopperDevs.Framework.Ui;
 public class Button : UiElement
 {
     public Color BackgroundColor = Color.White;
+    public Color HoverColor = Color.RayWhite;
+    public string TextValue = "";
+    public Color TextColor = Color.Black;
+    [Range(0, 1)] public float TextScale = 1;
     public Action ClickAction = null!;
 
     public override void DrawElement()
     {
-        rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, BackgroundColor);
+        var insideButtonArea = MouseInsideButtonArea();
+        
+        rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, insideButtonArea ? HoverColor : BackgroundColor);   
+        UiDrawer.DrawText(TextValue, ScaledPosition, ScaledSize, TextScale, TextColor);
 
-        if (!MouseInsideButtonArea())
-            return;
-
-        rlGraphics.DrawCircleV(Input.MousePosition, 8, Color.White);
-
-        if (rlInput.IsMouseButtonPressed(MouseButton.Left))
+        if (Input.IsMouseButtonPressed(MouseButton.Left) && insideButtonArea)
             ClickAction?.Invoke();
     }
 

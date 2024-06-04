@@ -1,4 +1,5 @@
-﻿using Raylib_CSharp.Textures;
+﻿using CopperDevs.Core;
+using Raylib_CSharp.Textures;
 
 namespace CopperDevs.Framework.Rendering;
 
@@ -6,7 +7,7 @@ public class Font : BaseRenderable
 {
     // rl data
     private rlFont font;
-    
+
     // info
     public readonly string Name;
     public int BaseSize => font.BaseSize;
@@ -20,10 +21,20 @@ public class Font : BaseRenderable
 
 
     public static Font Load(string fontName, byte[] fontData) => new(fontName, fontData);
-    public Font(string fontName, byte[] fontData) : this(fontName) => this.fontData = fontData;
+    public Font(string fontName, byte[] fontData)
+    {
+        this.fontData = fontData;
+        Name = fontName;
+        BaseLoad(this);
+    }
 
     public static Font Load(string fontName, string fontPath) => new(fontName);
-    public Font(string fontName, string fontPath) : this(fontName) => this.fontPath = fontPath;
+    public Font(string fontName, string fontPath)
+    {
+        this.fontPath = fontPath;
+        Name = fontName;
+        BaseLoad(this);
+    }
 
     public static Font Load(string fontName = "Default") => new(fontName);
     public Font(string fontName)
@@ -35,12 +46,21 @@ public class Font : BaseRenderable
     public override void LoadRenderable()
     {
         if (fontData is not null)
+        {
+            Log.Info($"Loading {Name} font from font data");
             font = rlFont.LoadFromMemory(".ttf", fontData, 144, null);
+        }
         else if (fontPath is not null)
+        {
+            Log.Info($"Loading {Name} font from path | Path: {fontPath}");
             font = rlFont.Load(fontPath);
+        }
         else
+        {
+            Log.Info($"Loading default font from font data");
             font = rlFont.GetDefault();
-        
+        }
+
         RenderingSystem.Instance.RegisterRenderableItem(this);
     }
 

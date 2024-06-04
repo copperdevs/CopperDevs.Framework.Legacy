@@ -16,12 +16,12 @@ public class IntFieldRenderer : FieldRenderer
             switch (rangeAttribute.TargetRangeType)
             {
                 case RangeType.Drag:
-                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{id}", ref value,
+                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                         (int)rangeAttribute.Min, (int)rangeAttribute.Min, (int)rangeAttribute.Max,
                         newValue => { fieldInfo.SetValue(component, newValue); });
                     break;
                 case RangeType.Slider:
-                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{id}", ref value,
+                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                         (int)rangeAttribute.Min, (int)rangeAttribute.Max,
                         newValue => { fieldInfo.SetValue(component, newValue); });
                     break;
@@ -33,7 +33,7 @@ public class IntFieldRenderer : FieldRenderer
         {
             var value = (int)(fieldInfo.GetValue(component) ?? 0);
 
-            CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{id}", ref value,
+            CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                 newValue => { fieldInfo.SetValue(component, newValue); });
         }
     }

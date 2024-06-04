@@ -16,14 +16,18 @@ public class FloatFieldRenderer : FieldRenderer
             switch (rangeAttribute.TargetRangeType)
             {
                 case RangeType.Drag:
-                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                        rangeAttribute.Speed, rangeAttribute.Min, rangeAttribute.Max,
-                        interactedValue => { fieldInfo.SetValue(component, interactedValue); });
+                    CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value, rangeAttribute.Speed, rangeAttribute.Min, rangeAttribute.Max,
+                        interactedValue =>
+                        {
+                            fieldInfo.SetValue(component, interactedValue);
+                        });
                     break;
                 case RangeType.Slider:
-                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                        rangeAttribute.Min, rangeAttribute.Max,
-                        interactedValue => { fieldInfo.SetValue(component, interactedValue); });
+                    CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value, rangeAttribute.Min, rangeAttribute.Max,
+                        interactedValue =>
+                        {
+                            fieldInfo.SetValue(component, interactedValue);
+                        });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

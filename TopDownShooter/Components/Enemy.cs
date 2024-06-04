@@ -13,16 +13,13 @@ public class Enemy : GameComponent
 
     public override void Update()
     {
+        Transform.LookAt(TargetPosition);
+        Transform.Position += Transform.Rotation.ToRotatedUnitVector() * 768 * Time.DeltaTime;
+        
         rlGraphics.DrawCircle(0, 0, 1, Color.Blue);
 
         if (Transform.Distance(TargetPosition) < 32)
             SceneManager.ActiveScene.Remove(Parent);
-    }
-
-    public override void FixedUpdate()
-    {
-        Transform.LookAt(TargetPosition);
-        Transform.Position += Transform.Rotation.ToRotatedUnitVector() * 4;
     }
 
     public override void DebugUpdate()

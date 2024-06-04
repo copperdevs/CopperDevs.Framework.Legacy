@@ -1,13 +1,29 @@
 ﻿using System.Runtime.InteropServices;
+using System;
+using System.Windows;
+using System.Drawing;
+using System.Numerics;
+using CopperDevs.Core.Data;
 
 namespace CopperDevs.Core.Utility;
 
 public static partial class WindowsApi
 {
+    public static Action<Vector2Int> OnWindowResize = null!; 
+    
+    private delegate IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+    
     private static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     private static bool IsWindows11 => Environment.OSVersion.Version.Build >= 22000;
+    
     private static int IntSize => sizeof(int);
+    private const int WM_SIZE = 0x0005;
+    private const int GWLP_WNDPROC = -4;
+    
+    private static WndProc newWndProc;
+    private static IntPtr oldWndProc;
 
+    
     [LibraryImport("dwmapi.dll")]
     private static partial void DwmSetWindowAttribute(IntPtr window, WindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
 
@@ -23,6 +39,13 @@ public static partial class WindowsApi
 
     [LibraryImport("user32.dll")]
     private static partial IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+    
+    [LibraryImport("user32.dll", EntryPoint = "SetWindowLongPtrA")]
+    private static partial IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+
+    [LibraryImport("user32.dll", EntryPoint = "CallWindowProcA")]
+    private static partial IntPtr CallWindowProc(IntPtr lpPrevWndFunc, IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
     public static void SetDwmWindowAttribute(IntPtr windowHandle, WindowAttribute dwAttribute, int pvAttribute)
     {
@@ -72,6 +95,32 @@ public static partial class WindowsApi
     {
         if (IsWindows)
             SetParent(child, parent);
+    }
+    
+    public static void RegisterWindow(IntPtr windowHandle)
+    {
+        // Subclass the window
+        newWndProc = CustomWndProc;
+        oldWndProc = SetWindowLongPtr(windowHandle, GWLP_WNDPROC, Marshal.GetFunctionPointerForDelegate(newWndProc));
+
+        // Restore the original window procedure before exiting
+        // SetWindowLongPtr(hwnd, GWLP_WNDPROC, oldWndProc);
+
+        return;
+        
+        IntPtr CustomWndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+        {
+            if (msg != WM_SIZE) 
+                return CallWindowProc(oldWndProc, hWnd, msg, wParam, lParam);
+            
+            var width = lParam.ToInt32() & 0xFFFF;
+            var height = lParam.ToInt32() >> 16;
+            
+            OnWindowResize?.Invoke(new Vector2Int(width, height));
+
+            // Call the original window procedure for default processing
+            return CallWindowProc(oldWndProc, hWnd, msg, wParam, lParam);
+        }
     }
 
     public enum WindowAttribute

@@ -82,6 +82,7 @@ public struct Color
     public static Color Gold => new(255, 203, 0, 255);
     public static Color Orange => new(255, 161, 0, 255);
     public static Color Pink => new(255, 109, 194, 255);
+    public static Color LightRed => new(240, 60, 72, 255);
     public static Color Red => new(230, 41, 55, 255);
     public static Color Maroon => new(190, 33, 55, 255);
     public static Color Green => new(0, 228, 48, 255);
