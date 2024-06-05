@@ -5,23 +5,23 @@ namespace CopperDevs.Framework.Scenes;
 public class Scene : IEnumerable<GameObject>
 {
     public string DisplayName { get; private set; }
-    public Guid Id { get; private set; }
+    public string Id { get; private set; }
 
     internal List<GameObject> SceneObjects = [];
 
     public Scene()
     {
-        Id = Guid.NewGuid();
-        DisplayName = Id.ToString();
+        Id = Guid.NewGuid().ToString();
+        DisplayName = Id;
 
         SceneManager.RegisterScene(this);
     }
 
-    public Scene(string displayName) : this(displayName, Guid.NewGuid())
+    public Scene(string displayName) : this(displayName, Guid.NewGuid().ToString())
     {
     }
 
-    public Scene(string displayName, Guid id)
+    public Scene(string displayName, string id)
     {
         DisplayName = displayName;
         Id = id;
@@ -29,8 +29,7 @@ public class Scene : IEnumerable<GameObject>
         SceneManager.RegisterScene(this);
     }
 
-    public static implicit operator Guid(Scene scene) => scene.Id;
-    public static implicit operator string(Scene scene) => scene.DisplayName;
+    public static implicit operator string(Scene scene) => scene.Id;
 
     public void Add(GameObject gameObject)
     {
@@ -63,6 +62,7 @@ public class Scene : IEnumerable<GameObject>
 
     public T FindFirstObjectByType<T>() where T : GameComponent
     {
+        // ReSharper disable once RedundantEnumerableCastCall
         foreach (var component in SceneObjects.Select(gameObject => gameObject.GetComponent<T>(false)).OfType<T>())
             return component;
 
@@ -77,6 +77,6 @@ public class Scene : IEnumerable<GameObject>
 
     public List<T> GetAllComponents<T>() where T : GameComponent
     {
-        return GetAllObjectsWithComponent<T>().Select(foundObject => foundObject.GetComponent<T>()).Cast<T>().ToList();
+        return GetAllObjectsWithComponent<T>().Select(foundObject => foundObject.GetComponent<T>()).ToList();
     }
 }

@@ -12,15 +12,15 @@ public class Button : UiElement
     public Color HoverColor = Color.RayWhite;
     public string TextValue = "";
     public Color TextColor = Color.Black;
-    [Range(0, 1)] public float TextScale = 1;
-    public Action ClickAction = null!;
+    public float FontSize = 48;
+    [HideInInspector] public Action ClickAction = null!;
 
     public override void DrawElement()
     {
         var insideButtonArea = MouseInsideButtonArea();
         
         rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, insideButtonArea ? HoverColor : BackgroundColor);   
-        UiDrawer.DrawText(TextValue, ScaledPosition, ScaledSize, TextScale, TextColor);
+        UiDrawer.DrawText(TextValue, ScaledPosition, ScaledSize, TextColor, FontSize);
 
         if (Input.IsMouseButtonPressed(MouseButton.Left) && insideButtonArea)
             ClickAction?.Invoke();

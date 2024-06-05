@@ -4,7 +4,7 @@ namespace CopperDevs.Framework.Scenes;
 
 public static class SceneManager
 {
-    private static readonly Dictionary<Guid, Scene> Scenes = new();
+    private static readonly Dictionary<string, Scene> Scenes = new();
 
     public static Scene ActiveScene
     {
@@ -22,7 +22,7 @@ public static class SceneManager
         return currentScene;
     }
 
-    public static void LoadScene(Guid sceneId, bool clone = true)
+    public static void LoadScene(string sceneId, bool clone = true)
     {
         LoadScene(Scenes[sceneId], clone);
     }

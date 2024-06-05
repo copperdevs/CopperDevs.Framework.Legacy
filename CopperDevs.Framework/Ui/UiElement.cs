@@ -1,5 +1,6 @@
 ﻿using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui.Attributes;
+using Raylib_CSharp.Transformations;
 
 namespace CopperDevs.Framework.Ui;
 
@@ -20,5 +21,10 @@ public abstract class UiElement
     protected UiElement(string name)
     {
         Name = name;
+    }
+
+    public static implicit operator Rectangle(UiElement uiElement)
+    {
+        return new Rectangle(uiElement.ScaledPosition.X, uiElement.ScaledPosition.Y, uiElement.ScaledSize.X, uiElement.ScaledSize.Y);
     }
 }
