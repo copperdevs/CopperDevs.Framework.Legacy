@@ -1,11 +1,22 @@
-﻿using CopperDevs.Core.Utility;
+﻿using CopperDevs.Core.Data;
+using CopperDevs.Core.Utility;
 using Raylib_CSharp.Interact;
 
 namespace CopperDevs.Framework.Data;
 
 public static class Input
 {
-    public static Vector2 MousePosition => Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
+    public static Vector2 MousePosition
+    {
+        get
+        {
+            if (!WindowsApi.IsWindows) 
+                return Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
+            
+            var windowInfo = WindowsApi.GetWindowPosition(rlWindow.GetHandle());
+            return WindowsApi.GetMousePosition() - new Vector2Int(windowInfo.X+8, windowInfo.Y+31);
+        }
+    }
 
     public static float IsKeyDown(KeyboardKey upKey, KeyboardKey downKey)
     {

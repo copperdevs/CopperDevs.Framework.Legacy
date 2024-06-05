@@ -387,7 +387,7 @@ public static class rlImGui
         }
         else
         {
-            io.AddMousePosEvent(rlInput.GetMouseX(), rlInput.GetMouseY());
+            io.AddMousePosEvent(Input.MousePosition.X, Input.MousePosition.Y);
         }
 
         SetMouseEvent(io, MouseButton.Left, ImGuiMouseButton.Left);

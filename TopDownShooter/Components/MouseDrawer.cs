@@ -1,4 +1,6 @@
-﻿namespace TopDownShooter.Components;
+﻿using CopperDevs.Core.Data;
+
+namespace TopDownShooter.Components;
 
 public class MouseDrawer : GameComponent
 {

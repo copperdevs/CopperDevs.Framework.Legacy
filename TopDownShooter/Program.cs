@@ -88,6 +88,16 @@ public static class Program
             }
         };
 
+        var mouseTestingScene = new Scene()
+        {
+            new("Mouse Drawer")
+            {
+                new MouseDrawer()
+            }
+        };
+        
+        mouseTestingScene.Load();
+
         engine.Run();
     }
 }
