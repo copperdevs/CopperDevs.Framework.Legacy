@@ -48,11 +48,11 @@ public static partial class WindowsApi
 
     [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static partial bool GetCursorPos(out Point lpPoint);
+    private static partial bool GetCursorPos(out Point lpPoint);
 
     [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static partial bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
+    private static partial bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
     public static void SetDwmWindowAttribute(IntPtr windowHandle, WindowAttribute dwAttribute, int pvAttribute)
     {
@@ -138,9 +138,7 @@ public static partial class WindowsApi
 
     public static (int X, int Y, int Width, int Height) GetWindowPosition(IntPtr hWnd)
     {
-        var rect = new Rect();
-        
-        if (!GetWindowRect(hWnd, out rect)) 
+        if (!GetWindowRect(hWnd, out var rect)) 
             throw new InvalidOperationException("Unable to get window position.");
         
         var width = rect.Right - rect.Left;
