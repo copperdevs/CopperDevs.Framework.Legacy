@@ -8,7 +8,7 @@ public static class Program
 {
     public static void Main()
     {
-        var engineSettings = new EngineSettings()
+        var engineSettings = new EngineSettings
         {
             DisableDevTools = false,
             EnableDevToolsAtStart = true,
@@ -66,7 +66,7 @@ public static class Program
                 })
             }
         };
-        
+
         var gameScene = new Scene("Game Scene", "game-scene")
         {
             new("Player Object")
@@ -87,6 +87,8 @@ public static class Program
                 new EnemyManager()
             }
         };
+
+        // engine.SetWindowColor(new Color(0, 0, 0, 0));
 
         engine.Run();
     }

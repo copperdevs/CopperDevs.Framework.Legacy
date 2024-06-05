@@ -7,7 +7,7 @@ namespace CopperDevs.Framework.Data;
 [HideInInspector]
 public class EngineSettings
 {
-    public ConfigFlags WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow;
+    public ConfigFlags WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow;
     public Vector2Int WindowSize = new(650, 400);
     public int TargetFps = 60;
     public string WindowTitle = "Window";
@@ -18,7 +18,7 @@ public class EngineSettings
     public static EngineSettings DefaultSettings => new()
     {
         WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow |
-                      ConfigFlags.AlwaysRunWindow,
+                      ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 60,
         WindowTitle = "CopperFramework - Default",
@@ -29,7 +29,7 @@ public class EngineSettings
 
     public static EngineSettings UncappedFps => new()
     {
-        WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow,
+        WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Uncapped Fps",
@@ -40,7 +40,7 @@ public class EngineSettings
 
     public static EngineSettings Development => new()
     {
-        WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow,
+        WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Development",
