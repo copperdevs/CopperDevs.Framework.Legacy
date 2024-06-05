@@ -6,6 +6,8 @@ public struct Transform
     public float Rotation = 0;
     public float Scale = 1;
 
+    public Action Updated = null!;
+    
     public Transform()
     {
         Position = default;

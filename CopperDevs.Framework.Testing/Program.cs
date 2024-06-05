@@ -1,4 +1,5 @@
-﻿using CopperDevs.Framework.Scenes;
+﻿using CopperDevs.Framework.Physics;
+using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Testing;
 
@@ -41,6 +42,13 @@ public static class Program
                 })
             }
         };
+
+        var physicsTesting = new Scene("Physics")
+        {
+            new("Rigidbody")
+        };
+
+        physicsTesting.Load();
 
         engine.Run();
     }

@@ -35,9 +35,9 @@ public class TransformFieldRenderer : FieldRenderer
             var scale = value.Scale;
             var rotation = value.Rotation;
 
-            CopperImGui.DragValue($"Position##{id}", ref position);
-            CopperImGui.DragValue($"Scale##{id}", ref scale);
-            CopperImGui.DragValue($"Rotation##{id}", ref rotation);
+            CopperImGui.DragValue($"Position##{id}", ref position, _ => TransformUpdated(value));
+            CopperImGui.DragValue($"Scale##{id}", ref scale, _ => TransformUpdated(value));
+            CopperImGui.DragValue($"Rotation##{id}", ref rotation, _ => TransformUpdated(value));
 
             value.Position = position;
             value.Scale = scale;
@@ -45,5 +45,10 @@ public class TransformFieldRenderer : FieldRenderer
         });
 
         transform = value;
+    }
+
+    private static void TransformUpdated(Transform transform)
+    {
+        transform.Updated?.Invoke();
     }
 }

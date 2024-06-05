@@ -16,7 +16,7 @@ public class EngineWindow(EngineSettings settings)
     public EngineCamera Camera;
 
     private static float fixedDeltaTime;
-    private const float FixedFrameTime = 0.02f;
+    public const float FixedFrameTime = 0.02f;
 
     public rlRenderTexture RenderTexture { get; private set; }
     public bool ScreenShaderEnabled = true;

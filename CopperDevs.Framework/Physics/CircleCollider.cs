@@ -2,7 +2,6 @@
 
 namespace CopperDevs.Framework.Physics;
 
-[Disabled]
 public class CircleCollider : Collider
 {
     public override void DebugUpdate()

@@ -70,14 +70,14 @@ internal static class ElementManager
                 RlGl.TranslateF(gameObject.Transform.Position.X, gameObject.Transform.Position.Y, 0);
                 RlGl.RotateF(gameObject.Transform.Rotation, 0, 0, -1);
                 RlGl.ScaleF(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
-            
+
                 gameObject.UpdateComponents(component =>
                 {
                     component.Transform = gameObject.Transform;
                     updateAction?.Invoke(component);
                     gameObject.Transform = component.Transform;
                 });
-            
+
                 RlGl.PopMatrix();
             }
         }

@@ -2,7 +2,6 @@
 
 namespace CopperDevs.Framework.Physics;
 
-[Disabled]
 public class BoxCollider : Collider
 {
     public override void Update()
