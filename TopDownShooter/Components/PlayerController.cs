@@ -1,4 +1,5 @@
-﻿using Raylib_CSharp.Collision;
+﻿using CopperDevs.Core.Data;
+using Raylib_CSharp.Collision;
 using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;
@@ -22,6 +23,8 @@ public class PlayerController : GameComponent
         Transform.LookAt(Input.MousePosition);
 
         rlGraphics.DrawCircleV(Vector2.Zero, 1, Color.Red);
+
+        SizeCheck(EngineWindow.Size);
     }
 
     public override void FixedUpdate()
@@ -54,5 +57,20 @@ public class PlayerController : GameComponent
 
         var directionRay = new Ray(new Vector3(playerPos.X, playerPos.Y, 0), Transform.Rotation.ToRotatedUnitVector().ToVector3());
         rlGraphics.DrawRay(directionRay, Color.Red);
+    }
+
+    private void SizeCheck(Vector2Int size)
+    {
+        if (size.X < Transform.Position.X)
+            Transform.Position.X = size.X;
+
+        if (Transform.Position.X < 0)
+            Transform.Position.X = 0;
+
+        if (Transform.Position.Y < 0)
+            Transform.Position.Y = 0;
+
+        if (Transform.Position.Y > size.Y)
+            Transform.Position.Y = size.Y;
     }
 }

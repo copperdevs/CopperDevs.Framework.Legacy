@@ -24,8 +24,7 @@ public class EngineWindow(EngineSettings settings)
     public Shader? ScreenShader { get; private set; }
     public Color BackgroundColor { get; private set; } = Color.RayWhite;
 
-    public void SetScreenShader(Shader? shader) => ScreenShader = shader;
-    public void SetWindowColor(Color color) => BackgroundColor = color;
+    public Action<Vector2Int> OnResize = null!;
 
     public void Start()
     {
@@ -65,6 +64,7 @@ public class EngineWindow(EngineSettings settings)
         {
             RenderTexture.Unload();
             RenderTexture = rlRenderTexture.Load(Size.X, Size.Y);
+            OnResize?.Invoke(Size);
         }
 
         BeginTextureMode(RenderTexture);
@@ -95,4 +95,7 @@ public class EngineWindow(EngineSettings settings)
         rlAudio.Close();
         Close();
     }
+
+    public void SetScreenShader(Shader? shader) => ScreenShader = shader;
+    public void SetWindowColor(Color color) => BackgroundColor = color;
 }

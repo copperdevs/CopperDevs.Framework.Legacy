@@ -12,7 +12,8 @@ public static class Program
         {
             DisableDevTools = false,
             EnableDevToolsAtStart = true,
-            WindowTitle = "Copper Framework - Top Down Shooter"
+            WindowTitle = "Copper Framework - Top Down Shooter",
+            TargetFps = -1
         };
 
         var engine = new Engine(engineSettings);
