@@ -52,7 +52,6 @@ public class Rigidbody : GameComponent
         addedToWorld = true;
 
         body = ParentScene?.PhysicsWorld?.CreateBody(new BodyDef { type = BodyType.Dynamic })!;
-
         
         var shape = new PolygonShape();
         shape.SetAsBox(Transform.Scale/2,Transform.Scale/2, in Transform.Position, Transform.Rotation);
@@ -60,6 +59,7 @@ public class Rigidbody : GameComponent
         body.CreateFixture(shape, 1);
 
         Transform.Updated += TransformUpdated;
+        OnComponentValueChanged += ComponentUpdated;
     }
 
     private void RemoveFromWorld()
@@ -71,10 +71,16 @@ public class Rigidbody : GameComponent
         ParentScene?.PhysicsWorld?.DestroyBody(body);
         
         Transform.Updated -= TransformUpdated;
+        OnComponentValueChanged += ComponentUpdated;
     }
 
     private void TransformUpdated()
     {
         body.SetTransform(Transform.Position, Transform.Rotation);
+    }
+
+    private void ComponentUpdated()
+    {
+        Log.Info("value changed");
     }
 }

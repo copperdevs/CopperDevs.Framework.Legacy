@@ -61,16 +61,16 @@ public class PlayerController : GameComponent
 
     private void SizeCheck(Vector2Int size)
     {
-        if (size.X < Transform.Position.X)
+        if (Transform.Position.X > size.X)
             Transform.Position.X = size.X;
 
         if (Transform.Position.X < 0)
             Transform.Position.X = 0;
 
-        if (Transform.Position.Y < 0)
-            Transform.Position.Y = 0;
-
         if (Transform.Position.Y > size.Y)
             Transform.Position.Y = size.Y;
+
+        if (Transform.Position.Y < 0)
+            Transform.Position.Y = 0;
     }
 }

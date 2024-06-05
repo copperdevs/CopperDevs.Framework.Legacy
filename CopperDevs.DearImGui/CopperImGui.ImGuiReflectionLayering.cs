@@ -20,24 +20,24 @@ public static partial class CopperImGui
         RegisterFieldRenderer<Vector3, Vector3FieldRenderer>();
     }
 
-    public static void RenderObjectValues<TTargetType>(TTargetType component, int id = 0, RenderingType renderingType = RenderingType.All)
+    public static void RenderObjectValues<TTargetType>(TTargetType component, int id = 0, RenderingType renderingType = RenderingType.All, Action valueChanged = null!)
     {
-        ImGuiReflection.RenderValues(component, id, renderingType);
+        ImGuiReflection.RenderValues(component, id, renderingType, valueChanged);
     }
 
-    public static void RenderObjectValues<TTargetType>(ref TTargetType targetObject, int id = 0, RenderingType renderingType = RenderingType.All)
+    public static void RenderObjectValues<TTargetType>(ref TTargetType targetObject, int id = 0, RenderingType renderingType = RenderingType.All, Action valueChanged = null!)
     {
         var renderer = ImGuiReflection.GetImGuiRenderer<TTargetType>();
 
         if (renderer is not null)
         {
             var targetObjectCasted = (object)targetObject!;
-            renderer.ValueRenderer(ref targetObjectCasted, id);
+            renderer.ValueRenderer(ref targetObjectCasted, id, valueChanged);
             targetObject = (TTargetType)targetObjectCasted;
         }
         else
         {
-            ImGuiReflection.RenderValues(targetObject!, id, renderingType);
+            ImGuiReflection.RenderValues(targetObject!, id, renderingType, valueChanged);
         }
     }
 

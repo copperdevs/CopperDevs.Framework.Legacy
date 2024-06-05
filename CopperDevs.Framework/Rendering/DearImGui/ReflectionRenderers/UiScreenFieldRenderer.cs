@@ -8,18 +8,18 @@ namespace CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
 
 public class UiScreenFieldRenderer : FieldRenderer
 {
-    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id, Action valueChanged = null!)
     {
         var value = (UiScreen)(fieldInfo.GetValue(component) ?? CreateUiScreen());
         UiScreenRenderer($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", value, id);
     }
 
-    public override void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id, Action valueChanged = null!)
     {
         UiScreenRenderer($"{value.GetType().Name.ToTitleCase()}##{id}", (UiScreen)value, id);
     }
 
-    private void UiScreenRenderer(string title, UiScreen screen, int id)
+    private void UiScreenRenderer(string title, UiScreen screen, int id, Action valueChanged = null!)
     {
         CopperImGui.CollapsingHeader(title, () =>
         {
@@ -30,7 +30,7 @@ public class UiScreenFieldRenderer : FieldRenderer
                 CopperImGui.CollapsingHeader($"{element.Name}###{i + id}", () =>
                 {
                     // ReSharper disable once AccessToModifiedClosure
-                    CopperImGui.RenderObjectValues(ref element, i + id + element.GetHashCode());
+                    CopperImGui.RenderObjectValues(ref element, i + id + element.GetHashCode(), RenderingType.All, valueChanged);
                 });
             }
 

@@ -7,25 +7,25 @@ namespace CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
 
 public class TransformFieldRenderer : FieldRenderer
 {
-    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id, Action valueChanged = null!)
     {
         var value = (Transform)(fieldInfo.GetValue(component) ?? 0);
 
-        TransformRenderer($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value, id);
+        TransformRenderer($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value, id, valueChanged);
 
         fieldInfo.SetValue(component, value);
     }
 
-    public override void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id, Action valueChanged = null!)
     {
         var transformValue = (Transform)value;
 
-        TransformRenderer($"{value.GetType().Name.ToTitleCase()}##{id}", ref transformValue, id);
+        TransformRenderer($"{value.GetType().Name.ToTitleCase()}##{id}", ref transformValue, id, valueChanged);
 
         value = transformValue;
     }
 
-    private static void TransformRenderer(string title, ref Transform transform, int id)
+    private static void TransformRenderer(string title, ref Transform transform, int id, Action valueChanged = null!)
     {
         var value = transform;
 
@@ -35,9 +35,21 @@ public class TransformFieldRenderer : FieldRenderer
             var scale = value.Scale;
             var rotation = value.Rotation;
 
-            CopperImGui.DragValue($"Position##{id}", ref position, _ => TransformUpdated(value));
-            CopperImGui.DragValue($"Scale##{id}", ref scale, _ => TransformUpdated(value));
-            CopperImGui.DragValue($"Rotation##{id}", ref rotation, _ => TransformUpdated(value));
+            CopperImGui.DragValue($"Position##{id}", ref position, _ =>
+            {
+                TransformUpdated(value);
+                valueChanged?.Invoke();
+            });
+            CopperImGui.DragValue($"Scale##{id}", ref scale, _ =>
+            {
+                TransformUpdated(value);
+                valueChanged?.Invoke();
+            });
+            CopperImGui.DragValue($"Rotation##{id}", ref rotation, _ =>
+            {
+                TransformUpdated(value);
+                valueChanged?.Invoke();
+            });
 
             value.Position = position;
             value.Scale = scale;

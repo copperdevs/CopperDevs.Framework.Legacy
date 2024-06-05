@@ -4,7 +4,7 @@ namespace CopperDevs.DearImGui.ReflectionRenderers;
 
 public class Vector4FieldRenderer : FieldRenderer
 {
-    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id, Action valueChanged = null!)
     {
         var rangeAttribute = (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
 
@@ -18,12 +18,20 @@ public class Vector4FieldRenderer : FieldRenderer
                 case RangeType.Drag:
                     CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                         rangeAttribute.Speed, rangeAttribute.Min, rangeAttribute.Max,
-                        newValue => { fieldInfo.SetValue(component, newValue); });
+                        newValue =>
+                        {
+                            fieldInfo.SetValue(component, newValue);
+                            valueChanged?.Invoke();
+                        });
                     break;
                 case RangeType.Slider:
                     CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                         rangeAttribute.Min, rangeAttribute.Max,
-                        newValue => { fieldInfo.SetValue(component, newValue); });
+                        newValue =>
+                        {
+                            fieldInfo.SetValue(component, newValue);
+                            valueChanged?.Invoke();
+                        });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -38,11 +46,11 @@ public class Vector4FieldRenderer : FieldRenderer
         }
     }
 
-    public override void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id, Action valueChanged = null!)
     {
         var vectorValue = (Vector4)value;
 
-        CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref vectorValue);
+        CopperImGui.DragValue($"{value.GetType().Name.ToTitleCase()}##{id}", ref vectorValue, _ => valueChanged?.Invoke());
 
         value = vectorValue;
     }

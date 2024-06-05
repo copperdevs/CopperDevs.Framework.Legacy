@@ -4,7 +4,7 @@ namespace CopperDevs.DearImGui.ReflectionRenderers;
 
 public class IntFieldRenderer : FieldRenderer
 {
-    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id, Action valueChanged = null!)
     {
         var rangeAttribute = (RangeAttribute?)Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute))!;
 
@@ -18,12 +18,20 @@ public class IntFieldRenderer : FieldRenderer
                 case RangeType.Drag:
                     CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                         (int)rangeAttribute.Min, (int)rangeAttribute.Min, (int)rangeAttribute.Max,
-                        newValue => { fieldInfo.SetValue(component, newValue); });
+                        newValue =>
+                        {
+                            fieldInfo.SetValue(component, newValue);
+                            valueChanged?.Invoke();
+                        });
                     break;
                 case RangeType.Slider:
                     CopperImGui.SliderValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
                         (int)rangeAttribute.Min, (int)rangeAttribute.Max,
-                        newValue => { fieldInfo.SetValue(component, newValue); });
+                        newValue =>
+                        {
+                            fieldInfo.SetValue(component, newValue);
+                            valueChanged?.Invoke();
+                        });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -34,15 +42,19 @@ public class IntFieldRenderer : FieldRenderer
             var value = (int)(fieldInfo.GetValue(component) ?? 0);
 
             CopperImGui.DragValue($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", ref value,
-                newValue => { fieldInfo.SetValue(component, newValue); });
+                newValue =>
+                {
+                    fieldInfo.SetValue(component, newValue);
+                    valueChanged?.Invoke();
+                });
         }
     }
 
-    public override void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id, Action valueChanged = null!)
     {
         var intValue = (int)value;
 
-        CopperImGui.DragValue($"{value.GetType().Name}##{id}", ref intValue);
+        CopperImGui.DragValue($"{value.GetType().Name}##{id}", ref intValue, _ => valueChanged?.Invoke());
 
         value = intValue;
     }

@@ -8,14 +8,14 @@ namespace CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
 
 public class Texture2DFieldRenderer : FieldRenderer
 {
-    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id, Action valueChanged = null!)
     {
         var value = (rlTexture)(fieldInfo.GetValue(component) ?? new rlTexture());
 
         TextureRenderer($"{fieldInfo.Name.ToTitleCase()}##{fieldInfo.Name}{id}", value);
     }
 
-    public override void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id, Action valueChanged = null!)
     {
         TextureRenderer($"{value.GetType().Name.ToTitleCase()}##{id}", (rlTexture)value);
     }

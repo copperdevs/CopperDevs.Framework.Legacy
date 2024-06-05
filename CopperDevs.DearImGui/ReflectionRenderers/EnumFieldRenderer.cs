@@ -7,22 +7,25 @@ namespace CopperDevs.DearImGui.ReflectionRenderers;
 
 public class EnumFieldRenderer : FieldRenderer
 {
-    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id)
+    public override void ReflectionRenderer(FieldInfo fieldInfo, object component, int id, Action valueChanged = null!)
     {
         var enumValue = fieldInfo.GetValue(component)!;
 
-        RenderEnum(fieldInfo.FieldType, ref enumValue, id, fieldInfo.Name.ToTitleCase());
+        RenderEnum(fieldInfo.FieldType, ref enumValue, id, fieldInfo.Name.ToTitleCase(), valueChanged);
 
         fieldInfo.SetValue(component, enumValue);
     }
 
-    public override void ValueRenderer(ref object value, int id)
+    public override void ValueRenderer(ref object value, int id, Action valueChanged = null!)
     {
-        RenderEnum(value.GetType(), ref value, id, value.GetType().Name.ToTitleCase());
+        RenderEnum(value.GetType(), ref value, id, value.GetType().Name.ToTitleCase(), valueChanged);
     }
 
-    private void RenderEnum(Type type, ref object component, int id, string title)
+    private void RenderEnum(Type type, ref object component, int id, string title, Action valueChanged = null!)
     {
+        CopperImGui.Text("enums are broken and i dont wanna fix them cause they suck");
+        return;
+        
         var enumValues = Enum.GetValues(type);
         var value = enumValues.GetValue((int)Convert.ChangeType(component, Enum.GetUnderlyingType(type)))!;
 

@@ -22,7 +22,7 @@ public static class ImGuiReflection
         return ImGuiRenderers.GetValueOrDefault(typeof(T));
     }
 
-    internal static void RenderValues(object component, int id = 0, RenderingType renderingType = RenderingType.All)
+    internal static void RenderValues(object component, int id = 0, RenderingType renderingType = RenderingType.All, Action valueChanged = null!)
     {
         var bindingFlags = renderingType switch
         {
@@ -91,7 +91,7 @@ public static class ImGuiReflection
                                 if (subComponent is null)
                                     return;
 
-                                RenderValues(subComponent, id + info.GetHashCode());
+                                RenderValues(subComponent, id + info.GetHashCode(), renderingType, valueChanged);
                                 info.SetValue(component, subComponent);
                             });
                         }
