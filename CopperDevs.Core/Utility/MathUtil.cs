@@ -175,6 +175,11 @@ public static class MathUtil
         return MathF.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
     }
 
+    public static float Magnitude(Vector3 vector)
+    {
+        return MathF.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z);
+    }
+    
     public static float SqrLength(Vector2 vector)
     {
         return vector.X * vector.X + vector.Y * vector.Y;

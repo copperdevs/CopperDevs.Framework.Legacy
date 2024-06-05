@@ -15,12 +15,11 @@ public class Enemy : GameComponent
     {
         Transform.LookAt(TargetPosition);
         Transform.Position += Transform.Rotation.ToRotatedUnitVector() * 768 * Time.DeltaTime;
-        
+
         rlGraphics.DrawCircle(0, 0, 1, Color.Blue);
 
         if (Transform.Distance(TargetPosition) < 32)
-            SceneManager.ActiveScene.Remove(Parent);
-    }
+            SceneManager.ActiveScene.Remove(Parent); }
 
     public override void DebugUpdate()
     {

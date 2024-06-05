@@ -57,7 +57,6 @@ public class PlayerWeapon : GameComponent
                     Random.Range(-BulletPositionSpread, BulletPositionSpread),
                     Random.Range(-BulletPositionSpread, BulletPositionSpread));
                 transform.Rotation = staticWeapon.Transform.Rotation + Random.Range(-BulletRotationSpread, BulletRotationSpread);
-                bullet.UpdateStartPosition(transform.Position);
             }
 
             Time.Invoke(ResetShoot, ShootDelay);
