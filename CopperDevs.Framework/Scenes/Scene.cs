@@ -62,7 +62,6 @@ public class Scene : IEnumerable<GameObject>
 
     public T FindFirstObjectByType<T>() where T : GameComponent
     {
-        // ReSharper disable once RedundantEnumerableCastCall
         foreach (var component in SceneObjects.Select(gameObject => gameObject.GetComponent<T>(false)).OfType<T>())
             return component;
 

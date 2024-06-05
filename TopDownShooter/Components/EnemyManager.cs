@@ -8,7 +8,7 @@ public class EnemyManager : SingletonGameComponent<EnemyManager>
     [Seperator("Spawn Position")]
     [Exposed] public Vector2 EnemyTargetPosition;
     [Exposed] private Vector2 spawnRadius = new(1024, 2048);
-    private List<Vector2> previousSpawnPositions = new();
+    private List<Vector2> previousSpawnPositions = [];
 
     [Seperator("Spawn Time")]
     [Exposed] private bool spawnEnemies = true;

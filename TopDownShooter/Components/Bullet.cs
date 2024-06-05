@@ -17,17 +17,14 @@ public class Bullet : GameComponent
         Transform.Position += (Transform.Rotation.ToRotatedUnitVector() * 2048) * Time.DeltaTime;
         rlGraphics.DrawCircleV(Vector2.Zero, 6, Color.RayWhite);
 
-        if (Vector2.Distance(startPosition, Transform.Position) > maxDistance)
-        {
+        if (Vector2.Distance(startPosition, Transform.Position) > maxDistance) 
             SceneManager.ActiveScene.Remove(Parent);
-        }
 
-        // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-        foreach (var enemy in ParentScene?.GetAllComponents<Enemy>()!)
+        Parallel.ForEach(ParentScene?.GetAllComponents<Enemy>()!, enemy =>
         {
             if (Vector2.Distance(Transform.Position, enemy.GetTransform().Position) <= 32)
                 ParentScene?.Remove(enemy.GetParent());
-        }
+        });
     }
 
     public void UpdateStartPosition(Vector2 newStartPos)
