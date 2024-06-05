@@ -98,7 +98,7 @@ public class ComponentsManagerWindow : BaseWindow
                                 CopperImGui.Separator("Component Settings");
                                 ImGui.Indent();
 
-                                CopperImGui.RenderObjectValues(component, component.GetHashCode(), RenderingType.Exposed);
+                                CopperImGui.RenderObjectValues(component, component.GetHashCode(), RenderingType.Exposed, CurrentObjectBrowserTarget.OnComponentValueChanged);
                             });
                     }
 
@@ -160,7 +160,7 @@ public class ComponentsManagerWindow : BaseWindow
 
     private static void NewGameObjectPopup()
     {
-        CopperImGui.Selectable("Empty GameObject", () => { SceneManager.ActiveScene.Add(new GameObject()); });
+        CopperImGui.Selectable("Empty GameObject", () => { SceneManager.ActiveScene.Add([]); });
 
         CopperImGui.Separator();
 

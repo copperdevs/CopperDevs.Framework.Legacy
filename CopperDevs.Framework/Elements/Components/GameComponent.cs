@@ -16,7 +16,7 @@ public abstract class GameComponent
     public ref GameObject GetParent() => ref Parent;
     public ref Transform GetTransform() => ref Parent.Transform;
 
-    protected Action OnComponentValueChanged = null!;
+    protected internal Action OnComponentValueChanged = null!;
 
     public T GetComponent<T>(bool addIfNotFound = true) where T : GameComponent
     {

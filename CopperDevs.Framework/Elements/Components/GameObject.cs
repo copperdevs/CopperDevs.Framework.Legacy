@@ -1,4 +1,5 @@
-﻿using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.Core;
+using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Elements.Components;
@@ -82,5 +83,11 @@ public class GameObject : IEnumerable<GameComponent>
     public bool HasComponent<T>() where T : GameComponent
     {
         return Components.Any(component => component.GetType() == typeof(T));
+    }
+
+    internal void OnComponentValueChanged()
+    {
+        foreach (var component in Components) 
+            component.OnComponentValueChanged?.Invoke();
     }
 }
