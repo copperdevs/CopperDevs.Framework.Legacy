@@ -285,6 +285,9 @@ public static class rlImGui
             {
                 fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
                     fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
+                
+                fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Figtree.static.Figtree-Regular.ttf"))
+                    fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
             }
         }
         catch (Exception e)

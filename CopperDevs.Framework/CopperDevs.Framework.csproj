@@ -22,33 +22,45 @@
     <ItemGroup>
       <None Remove="Resources\Fonts\Inter\static\Inter-Regular.ttf" />
       <EmbeddedResource Include="Resources\Fonts\Inter\static\Inter-Regular.ttf" />
-      <None Remove="Resources\Shaders\Scanlines.frag" />
-      <EmbeddedResource Include="Resources\Shaders\Scanlines.frag" />
+        
+      <None Remove="Resources\Fonts\Figtree\static\Figtree-Regular.ttf" />
+      <EmbeddedResource Include="Resources\Fonts\Figtree\static\Figtree-Regular.ttf" />
+        
+      <None Remove="Resources\Shaders\Bloom.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Bloom.frag" />
+        
       <None Remove="Resources\Shaders\Blur.frag" />
       <EmbeddedResource Include="Resources\Shaders\Blur.frag" />
-      <None Remove="Resources\Shaders\Pixelizer.frag" />
-      <EmbeddedResource Include="Resources\Shaders\Pixelizer.frag" />
+        
       <None Remove="Resources\Shaders\CrossStitching.frag" />
       <EmbeddedResource Include="Resources\Shaders\CrossStitching.frag" />
-      <None Remove="Resources\Shaders\CrossHatching.frag" />
-      <None Remove="Resources\Shaders\Predator.frag" />
-      <EmbeddedResource Include="Resources\Shaders\Predator.frag" />
-      <None Remove="Resources\Shaders\Posterization.frag" />
-      <EmbeddedResource Include="Resources\Shaders\Posterization.frag" />
+        
       <None Remove="Resources\Shaders\DreamVision.frag" />
       <EmbeddedResource Include="Resources\Shaders\DreamVision.frag" />
-      <None Remove="Resources\Shaders\Sobel.frag" />
-      <EmbeddedResource Include="Resources\Shaders\Sobel.frag" />
-      <None Remove="Resources\Shaders\Grayscale.frag" />
-      <EmbeddedResource Include="Resources\Shaders\Grayscale.frag" />
+        
       <None Remove="Resources\Shaders\Fisheye.frag" />
       <EmbeddedResource Include="Resources\Shaders\Fisheye.frag" />
+        
+      <None Remove="Resources\Shaders\Grayscale.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Grayscale.frag" />
+        
+      <None Remove="Resources\Shaders\Pixelizer.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Pixelizer.frag" />
+        
+      <None Remove="Resources\Shaders\Posterization.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Posterization.frag" />
+        
+      <None Remove="Resources\Shaders\Predator.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Predator.frag" />
+        
       <None Remove="Resources\Shaders\ReadMe.txt" />
       <EmbeddedResource Include="Resources\Shaders\ReadMe.txt" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Include="Resources\Shaders\Bloom.frag" />
+        
+      <None Remove="Resources\Shaders\Scanlines.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Scanlines.frag" />
+        
+      <None Remove="Resources\Shaders\Sobel.frag" />
+      <EmbeddedResource Include="Resources\Shaders\Sobel.frag" />
     </ItemGroup>
 
 </Project>
