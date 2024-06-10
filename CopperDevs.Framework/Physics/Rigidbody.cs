@@ -81,6 +81,6 @@ public class Rigidbody : GameComponent
 
     private void ComponentUpdated()
     {
-        Log.Info("value changed");
+        Log.Debug("value changed");
     }
 }

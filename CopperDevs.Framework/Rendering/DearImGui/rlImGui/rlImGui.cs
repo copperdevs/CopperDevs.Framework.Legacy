@@ -259,7 +259,7 @@ public static class rlImGui
         }
         catch (Exception e)
         {
-            Log.Error(e);
+            Log.Exception(e);
         }
     }
 
@@ -292,7 +292,7 @@ public static class rlImGui
         }
         catch (Exception e)
         {
-            Log.Error(e);
+            Log.Exception(e);
             fonts.AddFontDefault();
         }
 

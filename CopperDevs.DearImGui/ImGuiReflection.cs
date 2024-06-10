@@ -97,7 +97,7 @@ public static class ImGuiReflection
                         }
                         catch (Exception e)
                         {
-                            Log.Info(e);
+                            Log.Exception(e);
                             CopperImGui.Text(info.FieldType.FullName!, "Unsupported editor value");
                         }
                     }
@@ -152,7 +152,7 @@ public static class ImGuiReflection
                     }
                     catch (Exception e)
                     {
-                        Log.Info(e);
+                        Log.Exception(e);
                     }
                 }
 

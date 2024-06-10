@@ -31,7 +31,7 @@ public class Engine : Singleton<Engine>
 
         stopwatch = Stopwatch.StartNew();
 
-        CopperLogger.Initialize();
+        CopperLogger.IncludeTimestamps = true;
         RaylibLogger.Initialize();
 
         SetInstance(this);
@@ -41,7 +41,7 @@ public class Engine : Singleton<Engine>
 
         ShouldRun = true;
 
-        Log.Info($"Time elapsed during engine creation: {stopwatch.Elapsed}");
+        Log.Performance($"Time elapsed during engine creation: {stopwatch.Elapsed}");
     }
 
     public void Run()
@@ -67,7 +67,7 @@ public class Engine : Singleton<Engine>
             Update();
         };
         
-        Log.Info($"Time elapsed starting the engine: {stopwatch.Elapsed}");
+        Log.Performance($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }
 
     private void Update()
@@ -93,7 +93,7 @@ public class Engine : Singleton<Engine>
 
     private void Stop()
     {
-        Log.Info($"Time elapsed during the runtime of the engine: {stopwatch.Elapsed}");
+        Log.Performance($"Time elapsed during the runtime of the engine: {stopwatch.Elapsed}");
         ElementManager.Shutdown();
         window.Shutdown();
     }

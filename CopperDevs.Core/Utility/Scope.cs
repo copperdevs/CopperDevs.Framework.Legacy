@@ -16,7 +16,7 @@ public abstract class Scope : IDisposable
     ~Scope()
     {
         if (!disposed)
-            Log.Info($"{GetType().Name} was not disposed! You should use the 'using' keyword or manually call Dispose.");
+            Log.Warning($"{GetType().Name} was not disposed! You should use the 'using' keyword or manually call Dispose.");
         Dispose(false);
     }
 

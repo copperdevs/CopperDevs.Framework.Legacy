@@ -42,8 +42,8 @@ public class EnumFieldRenderer : FieldRenderer
         }
 
         CopperImGui.HorizontalGroup(() => { CopperImGui.Text(title); },
-            () => { CopperImGui.Button($"-###{Enum.GetUnderlyingType(type)}{type}{id}", () => { Log.Info($"{currentValueIndex - 1} {MathUtil.Clamp(currentValueIndex - 1, enumRange)}"); }); },
+            () => { CopperImGui.Button($"-###{Enum.GetUnderlyingType(type)}{type}{id}", () => { Log.Debug($"{currentValueIndex - 1} {MathUtil.Clamp(currentValueIndex - 1, enumRange)}"); }); },
             () => { CopperImGui.Button($"{value}###{Enum.GetUnderlyingType(type)}{type}{id}"); },
-            () => { CopperImGui.Button($"+###{Enum.GetUnderlyingType(type)}{type}{id}", () => { Log.Info($"{currentValueIndex + 1} {MathUtil.Clamp(currentValueIndex + 1, enumRange)}"); }); });
+            () => { CopperImGui.Button($"+###{Enum.GetUnderlyingType(type)}{type}{id}", () => { Log.Debug($"{currentValueIndex + 1} {MathUtil.Clamp(currentValueIndex + 1, enumRange)}"); }); });
     }
 }
