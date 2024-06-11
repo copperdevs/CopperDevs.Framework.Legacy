@@ -12,5 +12,9 @@
       <ProjectReference Include="..\CopperDevs.Framework\CopperDevs.Framework.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="CopperDevs.Core" Version="1.0.0" />
+    </ItemGroup>
+
 
 </Project>

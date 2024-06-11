@@ -1,5 +1,4 @@
-﻿using CopperDevs.Core.Data;
-using CopperDevs.Core.Utility;
+﻿using CopperDevs.Core.Utility;
 using Raylib_CSharp.Interact;
 
 namespace CopperDevs.Framework.Data;
@@ -14,7 +13,7 @@ public static class Input
                 return Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
             
             var windowInfo = WindowsApi.GetWindowPosition(rlWindow.GetHandle());
-            return WindowsApi.GetMousePosition() - new Vector2Int(windowInfo.X+8, windowInfo.Y+31);
+            return WindowsApi.GetMousePosition() - new Vector2(windowInfo.X+8, windowInfo.Y+31);
         }
     }
 
