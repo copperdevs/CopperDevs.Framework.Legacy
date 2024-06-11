@@ -62,10 +62,7 @@ public class Engine : Singleton<Engine>
 
         OnLoad?.Invoke();
 
-        WindowsApi.OnWindowResize += size =>
-        {
-            Update();
-        };
+        WindowsApi.OnWindowResize += _ => Update();
         
         Log.Performance($"Time elapsed starting the engine: {stopwatch.Elapsed}");
     }
