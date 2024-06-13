@@ -2,12 +2,13 @@
 
 public struct Color
 {
-    public float R { get; set; } = 255;
-    public float G { get; set; } = 255;
-    public float B { get; set; } = 255;
-    public float A { get; set; } = 255;
+    public byte R { get; set; } = 255;
+    public byte G { get; set; } = 255;
+    public byte B { get; set; } = 255;
+    public byte A { get; set; } = 255;
 
-    public Color(float r, float g, float b, float a)
+
+    public Color(byte r, byte g, byte b, byte a)
     {
         R = r;
         G = g;
@@ -15,7 +16,7 @@ public struct Color
         A = a;
     }
 
-    public Color(float r, float g, float b)
+    public Color(byte r, byte g, byte b)
     {
         R = r;
         G = g;
@@ -23,7 +24,7 @@ public struct Color
         A = 255;
     }
 
-    public Color(float value)
+    public Color(byte value)
     {
         R = value;
         G = value;
@@ -35,45 +36,40 @@ public struct Color
     {
     }
 
-    public Color(Vector4 vector) : this(vector.X, vector.Y, vector.Z, vector.W)
-
+    public Color(Vector4 vector) : this((byte)vector.X, (byte)vector.Y, (byte)vector.Z, (byte)vector.W)
     {
     }
 
-    public Color(Vector3 vector) : this(vector.X, vector.Y, vector.Z)
+    public Color(Vector3 vector) : this((byte)vector.X, (byte)vector.Y, (byte)vector.Z)
     {
     }
 
-    public static implicit operator Vector3(Color color)
-    {
-        return new Vector3(color.R, color.G, color.B);
-    }
+    public int ToInt() => ((A & 0xff) << 24) | ((R & 0xff) << 16) | ((G & 0xff) << 8) | (B & 0xff);
 
-    public static implicit operator Vector4(Color color)
-    {
-        return new Vector4(color.R, color.G, color.B, color.A);
-    }
+    public static implicit operator Vector3(Color color) => new(color.R, color.G, color.B);
 
-    public static Color operator /(Color color, float value)
-    {
-        return new Color(color.R / value, color.G / value, color.B / value, color.A / value);
-    }
+    public static implicit operator Vector4(Color color) => new(color.R, color.G, color.B, color.A);
 
-    public static Color operator *(Color color, float value)
-    {
-        return new Color(color.R * value, color.G * value, color.B * value, color.A * value);
-    }
+    public static Color operator /(Color color, byte value) => new((byte)(color.R / value), (byte)(color.G / value), (byte)(color.B / value), (byte)(color.A / value));
 
-    public static implicit operator rlColor(Color color)
-    {
-        return new rlColor((byte)color.R, (byte)color.G, (byte)color.B, (byte)color.A);
-    }
+    public static Color operator *(Color color, float value) => new((byte)(color.R * value), (byte)(color.G * value), (byte)(color.B * value), (byte)(color.A * value));
 
-    public static implicit operator Color(rlColor color)
-    {
-        return new Color(color.R, color.G, color.B, color.A);
-    }
+    public static implicit operator rlColor(Color color) => new(color.R, color.G, color.B, color.A);
 
+    public static implicit operator Color(rlColor color) => new(color.R, color.G, color.B, color.A);
+
+    public static implicit operator int(Color color) => color.ToInt();
+
+    public static Color FromInt(int color)
+    {
+        return new Color
+        {
+            A = (byte)((color >> 24) & 0xFF),
+            R = (byte)((color >> 16) & 0xFF),
+            G = (byte)((color >> 8) & 0xFF),
+            B = (byte)(color & 0xFF),
+        };
+    }
 
     public static Color LightGray => new(200, 200, 200, 255);
     public static Color Gray => new(130, 130, 130, 255);

@@ -20,6 +20,12 @@ public class GameObject : IEnumerable<GameComponent>
         GameObjectName = name;
     }
 
+    public GameObject(string name, Transform transform)
+    {
+        GameObjectName = name;
+        Transform = transform;
+    }
+
     internal void UpdateComponents(Action<GameComponent> action)
     {
         foreach (var component in Components.ToList())
