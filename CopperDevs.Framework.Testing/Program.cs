@@ -8,8 +8,13 @@ public static class Program
     public static void Main()
     {
         var engine = new Engine(EngineSettings.Development);
+        engine.OnLoad += () => EngineLoad(engine);
+        engine.Run();
+    }
 
-        var starterScene = new Scene("Main")
+    public static void EngineLoad(Engine engine)
+    {
+        var starterScene = new Scene("Ui Testing")
         {
             new("Ui")
             {
@@ -45,11 +50,30 @@ public static class Program
 
         var physicsTesting = new Scene("Physics")
         {
-            new("Rigidbody")
+            new("Dynamic Rigidbody", new Transform { Scale = 100, Position = new Vector2(0, -50) })
+            {
+                new Rigidbody
+                {
+                    isStatic = false
+                },
+                new SquareComponent
+                {
+                    SquareColor = Color.Red
+                }
+            },
+            new("Ground Rigidbody", new Transform { Scale = 50, Position = new Vector2(0, 400) })
+            {
+                new Rigidbody
+                {
+                    isStatic = true
+                },
+                new SquareComponent
+                {
+                    SquareColor = Color.Black
+                }
+            }
         };
 
         physicsTesting.Load();
-
-        engine.Run();
     }
 }

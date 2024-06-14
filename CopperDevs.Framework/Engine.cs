@@ -23,6 +23,7 @@ public class Engine : Singleton<Engine>
 
     public Engine() : this(EngineSettings.DefaultSettings)
     {
+        
     }
 
     public Engine(EngineSettings settings)

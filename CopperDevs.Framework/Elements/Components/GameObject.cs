@@ -1,4 +1,5 @@
-﻿using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.Core;
+using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Elements.Components;
@@ -29,17 +30,21 @@ public class GameObject : IEnumerable<GameComponent>
     internal void UpdateComponents(Action<GameComponent> action)
     {
         foreach (var component in Components.ToList())
+        {
+            component.Transform = Transform;
             action?.Invoke(component);
+            Transform = component.Transform;
+        }
     }
 
     public void Add(GameComponent gameComponent)
     {
         gameComponent.Parent = this;
         Components.Add(gameComponent);
-
-        gameComponent.Transform = Transform;
-        gameComponent.Start();
-        Transform = gameComponent.Transform;
+        
+        // gameComponent.Transform = Transform;
+        // gameComponent.Start();
+        // Transform = gameComponent.Transform;
     }
 
     public void Remove(GameComponent gameComponent)
@@ -90,9 +95,5 @@ public class GameObject : IEnumerable<GameComponent>
         return Components.Any(component => component.GetType() == typeof(T));
     }
 
-    internal void OnComponentValueChanged()
-    {
-        foreach (var component in Components) 
-            component.OnComponentValueChanged?.Invoke();
-    }
+    internal void OnComponentValueChanged() => UpdateComponents(component => component.OnComponentValueChanged?.Invoke());
 }

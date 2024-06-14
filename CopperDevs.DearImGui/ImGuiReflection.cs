@@ -71,7 +71,7 @@ public static class ImGuiReflection
 
                 if (info.FieldType.IsEnum)
                 {
-                    ImGuiRenderers[typeof(Enum)].ReflectionRenderer(info, component, id);
+                    ImGuiRenderers[typeof(Enum)].ReflectionRenderer(info, component, id, valueChanged);
                 }
                 else if (isList)
                 {
@@ -80,7 +80,7 @@ public static class ImGuiReflection
                 else
                 {
                     if (ImGuiRenderers.TryGetValue(info.FieldType, out var renderer))
-                        renderer.ReflectionRenderer(info, component, id);
+                        renderer.ReflectionRenderer(info, component, id, valueChanged);
                     else
                     {
                         try

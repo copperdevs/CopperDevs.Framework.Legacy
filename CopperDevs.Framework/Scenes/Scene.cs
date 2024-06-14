@@ -1,5 +1,4 @@
-﻿using Box2D.NetStandard.Dynamics.World;
-using CopperDevs.Framework.Elements.Components;
+﻿using CopperDevs.Framework.Elements.Components;
 
 namespace CopperDevs.Framework.Scenes;
 
@@ -10,16 +9,12 @@ public class Scene : IEnumerable<GameObject>
 
     internal List<GameObject> SceneObjects = [];
 
-    public readonly World PhysicsWorld;
-
     public Scene()
     {
         Id = Guid.NewGuid().ToString();
         DisplayName = Id;
 
         SceneManager.RegisterScene(this);
-
-        PhysicsWorld = new World(new Vector2(0, 9.81f));
     }
 
     public Scene(string displayName) : this(displayName, Guid.NewGuid().ToString())
@@ -32,8 +27,6 @@ public class Scene : IEnumerable<GameObject>
         Id = id;
 
         SceneManager.RegisterScene(this);
-
-        PhysicsWorld = new World(new Vector2(0, 9.81f));
     }
 
     public static implicit operator string(Scene scene) => scene.Id;
@@ -43,6 +36,8 @@ public class Scene : IEnumerable<GameObject>
         SceneObjects.Add(gameObject);
 
         gameObject.Scene = this;
+        
+        gameObject.UpdateComponents(component => component.Start());
     }
 
     public void Remove(GameObject gameObject)

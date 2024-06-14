@@ -9,7 +9,6 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="Box2D.NetStandard" Version="2.4.7-alpha" />
         <PackageReference Include="CopperDevs.Core" Version="1.0.0" />
         <PackageReference Include="DeepCloner" Version="0.10.4" />
         <PackageReference Include="Raylib-CSharp" Version="4.1.2" />

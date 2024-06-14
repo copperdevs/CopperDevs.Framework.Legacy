@@ -2,10 +2,10 @@
 
 public class SquareComponent : GameComponent
 {
-    [Exposed] private Color squareColor = Color.Red;
+    [Exposed] public Color SquareColor = Color.Red;
 
     public override void Update()
     {
-        rlGraphics.DrawRectangle(-1, -1, 2, 2, squareColor);
+        rlGraphics.DrawRectangle(-1, -1, 2, 2, SquareColor);
     }
 }
