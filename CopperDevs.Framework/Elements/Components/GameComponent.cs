@@ -37,10 +37,6 @@ public abstract class GameComponent
     {
     }
 
-    public virtual void Awake()
-    {
-    }
-
     public virtual void Update()
     {
     }
@@ -54,10 +50,6 @@ public abstract class GameComponent
     }
 
     public virtual void FixedUpdate()
-    {
-    }
-
-    public virtual void Sleep()
     {
     }
 

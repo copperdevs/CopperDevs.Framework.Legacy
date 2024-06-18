@@ -4,7 +4,7 @@ namespace CopperDevs.Framework.Utility;
 
 public static class ResourceLoader
 {
-    public static readonly Dictionary<Assembly, List<string>> ResourcePaths = new();
+    private static readonly Dictionary<Assembly, List<string>> ResourcePaths = new();
 
     static ResourceLoader()
     {

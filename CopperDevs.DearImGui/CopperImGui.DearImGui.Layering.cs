@@ -464,4 +464,25 @@ public static partial class CopperImGui
         else
             ImGui.EndMenuBar();
     }
+
+    public static void Window(string title, Action render, ImGuiWindowFlags flags = ImGuiWindowFlags.None)
+    {
+        if (!ImGui.Begin(title, flags)) 
+            return;
+        
+        render.Invoke();
+        ImGui.End();
+    }
+
+    public static void Window(string title, Action render, ref bool isOpen, ImGuiWindowFlags flags = ImGuiWindowFlags.None)
+    {
+        if (!isOpen) 
+            return;
+        
+        if (!ImGui.Begin(title, ref isOpen, flags)) 
+            return;
+        
+        render.Invoke();
+        ImGui.End();
+    }
 }

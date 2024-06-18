@@ -16,7 +16,7 @@ public static class Program
             TargetFps = -1
         };
 
-        var engine = new Engine(engineSettings);
+        var engine = new OldEngine(engineSettings);
         engine.SetWindowColor(Color.Black);
         engine.SetWindowShader(Shader.IncludedShaders.Bloom);
 

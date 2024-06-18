@@ -18,8 +18,8 @@ public class Button : UiElement
     public override void DrawElement()
     {
         var insideButtonArea = MouseInsideButtonArea();
-        
-        rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, insideButtonArea ? HoverColor : BackgroundColor);   
+
+        rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, insideButtonArea ? HoverColor : BackgroundColor);
         UiDrawer.DrawText(TextValue, ScaledPosition, ScaledSize, TextColor, FontSize);
 
         if (Input.IsMouseButtonPressed(MouseButton.Left) && insideButtonArea)
@@ -28,7 +28,13 @@ public class Button : UiElement
 
     private bool MouseInsideButtonArea()
     {
-        return !CopperImGui.AnyElementHovered && rlCollision.CheckCollisionPointRec(Input.MousePosition, new Rectangle(ScaledPosition.X, ScaledPosition.Y, ScaledSize.X, ScaledSize.Y));
+        if (Engine.Instance.debugEnabled)
+        {
+            if (CopperImGui.AnyElementHovered)
+                return false;
+        }
+        
+        return rlCollision.CheckCollisionPointRec(Input.MousePosition, new Rectangle(ScaledPosition.X, ScaledPosition.Y, ScaledSize.X, ScaledSize.Y));
     }
 
     public Button() : base("Unnamed Button")

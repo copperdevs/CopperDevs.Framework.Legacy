@@ -13,16 +13,16 @@ public class CameraManagerWindow : BaseWindow
 
     private static void EngineCameraInfo()
     {
-        var cameraPos = Engine.CurrentWindow.Camera.Position;
-        var cameraZoom = Engine.CurrentWindow.Camera.Zoom;
-        var cameraRot = Engine.CurrentWindow.Camera.Rotation;
+        var cameraPos = OldEngine.CurrentWindow.Camera.Position;
+        var cameraZoom = OldEngine.CurrentWindow.Camera.Zoom;
+        var cameraRot = OldEngine.CurrentWindow.Camera.Rotation;
 
         CopperImGui.DragValue("Position", ref cameraPos);
         CopperImGui.DragValue("Zoom", ref cameraZoom);
         CopperImGui.DragValue("Rotation", ref cameraRot);
 
-        Engine.CurrentWindow.Camera.Position = cameraPos;
-        Engine.CurrentWindow.Camera.Zoom = cameraZoom;
-        Engine.CurrentWindow.Camera.Rotation = cameraRot;
+        OldEngine.CurrentWindow.Camera.Position = cameraPos;
+        OldEngine.CurrentWindow.Camera.Zoom = cameraZoom;
+        OldEngine.CurrentWindow.Camera.Rotation = cameraRot;
     }
 }

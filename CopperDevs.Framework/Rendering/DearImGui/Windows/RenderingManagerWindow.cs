@@ -33,7 +33,7 @@ public class RenderingManagerWindow : BaseWindow
 
     private static void ShaderInfo()
     {
-        CopperImGui.Checkbox("Engine Window Screen Shader Enabled", ref Engine.CurrentWindow.ScreenShaderEnabled);
+        CopperImGui.Checkbox("Engine Window Screen Shader Enabled", ref OldEngine.CurrentWindow.ScreenShaderEnabled);
 
         CopperImGui.Separator();
 
@@ -49,7 +49,7 @@ public class RenderingManagerWindow : BaseWindow
                 CopperImGui.CollapsingHeader(shader.Name, () =>
                 {
                     CopperImGui.Selectable($"Set to engine screen shader###{shader.Name}",
-                        () => Engine.CurrentWindow.SetScreenShader(shader));
+                        () => OldEngine.CurrentWindow.SetScreenShader(shader));
 
                     CopperImGui.CollapsingHeader($"Vertex Shader Data###{shader.Name}",
                         () => { CopperImGui.Text(shader.VertexShaderData); });
@@ -63,7 +63,7 @@ public class RenderingManagerWindow : BaseWindow
 
     private static void WindowRenderTexture()
     {
-        var renderTexture = (object)Engine.CurrentWindow.RenderTexture;
+        var renderTexture = (object)OldEngine.CurrentWindow.RenderTexture;
         CopperImGui.RenderObjectValues(ref renderTexture);
     }
 

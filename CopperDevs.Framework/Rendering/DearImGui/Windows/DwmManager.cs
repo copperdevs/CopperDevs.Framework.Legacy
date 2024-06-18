@@ -1,4 +1,5 @@
-﻿using CopperDevs.Core.Utility;
+﻿using CopperDevs.Core;
+using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
@@ -12,6 +13,8 @@ public class DwmManager : BaseWindow
 
     public override void Update()
     {
+        CopperImGui.Button("Log Handle", () => Log.Info(WindowHandle));
+        
         CopperImGui.CollapsingHeader("Immersive Dark Mode", () =>
         {
             CopperImGui.Button("Enable", () => WindowsApi.SetDwmImmersiveDarkMode(WindowHandle, true));

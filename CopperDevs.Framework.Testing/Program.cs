@@ -8,12 +8,20 @@ public static class Program
     public static void Main()
     {
         var engine = new Engine(EngineSettings.Development);
+        
         engine.OnLoad += () => EngineLoad(engine);
+        
         engine.Run();
+
+        // var engine = new OldEngine(EngineSettings.Development);
+        // engine.OnLoad += () => EngineLoad(engine);
+        // engine.Run();
     }
 
     public static void EngineLoad(Engine engine)
     {
+        var emptyScene = new Scene("Empty");
+            
         var starterScene = new Scene("Ui Testing")
         {
             new("Ui")
@@ -74,6 +82,6 @@ public static class Program
             }
         };
 
-        physicsTesting.Load();
+        emptyScene.Load();
     }
 }

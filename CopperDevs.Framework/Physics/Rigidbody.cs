@@ -12,7 +12,7 @@ public class Rigidbody : GameComponent
     {
         if (!isStatic)
         {
-            velocity.Y += PhysicsSystem.Instance.Gravity * Time.DeltaTime;
+            velocity.Y += -9.81f * Time.DeltaTime;
             Transform.Position += velocity;
         }
         else

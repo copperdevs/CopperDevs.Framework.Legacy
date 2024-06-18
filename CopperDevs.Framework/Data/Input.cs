@@ -10,7 +10,7 @@ public static class Input
         get
         {
             if (!WindowsApi.IsWindows) 
-                return Engine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
+                return OldEngine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
             
             var windowInfo = WindowsApi.GetWindowPosition(rlWindow.GetHandle());
             return WindowsApi.GetMousePosition() - new Vector2(windowInfo.X+8, windowInfo.Y+31);

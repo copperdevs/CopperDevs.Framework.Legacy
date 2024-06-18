@@ -41,10 +41,6 @@ public class GameObject : IEnumerable<GameComponent>
     {
         gameComponent.Parent = this;
         Components.Add(gameComponent);
-        
-        // gameComponent.Transform = Transform;
-        // gameComponent.Start();
-        // Transform = gameComponent.Transform;
     }
 
     public void Remove(GameComponent gameComponent)
@@ -52,7 +48,7 @@ public class GameObject : IEnumerable<GameComponent>
         Components.Remove(gameComponent);
         gameComponent.Transform = Transform;
         gameComponent.Stop();
-        gameComponent.Sleep();
+        // gameComponent.Sleep();
         Transform = gameComponent.Transform;
     }
 

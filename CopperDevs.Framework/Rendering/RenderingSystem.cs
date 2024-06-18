@@ -1,12 +1,9 @@
-﻿using CopperDevs.Core;
-using CopperDevs.Core.Utility;
-using CopperDevs.Framework.Elements.Systems;
-using CopperDevs.Framework.Utility;
+﻿using CopperDevs.Framework.Utility;
 using Raylib_CSharp.Interact;
 
 namespace CopperDevs.Framework.Rendering;
 
-public class RenderingSystem : BaseSystem<RenderingSystem>
+public class RenderingSystem : Singleton<RenderingSystem>
 {
     public Dictionary<Type, List<BaseRenderable>> LoadedRenderableItems { get; private set; } = new();
 
@@ -30,27 +27,19 @@ public class RenderingSystem : BaseSystem<RenderingSystem>
         LoadedRenderableItems[typeof(T)] = targetList;
     }
 
-    public override void Start()
+    internal void Start()
     {
         BaseRenderable.LoadQueuedItems();
 
         Shader.Load("Empty");
-        
-        new Font("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
+
+        Font.Load("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
         Font.Load();
     }
 
-    public override void Update()
+    internal void Stop()
     {
-        if (Input.IsKeyPressed(KeyboardKey.F3))
-            Engine.CurrentWindow.ScreenShaderEnabled = !Engine.CurrentWindow.ScreenShaderEnabled;
-    }
-
-    public override void Stop()
-    {
-        foreach (var renderable in LoadedRenderableItems.Values.SelectMany(renderables => renderables).ToList())
-        {
+        foreach (var renderable in LoadedRenderableItems.Values.SelectMany(renderables => renderables).ToList()) 
             renderable.UnLoadRenderable();
-        }
     }
 }
