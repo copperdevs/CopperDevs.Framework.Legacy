@@ -22,6 +22,8 @@ public static class ImGuiReflection
         return ImGuiRenderers.GetValueOrDefault(typeof(T));
     }
 
+    private static readonly Dictionary<Type, List<FieldInfo>> FieldInfoTypeDictionary = [];
+
     internal static void RenderValues(object component, int id = 0, RenderingType renderingType = RenderingType.All, Action valueChanged = null!)
     {
         var bindingFlags = renderingType switch
@@ -32,7 +34,12 @@ public static class ImGuiReflection
             _ => throw new ArgumentOutOfRangeException(nameof(renderingType), renderingType, null)
         };
 
-        var fields = component.GetType().GetFields(bindingFlags).ToList();
+        var valueCached = FieldInfoTypeDictionary.TryGetValue(component.GetType(), out var value);
+
+        if (!valueCached) 
+            FieldInfoTypeDictionary.TryAdd(component.GetType(), component.GetType().GetFields(bindingFlags).ToList());
+        
+        var fields = valueCached ? value : FieldInfoTypeDictionary[component.GetType()];
 
         foreach (var info in fields)
         {

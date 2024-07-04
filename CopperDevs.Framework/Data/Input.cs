@@ -3,7 +3,6 @@ using CopperDevs.Core.Utility;
 using ImGuiNET;
 using nkast.Aether.Physics2D.Common;
 using Raylib_CSharp.Interact;
-using Vector2 = System.Numerics.Vector2;
 
 namespace CopperDevs.Framework.Data;
 

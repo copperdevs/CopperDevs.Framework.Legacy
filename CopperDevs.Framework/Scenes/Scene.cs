@@ -28,7 +28,7 @@ public class Scene : IEnumerable<GameObject>
         DisplayName = displayName;
         Id = id;
 
-        PhysicsWorld = new World();
+        PhysicsWorld = new World(new PhysicsVector2(0.0f, 98.0665f));
         
         SceneManager.RegisterScene(this);
     }

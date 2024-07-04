@@ -24,3 +24,8 @@ global using rlWindow = Raylib_CSharp.Windowing.Window;
 global using rlAudio = Raylib_CSharp.Audio.AudioDevice;
 global using rlRenderTexture = Raylib_CSharp.Textures.RenderTexture2D;
 global using rlTexture = Raylib_CSharp.Textures.Texture2D;
+
+global using Vector2 = System.Numerics.Vector2;
+global using Vector3 = System.Numerics.Vector3;
+global using PhysicsVector2 = nkast.Aether.Physics2D.Common.Vector2;
+global using PhysicsVector3 = nkast.Aether.Physics2D.Common.Vector3;

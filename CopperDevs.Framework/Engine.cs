@@ -5,6 +5,7 @@ using CopperDevs.Core.Data;
 using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
 using CopperDevs.Framework.Elements.Components;
+using CopperDevs.Framework.Physics;
 using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Rendering.DearImGui;
 using CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
@@ -117,6 +118,8 @@ public class Engine : Singleton<Engine>
 
         RenderingSystem ??= new RenderingSystem();
         RenderingSystem?.Start();
+
+        ComponentRegistry.RegisterAbstractSubclass<Collider, BoxCollider>();
 
         OnLoad?.Invoke();
 

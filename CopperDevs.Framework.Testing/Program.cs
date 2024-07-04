@@ -22,25 +22,27 @@ public static class Program
         {
             new("Dynamic Rigidbody", new Transform { Scale = 100, Position = new Vector2(0, -50) })
             {
+                new BoxCollider(),
                 new Rigidbody
                 {
-                    isStatic = false
+                    IsStatic = false
                 },
-                new SquareComponent
-                {
-                    SquareColor = Color.Red
-                }
+                // new SquareComponent
+                // {
+                //     SquareColor = Color.Red
+                // }
             },
-            new("Ground Rigidbody", new Transform { Scale = 50, Position = new Vector2(0, 400) })
+            new("Ground Rigidbody", new Transform { Scale = 200, Position = new Vector2(0, 400) })
             {
+                new BoxCollider(),
                 new Rigidbody
                 {
-                    isStatic = true
+                    IsStatic = true
                 },
-                new SquareComponent
-                {
-                    SquareColor = Color.Black
-                }
+                // new SquareComponent
+                // {
+                //     SquareColor = Color.Black
+                // }
             }
         };
 
