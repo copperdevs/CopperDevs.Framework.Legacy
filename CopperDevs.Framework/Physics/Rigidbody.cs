@@ -8,6 +8,16 @@ public class Rigidbody : GameComponent
     [Exposed] public bool isStatic;
     [Exposed] [ReadOnly] private Vector2 velocity;
 
+    public override void Start()
+    {
+        
+    }
+
+    public override void Stop()
+    {
+        
+    }
+
     public override void Update()
     {
         if (!isStatic)

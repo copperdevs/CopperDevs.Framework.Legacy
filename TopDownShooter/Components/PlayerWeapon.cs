@@ -1,4 +1,5 @@
 ﻿using CopperDevs.DearImGui;
+using ImGuiNET;
 using Raylib_CSharp.Interact;
 
 namespace TopDownShooter.Components;
@@ -30,8 +31,6 @@ public class PlayerWeapon : GameComponent
         BulletPositionSpread = 32,
         ShootDelay = 1
     };
-    
-    
 
     public class PlayerWeaponSettings
     {
@@ -44,7 +43,7 @@ public class PlayerWeapon : GameComponent
 
         public void Shoot()
         {
-            if (!canShoot || CopperImGui.AnyElementHovered)
+            if (!canShoot || (CopperImGui.AnyElementHovered && Engine.Instance.DebugEnabled && !Engine.Instance.GameWindowHovered))
                 return;
 
             canShoot = false;
@@ -80,7 +79,7 @@ public class PlayerWeapon : GameComponent
             specialWeapon.Shoot();
             return;
         }
-        
+
         if (Input.IsMouseButtonDown(MouseButton.Left))
             primaryWeapon.Shoot();
 

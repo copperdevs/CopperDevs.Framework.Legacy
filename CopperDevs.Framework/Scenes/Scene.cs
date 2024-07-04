@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Framework.Elements.Components;
+using nkast.Aether.Physics2D.Dynamics;
 
 namespace CopperDevs.Framework.Scenes;
 
@@ -9,12 +10,10 @@ public class Scene : IEnumerable<GameObject>
 
     internal List<GameObject> SceneObjects = [];
 
-    public Scene()
-    {
-        Id = Guid.NewGuid().ToString();
-        DisplayName = Id;
+    internal World PhysicsWorld;
 
-        SceneManager.RegisterScene(this);
+    public Scene() : this(null!, Guid.NewGuid().ToString())
+    {
     }
 
     public Scene(string displayName) : this(displayName, Guid.NewGuid().ToString())
@@ -23,9 +22,14 @@ public class Scene : IEnumerable<GameObject>
 
     public Scene(string displayName, string id)
     {
+        if (string.IsNullOrWhiteSpace(id)) id = Guid.NewGuid().ToString();
+        if (string.IsNullOrWhiteSpace(displayName)) displayName = id;
+        
         DisplayName = displayName;
         Id = id;
 
+        PhysicsWorld = new World();
+        
         SceneManager.RegisterScene(this);
     }
 

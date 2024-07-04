@@ -8,8 +8,10 @@ using CopperDevs.Framework.Elements.Components;
 using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Rendering.DearImGui;
 using CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
+using CopperDevs.Framework.Scenes;
 using CopperDevs.Framework.Ui;
 using CopperDevs.Framework.Utility;
+using ImGuiNET;
 using Raylib_CSharp.Interact;
 using Raylib_CSharp.Transformations;
 
@@ -24,7 +26,11 @@ public class Engine : Singleton<Engine>
     // info
     private Stopwatch stopwatch = null!;
     private EngineSettings settings;
-    public bool debugEnabled;
+    public bool DebugEnabled;
+    public Vector2Int WindowSize => new(rlWindow.GetScreenWidth(), rlWindow.GetScreenHeight());
+    public bool GameWindowHovered = false;
+    internal Vector2 GameWindowPositionOne { get; set; }
+    internal Vector2 GameWindowPositionTwo { get; set; }
 
     // rendering
     public RenderingSystem? RenderingSystem;
@@ -36,7 +42,7 @@ public class Engine : Singleton<Engine>
 
     // fixed update
     private float fixedDeltaTime;
-    private const float FixedFrameTime = 1f / 50;
+    private const float FixedFrameTime = 1f / 60;
 
     public Engine() : this(EngineSettings.DefaultSettings)
     {
@@ -70,7 +76,7 @@ public class Engine : Singleton<Engine>
         RaylibLogger.Initialize();
 
         ShouldRun = true;
-        debugEnabled = settings.EnableDevToolsAtStart;
+        DebugEnabled = settings.EnableDevToolsAtStart;
 
         Log.Performance($"Time elapsed during engine creation: {stopwatch.Elapsed}");
     }
@@ -111,7 +117,7 @@ public class Engine : Singleton<Engine>
 
         RenderingSystem ??= new RenderingSystem();
         RenderingSystem?.Start();
-        
+
         OnLoad?.Invoke();
 
         Log.Performance($"Time elapsed starting the engine: {stopwatch.Elapsed}");
@@ -119,8 +125,11 @@ public class Engine : Singleton<Engine>
 
     private void Update()
     {
-        if (Input.IsKeyPressed(KeyboardKey.F2)) debugEnabled = !debugEnabled;
-        if (Input.IsKeyPressed(KeyboardKey.F3)) ScreenShaderEnabled = !ScreenShaderEnabled;
+        if (Input.IsKeyPressed(KeyboardKey.F2))
+            DebugEnabled = !DebugEnabled;
+
+        if (Input.IsKeyPressed(KeyboardKey.F3))
+            ScreenShaderEnabled = !ScreenShaderEnabled;
 
         FixedUpdateCheck();
 
@@ -134,13 +143,13 @@ public class Engine : Singleton<Engine>
         CameraRenderUpdate();
 
         rlGraphics.EndMode2D();
-        
-        if(debugEnabled)
+
+        if (DebugEnabled)
             ComponentManager.UpdateActiveSceneComponents(ComponentManager.ComponentUpdateType.Ui);
 
         rlGraphics.EndTextureMode();
 
-        if (debugEnabled)
+        if (DebugEnabled)
         {
             rlGraphics.ClearBackground(Color.DarkGray);
         }
@@ -158,12 +167,12 @@ public class Engine : Singleton<Engine>
     private void Stop()
     {
         Log.Performance($"Time elapsed during the runtime of the engine: {stopwatch.Elapsed}");
-        
+
         CopperImGui.Rendered -= ImGuiRender;
         CopperImGui.Shutdown();
-        
+
         RenderingSystem?.Stop();
-        
+
         rlAudio.Close();
         rlWindow.Close();
     }
@@ -172,13 +181,13 @@ public class Engine : Singleton<Engine>
     {
         ComponentManager.UpdateActiveSceneComponents(ComponentManager.ComponentUpdateType.Normal);
 
-        if (debugEnabled)
+        if (DebugEnabled)
             ComponentManager.UpdateActiveSceneComponents(ComponentManager.ComponentUpdateType.Debug);
     }
 
     private void UiRenderUpdate()
     {
-        if (debugEnabled)
+        if (DebugEnabled)
             CopperImGui.Render();
         else
             ComponentManager.UpdateActiveSceneComponents(ComponentManager.ComponentUpdateType.Ui);
@@ -186,11 +195,18 @@ public class Engine : Singleton<Engine>
 
     private void ImGuiRender()
     {
-        if (!debugEnabled)
+        if (!DebugEnabled)
             return;
 
-        CopperImGui.Window("Game", () => { rlImGui.ImageRenderTextureFit(GameRenderTexture); });
+        CopperImGui.Window("Game", () =>
+        {
+            rlImGui.ImageRenderTextureFit(GameRenderTexture, false);
+            GameWindowHovered = ImGui.IsWindowHovered();
 
+            var drawList = ImGui.GetWindowDrawList();
+            GameWindowPositionOne = drawList.VtxBuffer[drawList.VtxBuffer.Size - 4].pos;
+            GameWindowPositionTwo = drawList.VtxBuffer[drawList.VtxBuffer.Size - 2].pos;
+        }, ImGuiWindowFlags.NoCollapse);
 
         CopperImGui.MenuBar(null!, true, ("Windows", () =>
         {
@@ -215,6 +231,7 @@ public class Engine : Singleton<Engine>
 
     private void FixedUpdate()
     {
+        SceneManager.ActiveScene.PhysicsWorld.Step(FixedFrameTime);
         ComponentManager.UpdateActiveSceneComponents(ComponentManager.ComponentUpdateType.Fixed);
     }
 

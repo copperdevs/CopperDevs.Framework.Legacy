@@ -11,7 +11,7 @@ public static partial class CopperImGui
         ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.NavEnableKeyboard;
         ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.NavEnableGamepad;
 
-        ImGui.GetIO().ConfigWindowsMoveFromTitleBarOnly = false;
+        ImGui.GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
 
         ImGui.GetStyle().WindowRounding = 5;
         ImGui.GetStyle().ChildRounding = 5;

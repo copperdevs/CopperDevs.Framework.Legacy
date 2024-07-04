@@ -285,7 +285,7 @@ public static class rlImGui
             {
                 fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
                     fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
-                
+
                 fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Figtree.static.Figtree-Regular.ttf"))
                     fonts.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
             }
@@ -390,7 +390,7 @@ public static class rlImGui
         }
         else
         {
-            io.AddMousePosEvent(Input.MousePosition.X, Input.MousePosition.Y);
+            io.AddMousePosEvent(Input.RawMousePosition.X, Input.RawMousePosition.Y);
         }
 
         SetMouseEvent(io, MouseButton.Left, ImGuiMouseButton.Left);
@@ -743,6 +743,9 @@ public static class rlImGui
         }
 
         ImGui.Image(new IntPtr(image.Id), new Vector2(destWidth, destHeight), uv0, uv1);
+
+        
+        // rlGraphics.DrawRectangleV(ImGui.GetWindowPos(), new Vector2(destWidth, destHeight) * 2, rlColor.Orange);
     }
 
     /// <summary>
@@ -787,7 +790,7 @@ public static class rlImGui
     /// </summary>
     /// <param name="image">The render texture to draw</param>
     /// <param name="center">When true the texture will be centered in the content area. When false the image will be left and top justified</param>
-    public static void ImageRenderTextureFit(RenderTexture2D image, bool center = true)
+    public static void ImageRenderTextureFit(rlRenderTexture image, bool center = true)
     {
         Vector2 area = ImGui.GetContentRegionAvail();
 

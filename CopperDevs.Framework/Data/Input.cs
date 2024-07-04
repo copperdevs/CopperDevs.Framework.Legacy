@@ -1,19 +1,45 @@
-﻿using CopperDevs.Core.Utility;
+﻿using CopperDevs.Core;
+using CopperDevs.Core.Utility;
+using ImGuiNET;
+using nkast.Aether.Physics2D.Common;
 using Raylib_CSharp.Interact;
+using Vector2 = System.Numerics.Vector2;
 
 namespace CopperDevs.Framework.Data;
 
 public static class Input
 {
+    public static Vector2 RawMousePosition
+    {
+        get
+        {
+            return WindowsApi.IsWindows ? GetWindowsApiMousePos() : GetRaylibMousePos();
+
+            Vector2 GetWindowsApiMousePos()
+            {
+                var windowInfo = WindowsApi.GetWindowPosition(rlWindow.GetHandle());
+                return WindowsApi.GetMousePosition() - new Vector2(windowInfo.X+8, windowInfo.Y+31);
+            }
+
+            Vector2 GetRaylibMousePos()
+            {
+                return Engine.Instance.Camera.GetScreenToWorld(rlInput.GetMousePosition());
+            }
+        }
+    }
+    
     public static Vector2 MousePosition
     {
         get
         {
-            if (!WindowsApi.IsWindows) 
-                return OldEngine.CurrentWindow.Camera.GetScreenToWorld(rlInput.GetMousePosition());
+            var pos = RawMousePosition;
+
+            if (!Engine.Instance.DebugEnabled) 
+                return pos;
             
-            var windowInfo = WindowsApi.GetWindowPosition(rlWindow.GetHandle());
-            return WindowsApi.GetMousePosition() - new Vector2(windowInfo.X+8, windowInfo.Y+31);
+            pos = MathUtil.ReMap(pos, Engine.Instance.GameWindowPositionOne, Engine.Instance.GameWindowPositionTwo, Vector2.Zero, Engine.Instance.WindowSize);
+
+            return pos;
         }
     }
 

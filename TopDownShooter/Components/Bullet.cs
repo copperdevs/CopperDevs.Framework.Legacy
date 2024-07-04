@@ -15,7 +15,7 @@ public class Bullet : GameComponent
             if (Vector2.Distance(Transform.Position, enemy.GetTransform().Position) <= 32)
                 ParentScene?.Remove(enemy.GetParent());
         });
-        SizeCheck(EngineWindow.Size);
+        SizeCheck(Engine.Instance.WindowSize);
     }
 
     private void SizeCheck(Vector2Int size)

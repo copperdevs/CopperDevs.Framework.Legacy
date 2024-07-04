@@ -28,10 +28,9 @@ public class Button : UiElement
 
     private bool MouseInsideButtonArea()
     {
-        if (Engine.Instance.debugEnabled)
+        if ((CopperImGui.AnyElementHovered && Engine.Instance.DebugEnabled && !Engine.Instance.GameWindowHovered))
         {
-            if (CopperImGui.AnyElementHovered)
-                return false;
+            return false;
         }
         
         return rlCollision.CheckCollisionPointRec(Input.MousePosition, new Rectangle(ScaledPosition.X, ScaledPosition.Y, ScaledSize.X, ScaledSize.Y));

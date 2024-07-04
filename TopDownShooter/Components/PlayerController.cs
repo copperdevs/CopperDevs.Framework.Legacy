@@ -24,7 +24,7 @@ public class PlayerController : GameComponent
 
         rlGraphics.DrawCircleV(Vector2.Zero, 1, Color.Red);
 
-        SizeCheck(EngineWindow.Size);
+        SizeCheck(Engine.Instance.WindowSize);
     }
 
     public override void FixedUpdate()

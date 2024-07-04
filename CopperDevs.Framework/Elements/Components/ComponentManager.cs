@@ -17,7 +17,7 @@ internal static class ComponentManager
                 UpdateComponents(targetScene, true, component => component.Update()); // engine
                 break;
             case ComponentUpdateType.Debug:
-                UpdateComponents(targetScene, true, component => component.DebugUpdate()); // engine
+                UpdateComponents(targetScene, false, component => component.DebugUpdate()); // engine
                 break;
             case ComponentUpdateType.Ui:
                 UpdateComponents(targetScene, false, component => component.UiUpdate()); // engine
