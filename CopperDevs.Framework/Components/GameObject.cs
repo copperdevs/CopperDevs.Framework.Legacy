@@ -1,8 +1,7 @@
-﻿using CopperDevs.Core;
-using CopperDevs.DearImGui.Attributes;
+﻿using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Scenes;
 
-namespace CopperDevs.Framework.Elements.Components;
+namespace CopperDevs.Framework.Components;
 
 public class GameObject : IEnumerable<GameComponent>
 {

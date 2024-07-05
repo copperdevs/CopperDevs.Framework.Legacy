@@ -4,7 +4,7 @@ using CopperDevs.Core;
 using CopperDevs.Core.Data;
 using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
-using CopperDevs.Framework.Elements.Components;
+using CopperDevs.Framework.Components;
 using CopperDevs.Framework.Physics;
 using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Rendering.DearImGui;

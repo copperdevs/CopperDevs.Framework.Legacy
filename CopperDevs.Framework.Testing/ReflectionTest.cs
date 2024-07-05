@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Core.Data;
+using CopperDevs.Framework.Components;
 
 namespace CopperDevs.Framework.Testing;
 

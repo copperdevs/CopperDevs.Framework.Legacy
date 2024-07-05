@@ -1,4 +1,6 @@
-﻿namespace CopperDevs.Framework.Testing;
+﻿using CopperDevs.Framework.Components;
+
+namespace CopperDevs.Framework.Testing;
 
 public class LogComponent : GameComponent
 {

@@ -1,6 +1,6 @@
 ﻿using CopperDevs.Framework.Scenes;
 
-namespace CopperDevs.Framework.Elements.Components;
+namespace CopperDevs.Framework.Components;
 
 internal static class ComponentManager
 {

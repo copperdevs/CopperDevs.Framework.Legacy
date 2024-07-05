@@ -2,7 +2,7 @@
 using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Attributes;
 using CopperDevs.DearImGui.Utility;
-using CopperDevs.Framework.Elements.Components;
+using CopperDevs.Framework.Components;
 using CopperDevs.Framework.Scenes;
 using ImGuiNET;
 

@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Core.Data;
+using CopperDevs.Framework.Components;
 using Raylib_CSharp.Collision;
 using Raylib_CSharp.Interact;
 

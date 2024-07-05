@@ -3,7 +3,7 @@ using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Rendering.DearImGui.Windows;
 using CopperDevs.Framework.Scenes;
 
-namespace CopperDevs.Framework.Elements.Components;
+namespace CopperDevs.Framework.Components;
 
 public abstract class GameComponent
 {
@@ -22,7 +22,7 @@ public abstract class GameComponent
     {
         return Parent.GetComponent<T>(addIfNotFound)!;
     }
-    
+
     public T AddComponent<T>() where T : GameComponent
     {
         return Parent.AddComponent<T>();
@@ -32,7 +32,7 @@ public abstract class GameComponent
     {
         return CopperImGui.GetWindow<ComponentsManagerWindow>()?.CurrentObjectBrowserTarget == Parent;
     }
-    
+
     public virtual void Start()
     {
     }

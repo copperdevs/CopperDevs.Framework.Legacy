@@ -1,7 +1,7 @@
 ﻿using System.IO.Pipes;
 using CopperDevs.Core;
 using CopperDevs.DearImGui.Attributes;
-using CopperDevs.Framework.Elements.Components;
+using CopperDevs.Framework.Components;
 using nkast.Aether.Physics2D.Dynamics;
 
 namespace CopperDevs.Framework.Physics;

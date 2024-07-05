@@ -2,7 +2,6 @@
 global using System.Numerics;
 global using Raylib_CSharp;
 global using CopperDevs.Framework;
-global using CopperDevs.Framework.Elements.Components;
 global using CopperDevs.DearImGui.Attributes;
 global using CopperDevs.Core;
 global using CopperDevs.Framework.Data;

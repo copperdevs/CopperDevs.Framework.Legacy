@@ -1,5 +1,5 @@
 ﻿using CopperDevs.DearImGui.Attributes;
-using CopperDevs.Framework.Elements.Components;
+using CopperDevs.Framework.Components;
 using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Utility;

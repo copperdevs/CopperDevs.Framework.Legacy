@@ -2,7 +2,7 @@
 using CopperDevs.Framework.Attributes;
 using CopperDevs.Framework.Scenes;
 
-namespace CopperDevs.Framework.Elements.Components;
+namespace CopperDevs.Framework.Components;
 
 public static class ComponentRegistry
 {

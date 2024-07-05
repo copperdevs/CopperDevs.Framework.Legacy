@@ -3,7 +3,7 @@ using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Rendering.DearImGui.Windows;
 
-namespace CopperDevs.Framework.Elements.Components;
+namespace CopperDevs.Framework.Components;
 
 public class ParticleSystem : GameComponent
 {
