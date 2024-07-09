@@ -51,9 +51,9 @@ public static partial class CopperImGui
         // Tabs
         colors[(int)ImGuiCol.Tab] = new Vector4(0.15f, 0.1505f, 0.151f, 1.0f);
         colors[(int)ImGuiCol.TabHovered] = new Vector4(0.38f, 0.3805f, 0.381f, 1.0f);
-        colors[(int)ImGuiCol.TabActive] = new Vector4(0.28f, 0.2805f, 0.281f, 1.0f);
-        colors[(int)ImGuiCol.TabUnfocused] = new Vector4(0.15f, 0.1505f, 0.151f, 1.0f);
-        colors[(int)ImGuiCol.TabUnfocusedActive] = new Vector4(0.2f, 0.205f, 0.21f, 1.0f);
+        colors[(int)ImGuiCol.TabSelected] = new Vector4(0.28f, 0.2805f, 0.281f, 1.0f);
+        colors[(int)ImGuiCol.TabDimmed] = new Vector4(0.15f, 0.1505f, 0.151f, 1.0f);
+        colors[(int)ImGuiCol.TabDimmedSelected] = new Vector4(0.2f, 0.205f, 0.21f, 1.0f);
 
         // Title
         colors[(int)ImGuiCol.TitleBg] = new Vector4(0.15f, 0.1505f, 0.151f, 1.0f);
