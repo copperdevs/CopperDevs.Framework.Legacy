@@ -2,18 +2,15 @@
 
 public abstract class BaseWindow
 {
-    public abstract string WindowName { get; protected internal set; }
-    internal bool WindowOpen = false;
-
-    public virtual void Start()
+    public virtual void WindowStart()
     {
     }
 
-    public virtual void Update()
+    public virtual void WindowUpdate()
     {
     }
 
-    public virtual void Stop()
+    public virtual void WindowStop()
     {
     }
 }

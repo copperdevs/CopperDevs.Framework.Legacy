@@ -1,22 +1,22 @@
 ﻿using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 
+[Window("Rendering Manager", WindowOpen = true)]
 public class RenderingManagerWindow : BaseWindow
 {
-    public override string WindowName { get; protected set; } = "Rendering Manager";
-
-    public override void Start()
+    public override void WindowStart()
     {
         CopperImGui.RegisterPopup("BuiltInShaderPopup", BuiltInShaderPopup);
     }
 
-    public override void Stop()
+    public override void WindowStop()
     {
         CopperImGui.DeregisterPopup("BuiltInShaderPopup");
     }
 
-    public override void Update()
+    public override void WindowUpdate()
     {
         CopperImGui.TabGroup("rendering_manager_window_tab_group",
             ("General Info", GeneralInfo),

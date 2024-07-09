@@ -1,17 +1,17 @@
 ﻿using CopperDevs.Core;
 using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 
+[Window("Dwm Manager", WindowOpen = true)]
 public class DwmManager : BaseWindow
 {
-    public override string WindowName { get; protected set; } = "Dwm Manager";
-
     private static IntPtr WindowHandle => rlWindow.GetHandle();
     private Vector4 margins;
 
-    public override void Update()
+    public override void WindowUpdate()
     {
         CopperImGui.Button("Log Handle", () => Log.Info(WindowHandle));
         

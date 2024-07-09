@@ -8,24 +8,24 @@ using ImGuiNET;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 
+[Window("Components Manager", WindowOpen = true)]
 public class ComponentsManagerWindow : BaseWindow
 {
-    public override string WindowName { get; protected set; } = "Components Manager";
     public GameObject? CurrentObjectBrowserTarget;
 
-    public override void Start()
+    public override void WindowStart()
     {
         CopperImGui.RegisterPopup("ObjectBrowserNewGameObjectPopup", NewGameObjectPopup);
         CopperImGui.RegisterPopup("ObjectBrowserAddComponentPopup", AddComponentPopup);
     }
 
-    public override void Stop()
+    public override void WindowStop()
     {
         CopperImGui.DeregisterPopup("ObjectBrowserNewGameObjectPopup");
         CopperImGui.DeregisterPopup("ObjectBrowserAddComponentPopup");
     }
 
-    public override void Update()
+    public override void WindowUpdate()
     {
         CopperImGui.TabGroup("components_manager_window_tab_group",
             ("Scene Components Browser", SceneComponentsBrowser),

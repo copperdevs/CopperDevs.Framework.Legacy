@@ -1,27 +1,37 @@
-﻿using ImGuiNET;
+﻿using CopperDevs.DearImGui.Attributes;
+using ImGuiNET;
 
 namespace CopperDevs.DearImGui;
 
 public static partial class CopperImGui
 {
-    private static List<BaseWindow> LoadWindows()
+    private static List<WindowAttribute> LoadWindows()
     {
-        var targetType = typeof(BaseWindow);
-        var types = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(s => s.GetTypes())
-            .Where(p => targetType.IsAssignableFrom(p)).ToList();
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        var targetAttribute = typeof(WindowAttribute);
 
-        types.Remove(typeof(BaseWindow));
+        var createdObjects = new List<WindowAttribute>();
 
-        foreach (var type in types)
-            Log.Info($"Loading new {nameof(BaseWindow)} | Name: {type.FullName}");
+        foreach (var assembly in assemblies)
+        {
+            foreach (var type in assembly.GetTypes())
+            {
+                if (type.GetCustomAttributes(targetAttribute, true).Length > 0)
+                {
+                    var attribute = (WindowAttribute)type.GetCustomAttribute(targetAttribute)!;
+                    attribute.GetMethods(Activator.CreateInstance(type)!);
+                    Log.Info($"Loading new window. | Full Name: {type.FullName}");
+                    createdObjects.Add(attribute);
+                }
+            }
+        }
 
-        return types.Select(type => (BaseWindow)Activator.CreateInstance(type)!).ToList();
+        return createdObjects;
     }
 
     private static void RenderWindows()
     {
-        windows.ForEach(window =>
+        foreach (var window in windows)
         {
             if (ImGui.BeginMainMenuBar())
             {
@@ -34,19 +44,24 @@ public static partial class CopperImGui
                 ImGui.EndMainMenuBar();
             }
 
-            if (!window.WindowOpen)
-                return;
+            if (!window.WindowOpen) 
+                continue;
+            
+            if (!ImGui.Begin(window.WindowName, ref window.WindowOpen)) 
+                continue;
 
-            if (ImGui.Begin(window.WindowName, ref window.WindowOpen))
-            {
-                window.Update();
-                ImGui.End();
-            }
-        });
+            window.Update();
+            ImGui.End();
+        }
     }
 
-    public static T? GetWindow<T>() where T : BaseWindow
+    public static T? GetWindow<T>()
     {
-        return windows.Where(window => window.GetType() == typeof(T)).Cast<T>().FirstOrDefault();
+        foreach (var window in windows.Where(window => window.targetClass.GetType() == typeof(T)))
+        {
+            return (T)window.targetClass;
+        }
+
+        return default;
     }
 }

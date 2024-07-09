@@ -1,12 +1,12 @@
 ﻿using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Attributes;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 
+[Window("Camera Manager", WindowOpen = false)]
 public class CameraManagerWindow : BaseWindow
 {
-    public override string WindowName { get; protected set; } = "Camera Manager";
-    
-    public override void Update()
+    public override void WindowUpdate()
     {
         EngineCameraInfo();
     }

@@ -1,4 +1,6 @@
-﻿namespace CopperDevs.DearImGui;
+﻿using CopperDevs.DearImGui.Attributes;
+
+namespace CopperDevs.DearImGui;
 
 public static partial class CopperImGui
 {
@@ -8,7 +10,7 @@ public static partial class CopperImGui
     private static IImGuiRenderer currentRenderer = null!;
 
     // windows
-    private static List<BaseWindow> windows = [];
+    private static List<WindowAttribute> windows = [];
 
     // dearimgui windows
     public static bool ShowDearImGuiAboutWindow;

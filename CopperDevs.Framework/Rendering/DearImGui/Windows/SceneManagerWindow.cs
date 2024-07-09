@@ -1,15 +1,15 @@
 ﻿using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 
-public class SceneWindow : BaseWindow
+[Window("Scene Manager", WindowOpen = true)]
+public class SceneManagerWindow : BaseWindow
 {
-    public override string WindowName { get; protected set; } = "Scene Manager";
-
     private bool shouldClone = true;
 
-    public override void Update()
+    public override void WindowUpdate()
     {
         var scenes = SceneManager.GetAllScenes();
 
