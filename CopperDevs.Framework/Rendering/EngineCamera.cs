@@ -27,12 +27,11 @@ internal struct EngineCamera
         get => camera2D.Rotation;
         set => camera2D.Rotation = value;
     }
-    
+
     public EngineCamera()
     {
-            
     }
-        
+
     public Vector2 GetScreenToWorld(Vector2 position)
     {
         return camera2D.GetScreenToWorld(position);
@@ -44,7 +43,7 @@ internal struct EngineCamera
     }
 
     public Matrix4x4 GetMatrix() => camera2D.GetMatrix();
-    
-    
+
+
     public static implicit operator rlCamera2D(EngineCamera camera) => camera.camera2D;
 }

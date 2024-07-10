@@ -32,6 +32,19 @@ public class GameObject : IEnumerable<GameComponent>
         {
             component.Transform = Transform;
             action?.Invoke(component);
+
+            if (Transform != component.Transform) 
+                component.Transform.Updated?.Invoke();
+
+            if (Transform.Position != component.Transform.Position) 
+                component.Transform.PositionUpdated?.Invoke(component.Transform.Position);
+
+            if ((int)(Transform.Scale * 100) != (int)(component.Transform.Scale * 100)) 
+                component.Transform.ScaleUpdated?.Invoke(component.Transform.Scale);
+
+            if ((int)(Transform.Rotation * 100) != (int)(component.Transform.Rotation * 100)) 
+                component.Transform.RotationUpdated?.Invoke(component.Transform.Rotation);
+
             Transform = component.Transform;
         }
     }

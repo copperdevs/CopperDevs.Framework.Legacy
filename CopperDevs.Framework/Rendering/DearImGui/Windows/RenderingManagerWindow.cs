@@ -1,5 +1,6 @@
 ﻿using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Attributes;
+using ImGuiNET;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
 
@@ -48,14 +49,13 @@ public class RenderingManagerWindow : BaseWindow
             {
                 CopperImGui.CollapsingHeader(shader.Name, () =>
                 {
-                    CopperImGui.Selectable($"Set to engine screen shader###{shader.Name}",
-                        () => Engine.Instance.SetScreenShader(shader));
+                    CopperImGui.Selectable($"Set to engine screen shader###button{shader.Name}", () => Engine.Instance.SetScreenShader(shader));
 
-                    CopperImGui.CollapsingHeader($"Vertex Shader Data###{shader.Name}",
-                        () => { CopperImGui.Text(shader.VertexShaderData); });
+                    if (!string.IsNullOrEmpty(shader.VertexShaderData))
+                        CopperImGui.CollapsingHeader($"Vertex Shader Data###vertex{shader.Name}", () => { CopperImGui.Text(shader.VertexShaderData); });
 
-                    CopperImGui.CollapsingHeader($"Fragment Shader Data###{shader.Name}",
-                        () => { CopperImGui.Text(shader.FragmentShaderData); });
+                    if (!string.IsNullOrEmpty(shader.FragmentShaderData))
+                        CopperImGui.CollapsingHeader($"Fragment Shader Data###fragment{shader.Name}", () => { CopperImGui.Text(shader.FragmentShaderData); });
                 });
             }
         });

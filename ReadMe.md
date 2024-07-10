@@ -11,7 +11,7 @@
 
 ## To Do
 
-- [ ] Camera Component
+- [X] Camera Component
 - [ ] Ui System
     - [X] Box
     - [ ] Scaling Elements
@@ -24,6 +24,9 @@
 - [ ] Renderer system
     - [ ] Raylib renderer
     - [ ] Headless renderer
+- [ ] Update DearImGui styling
+- [ ] Documentation / Wiki
+- [ ] Load scenes from text files
 
 ## Used Libraries
 
