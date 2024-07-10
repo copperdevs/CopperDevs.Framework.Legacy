@@ -35,7 +35,7 @@ public class Engine : Singleton<Engine>
 
     // rendering
     public RenderingSystem? RenderingSystem;
-    public EngineCamera Camera;
+    internal EngineCamera Camera;
     public rlRenderTexture GameRenderTexture { get; private set; }
     public Shader? ScreenShader { get; private set; }
     public bool ScreenShaderEnabled = true;
@@ -245,7 +245,7 @@ public class Engine : Singleton<Engine>
         Update();
     }
 
-    public void SetWindowColor(Color color) => BackgroundColor = color;
-    public void SetWindowShader(Shader shader) => ScreenShader = shader;
-    public void SetWindowShader(Shader.IncludedShaders includedShader) => Shader.Load(includedShader);
+    public void SetBackgroundColor(Color color) => BackgroundColor = color;
+    public void SetScreenShader(Shader shader) => ScreenShader = shader;
+    public void SetScreenShader(Shader.IncludedShaders includedShader) => Shader.Load(includedShader);
 }

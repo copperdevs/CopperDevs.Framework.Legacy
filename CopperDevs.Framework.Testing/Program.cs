@@ -9,12 +9,12 @@ public static class Program
     {
         var engine = new Engine(EngineSettings.Development);
 
-        engine.OnLoad += () => EngineLoad(engine);
+        engine.OnLoad += EngineLoad;
 
         engine.Run();
     }
-
-    public static void EngineLoad(Engine engine)
+    
+    public static void EngineLoad()
     {
         var emptyScene = new Scene("Empty");
 

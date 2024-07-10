@@ -17,8 +17,8 @@ public static class Program
         };
 
         var engine = new Engine(engineSettings);
-        engine.SetWindowColor(Color.Black);
-        engine.SetWindowShader(Shader.IncludedShaders.Bloom);
+        engine.SetBackgroundColor(Color.Black);
+        engine.SetScreenShader(Shader.IncludedShaders.Bloom);
 
 
         var mainMenu = new Scene("Main Menu", "main-menu")

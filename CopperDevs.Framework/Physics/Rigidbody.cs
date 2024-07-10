@@ -70,7 +70,7 @@ public class Rigidbody : GameComponent
         if (collider is null || body is null)
             return;
 
-        if (fixture is not null)
+        if (fixture is not null && fixture.Body == body)
             body.Remove(fixture);
 
 

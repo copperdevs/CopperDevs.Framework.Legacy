@@ -7,7 +7,7 @@ public class GameObject : IEnumerable<GameComponent>
 {
     [HideInInspector] internal string GameObjectName;
     [HideInInspector] internal Transform Transform = new();
-    [HideInInspector] internal List<GameComponent> Components = [];
+    [HideInInspector] internal readonly List<GameComponent> Components = [];
     [HideInInspector] internal Scene? Scene { get; set; }
 
     public GameObject()
@@ -47,7 +47,6 @@ public class GameObject : IEnumerable<GameComponent>
         Components.Remove(gameComponent);
         gameComponent.Transform = Transform;
         gameComponent.Stop();
-        // gameComponent.Sleep();
         Transform = gameComponent.Transform;
     }
 

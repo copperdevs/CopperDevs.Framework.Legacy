@@ -1,6 +1,6 @@
 ﻿namespace CopperDevs.Framework.Rendering;
 
-public struct EngineCamera
+internal struct EngineCamera
 {
     private rlCamera2D camera2D = new()
     {

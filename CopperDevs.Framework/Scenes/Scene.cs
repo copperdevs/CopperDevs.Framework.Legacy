@@ -24,12 +24,12 @@ public class Scene : IEnumerable<GameObject>
     {
         if (string.IsNullOrWhiteSpace(id)) id = Guid.NewGuid().ToString();
         if (string.IsNullOrWhiteSpace(displayName)) displayName = id;
-        
+
         DisplayName = displayName;
         Id = id;
 
-        PhysicsWorld = new World(new PhysicsVector2(0.0f, 98.0665f));
-        
+        PhysicsWorld = new World(new PhysicsVector2(0.0f, 196.133f));
+
         SceneManager.RegisterScene(this);
     }
 
@@ -40,7 +40,7 @@ public class Scene : IEnumerable<GameObject>
         SceneObjects.Add(gameObject);
 
         gameObject.Scene = this;
-        
+
         gameObject.UpdateComponents(component => component.Start());
     }
 

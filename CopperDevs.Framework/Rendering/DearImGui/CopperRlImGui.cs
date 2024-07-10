@@ -1,9 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CopperDevs.DearImGui;
+﻿using CopperDevs.DearImGui;
 
 namespace CopperDevs.Framework.Rendering.DearImGui;
 
-[SuppressMessage("Performance", "CA1822:Mark members as static")]
 public class CopperRlImGui : IImGuiRenderer
 {
     public void Setup()

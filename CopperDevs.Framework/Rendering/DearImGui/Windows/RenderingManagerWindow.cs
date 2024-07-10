@@ -49,7 +49,7 @@ public class RenderingManagerWindow : BaseWindow
                 CopperImGui.CollapsingHeader(shader.Name, () =>
                 {
                     CopperImGui.Selectable($"Set to engine screen shader###{shader.Name}",
-                        () => Engine.Instance.SetWindowShader(shader));
+                        () => Engine.Instance.SetScreenShader(shader));
 
                     CopperImGui.CollapsingHeader($"Vertex Shader Data###{shader.Name}",
                         () => { CopperImGui.Text(shader.VertexShaderData); });
