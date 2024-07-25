@@ -1,6 +1,6 @@
 # Copper Framework
 
-> it does game stuff
+> Simple 2D framework for making games
 
 ## Features
 
