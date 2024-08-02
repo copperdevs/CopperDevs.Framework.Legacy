@@ -211,7 +211,7 @@ public class Engine : Singleton<Engine>
             GameWindowPositionTwo = drawList.VtxBuffer[drawList.VtxBuffer.Size - 2].pos;
         }, ImGuiWindowFlags.NoCollapse);
 
-        CopperImGui.MenuBar(null!, true, ("Windows", () =>
+        CopperImGui.MenuBar(true, ("Windows", () =>
         {
             CopperImGui.MenuItem("ImGui About", ref CopperImGui.ShowDearImGuiAboutWindow);
             CopperImGui.MenuItem("ImGui Demo", ref CopperImGui.ShowDearImGuiDemoWindow);
