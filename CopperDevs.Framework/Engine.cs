@@ -4,6 +4,7 @@ using CopperDevs.Core;
 using CopperDevs.Core.Data;
 using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Renderer.Raylib;
 using CopperDevs.Framework.Components;
 using CopperDevs.Framework.Physics;
 using CopperDevs.Framework.Rendering;
@@ -15,6 +16,7 @@ using CopperDevs.Framework.Utility;
 using ImGuiNET;
 using Raylib_CSharp.Interact;
 using Raylib_CSharp.Transformations;
+using ColorFieldRenderer = CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers.ColorFieldRenderer;
 
 namespace CopperDevs.Framework;
 
@@ -108,12 +110,28 @@ public class Engine : Singleton<Engine>
         WindowsApi.RegisterWindow(handle);
 
         CopperImGui.RegisterFieldRenderer<Color, ColorFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<rlTexture, Texture2DFieldRenderer>();
-        CopperImGui.RegisterFieldRenderer<rlRenderTexture, RenderTexture2DFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<UiScreen, UiScreenFieldRenderer>();
 
-        CopperImGui.Setup<CopperRlImGui>();
+        RlImGuiRenderer.SetupUserFonts += ptr =>
+        {
+            try
+            {
+                unsafe
+                {
+                    fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
+                        ptr.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
+
+                    fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Figtree.static.Figtree-Regular.ttf"))
+                        ptr.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
+        };
+        CopperImGui.Setup<RlImGuiRenderer>(true, true);
         CopperImGui.Rendered += ImGuiRender;
 
         RenderingSystem ??= new RenderingSystem();
@@ -203,7 +221,7 @@ public class Engine : Singleton<Engine>
 
         CopperImGui.Window("Game", () =>
         {
-            rlImGui.ImageRenderTextureFit(GameRenderTexture, false);
+            RlImGuiRenderer.RenderTextureFit(GameRenderTexture, false);
             GameWindowHovered = ImGui.IsWindowHovered();
 
             var drawList = ImGui.GetWindowDrawList();

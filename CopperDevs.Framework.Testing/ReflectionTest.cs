@@ -23,4 +23,10 @@ public class ReflectionTest : GameComponent
     }
 
     public Vector2Int Vector2Int;
+
+    public List<float> FloatList = [0, 1, 2];
+
+    public List<int> IntList = [0, 1, 2];
+
+    public List<Vector2> Vector2List = [Vector2.Zero, Vector2.One, Vector2.One * 2];
 }
