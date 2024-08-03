@@ -35,6 +35,8 @@
 - [CopperDevs.Core](https://www.nuget.org/packages/CopperDevs.Core)
 - [DeepCloner](https://www.nuget.org/packages/DeepCloner)
 - [ImGui.NET](https://www.nuget.org/packages/ImGui.NET)
+- [CopperDevs.DearImGui](https://www.nuget.org/packages/CopperDevs.DearImGui/1.1.1)
+- [CopperDevs.DearImGui.Renderer.Raylib](https://www.nuget.org/packages/CopperDevs.DearImGui.Renderer.Raylib)
 
 ## Basic Example
 
