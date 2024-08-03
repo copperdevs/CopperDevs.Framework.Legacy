@@ -17,8 +17,7 @@ public class EngineSettings
 
     public static EngineSettings DefaultSettings => new()
     {
-        WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow |
-                      ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
+        WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
         WindowSize = new Vector2Int(650, 400),
         TargetFps = 60,
         WindowTitle = "CopperFramework - Default",

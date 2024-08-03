@@ -2,24 +2,27 @@
 using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Attributes;
 using CopperDevs.Framework.Rendering.DearImGui.Windows;
+using Raylib_CSharp.Interact;
 
 namespace CopperDevs.Framework.Components;
 
 public class ParticleSystem : GameComponent
 {
     [Seperator("Settings")]
-    [Range(16, 512), Exposed] private float maxParticles = 128;
+    [Range(16, 2048), Exposed] private float maxParticles = 128;
     [Range(.01f, 10), Exposed] private Vector2 lifetimeRandomRange = new(2.5f, 5f);
-    [Range(.01f, 10), Exposed] private Vector2 speedRandomRange = new(1.5f, 5.25f);
+    [Range(0, 2048), Exposed] private Vector2 speedRandomRange = new(512, 1024);
     [Range(1, 128), Exposed] private Vector2 sizeRandomRange = new(16, 32);
-    [Exposed] private List<Color> particleColors = new(){Color.White};
+    [Exposed] private List<Color> particleColors = [Color.White];
 
     [Seperator]
+    
     [Exposed] private bool isActive = true;
     [Exposed] private bool destroyComponentOnZeroParticles = false;
     [Exposed] private bool destroyObjectOnZeroParticles = false;
 
-    [Seperator("Info")] [Exposed] private List<Particle> particles = [];
+    [Seperator("Info")]
+    [Exposed] private List<Particle> particles = [];
 
     public override void Update()
     {
@@ -52,7 +55,7 @@ public class ParticleSystem : GameComponent
         foreach (var particle in particles)
         {
             particle.Lifetime -= Time.DeltaTime;
-            particle.Transform.Position += MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed;
+            particle.Transform.Position += (MathUtil.CreateRotatedUnitVector(particle.Transform.Rotation) * particle.Speed) * Time.DeltaTime;
         }
     }
 
@@ -88,7 +91,13 @@ public class ParticleSystem : GameComponent
 
     public override void DebugUpdate()
     {
-        rlGraphics.DrawCircleV(Vector2.Zero, 8, Color.Red);
+        if (!Engine.Instance.GameWindowHovered) 
+            return;
+        
+        if(Input.IsMouseButtonDown(MouseButton.Left))
+            Transform.Position = Input.MousePosition;
+        
+        rlGraphics.DrawCircleV(Transform.Position, 8, Color.Red);
     }
 
 

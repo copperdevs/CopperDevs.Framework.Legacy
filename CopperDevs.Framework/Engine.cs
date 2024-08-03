@@ -42,6 +42,7 @@ public class Engine : Singleton<Engine>
     public Shader? ScreenShader { get; private set; }
     public bool ScreenShaderEnabled = true;
     public Color BackgroundColor { get; private set; } = Color.RayWhite;
+    private Color editorBackgroundColor = new(0, 0, 0, 0);
 
     // fixed update
     private float fixedDeltaTime;
@@ -172,7 +173,7 @@ public class Engine : Singleton<Engine>
 
         if (DebugEnabled)
         {
-            rlGraphics.ClearBackground(Color.DarkGray);
+            rlGraphics.ClearBackground(editorBackgroundColor);
         }
         else
         {

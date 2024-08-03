@@ -36,7 +36,6 @@ public struct Color
     }
 
     public Color(Vector4 vector) : this(vector.X, vector.Y, vector.Z, vector.W)
-
     {
     }
 
@@ -52,6 +51,11 @@ public struct Color
     public static implicit operator Vector4(Color color)
     {
         return new Vector4(color.R, color.G, color.B, color.A);
+    }
+
+    public static implicit operator Color(Vector4 color)
+    {
+        return new Color(color.X, color.Y, color.Z, color.W);
     }
 
     public static Color operator /(Color color, float value)
