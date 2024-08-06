@@ -2,7 +2,7 @@
 
 public abstract class BaseRenderable
 {
-    private static readonly List<BaseRenderable> RenderableLoadQueue = new();
+    private static readonly List<BaseRenderable> RenderableLoadQueue = [];
     private static bool requireQueue = true;
 
     protected void BaseLoad(BaseRenderable renderable)

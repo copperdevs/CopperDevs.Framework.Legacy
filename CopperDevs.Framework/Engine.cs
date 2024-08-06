@@ -6,6 +6,7 @@ using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Renderer.Raylib;
 using CopperDevs.Framework.Components;
+using CopperDevs.Framework.Content;
 using CopperDevs.Framework.Physics;
 using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Rendering.DearImGui;
@@ -28,15 +29,14 @@ public class Engine : Singleton<Engine>
 
     // info
     private Stopwatch stopwatch = null!;
-    private EngineSettings settings;
+    private readonly EngineSettings settings;
     public bool DebugEnabled;
     public Vector2Int WindowSize => new(rlWindow.GetScreenWidth(), rlWindow.GetScreenHeight());
-    public bool GameWindowHovered = false;
+    public bool GameWindowHovered;
     internal Vector2 GameWindowPositionOne { get; set; }
     internal Vector2 GameWindowPositionTwo { get; set; }
 
     // rendering
-    public RenderingSystem? RenderingSystem;
     internal EngineCamera Camera;
     public rlRenderTexture GameRenderTexture { get; private set; }
     public Shader? ScreenShader { get; private set; }
@@ -135,8 +135,7 @@ public class Engine : Singleton<Engine>
         CopperImGui.Setup<RlImGuiRenderer>(true, true);
         CopperImGui.Rendered += ImGuiRender;
 
-        RenderingSystem ??= new RenderingSystem();
-        RenderingSystem?.Start();
+        ContentRegistry.Start();
 
         ComponentRegistry.RegisterAbstractSubclass<Collider, BoxCollider>();
 
@@ -193,7 +192,7 @@ public class Engine : Singleton<Engine>
         CopperImGui.Rendered -= ImGuiRender;
         CopperImGui.Shutdown();
 
-        RenderingSystem?.Stop();
+        ContentRegistry.Stop();
 
         rlAudio.Close();
         rlWindow.Close();
@@ -219,25 +218,9 @@ public class Engine : Singleton<Engine>
     {
         if (!DebugEnabled)
             return;
-
-        CopperImGui.Window("Game", () =>
-        {
-            RlImGuiRenderer.RenderTextureFit(GameRenderTexture, false);
-            GameWindowHovered = ImGui.IsWindowHovered();
-
-            var drawList = ImGui.GetWindowDrawList();
-            GameWindowPositionOne = drawList.VtxBuffer[drawList.VtxBuffer.Size - 4].pos;
-            GameWindowPositionTwo = drawList.VtxBuffer[drawList.VtxBuffer.Size - 2].pos;
-        }, ImGuiWindowFlags.NoCollapse);
-
-        CopperImGui.MenuBar(true, ("Windows", () =>
-        {
-            CopperImGui.MenuItem("ImGui About", ref CopperImGui.ShowDearImGuiAboutWindow);
-            CopperImGui.MenuItem("ImGui Demo", ref CopperImGui.ShowDearImGuiDemoWindow);
-            CopperImGui.MenuItem("ImGui Metrics", ref CopperImGui.ShowDearImGuiMetricsWindow);
-            CopperImGui.MenuItem("ImGui Debug Log", ref CopperImGui.ShowDearImGuiDebugLogWindow);
-            CopperImGui.MenuItem("ImGui Id Stack Tool", ref CopperImGui.ShowDearImGuiIdStackToolWindow);
-        }));
+        
+        EngineWindows.RenderGameWindow();
+        EngineWindows.RenderMenuBar();
     }
 
     private void FixedUpdateCheck()

@@ -21,6 +21,7 @@ public class Font : BaseRenderable
 
 
     public static Font Load(string fontName, byte[] fontData) => new(fontName, fontData);
+
     public Font(string fontName, byte[] fontData)
     {
         this.fontData = fontData;
@@ -29,6 +30,7 @@ public class Font : BaseRenderable
     }
 
     public static Font Load(string fontName, string fontPath) => new(fontName);
+
     public Font(string fontName, string fontPath)
     {
         this.fontPath = fontPath;
@@ -37,6 +39,7 @@ public class Font : BaseRenderable
     }
 
     public static Font Load(string fontName = "Default") => new(fontName);
+
     public Font(string fontName)
     {
         Name = fontName;
@@ -48,7 +51,7 @@ public class Font : BaseRenderable
         if (fontData is not null)
         {
             Log.Info($"Loading {Name} font from font data");
-            font = rlFont.LoadFromMemory(".ttf", fontData, 144, null);
+            font = rlFont.LoadFromMemory(".ttf", fontData, 100, Array.Empty<int>());
         }
         else if (fontPath is not null)
         {
