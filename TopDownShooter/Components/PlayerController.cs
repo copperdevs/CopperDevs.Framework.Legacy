@@ -14,7 +14,7 @@ public class PlayerController : GameComponent
 
     public override void Start()
     {
-        Transform.Scale = 24;
+        Transform.Scale = new Vector2(24);
     }
 
     public override void Update()

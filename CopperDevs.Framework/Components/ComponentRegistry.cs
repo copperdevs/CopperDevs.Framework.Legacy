@@ -26,8 +26,7 @@ public static class ComponentRegistry
         else
             AbstractChildren.Add(typeof(TBase), [typeof(TSub)]);
 
-        Log.Info(
-            $"Registering a new subclass of type `{typeof(TSub).FullName}` for abstract class of type `{typeof(TBase).FullName}`");
+        Log.Info($"Registering a new subclass of type `{typeof(TSub).FullName}` for abstract class of type `{typeof(TBase).FullName}`");
     }
 
     public static T Instantiate<T>() where T : GameComponent

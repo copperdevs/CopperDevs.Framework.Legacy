@@ -34,7 +34,7 @@ public static class Program
 
         var physicsTesting = new Scene("Physics")
         {
-            new GameObject("Dynamic Rigidbody", new Transform { Scale = 100, Position = new Vector2(0, -50) })
+            new GameObject("Dynamic Rigidbody", new Transform { Scale = new Vector2(100), Position = new Vector2(0, -50) })
             {
                 new BoxCollider(),
                 new Rigidbody
@@ -46,7 +46,7 @@ public static class Program
                 //     SquareColor = Color.Red
                 // }
             },
-            new GameObject("Ground Rigidbody", new Transform { Scale = 200, Position = new Vector2(0, 400) })
+            new GameObject("Ground Rigidbody", new Transform { Scale = new Vector2(200), Position = new Vector2(0, 400) })
             {
                 new BoxCollider(),
                 new Rigidbody

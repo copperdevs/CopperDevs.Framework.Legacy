@@ -77,7 +77,7 @@ public class Rigidbody : GameComponent
         switch (collider)
         {
             case BoxCollider boxCollider:
-                fixture = body.CreateRectangle(Transform.Scale * 2, Transform.Scale * 2, 1, PhysicsVector2.Zero);
+                fixture = body.CreateRectangle(Transform.Scale.X * 2, Transform.Scale.Y * 2, 1, PhysicsVector2.Zero);
                 fixture.Restitution = 0;
                 fixture.Friction = 0.5f;
                 break;

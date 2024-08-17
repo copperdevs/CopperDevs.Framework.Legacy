@@ -9,7 +9,7 @@ public class Enemy : GameComponent
 
     public override void Start()
     {
-        Transform.Scale = 16;
+        Transform.Scale = new Vector2(16);
     }
 
     public override void Update()

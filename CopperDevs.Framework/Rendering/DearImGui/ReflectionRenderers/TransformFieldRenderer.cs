@@ -31,7 +31,7 @@ public class TransformFieldRenderer : FieldRenderer
 
         CopperImGui.CollapsingHeader(title, () =>
         {
-            var position = value.Position;
+            var position = (Vector3)value.Position;
             var scale = value.Scale;
             var rotation = value.Rotation;
 
@@ -54,7 +54,7 @@ public class TransformFieldRenderer : FieldRenderer
                 valueChanged?.Invoke();
             });
 
-            value.Position = position;
+            value.Position = (TransformVector3)position;
             value.Scale = scale;
             value.Rotation = rotation;
         });

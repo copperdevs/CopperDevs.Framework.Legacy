@@ -42,9 +42,9 @@ internal static class ComponentManager
             foreach (var gameObject in gameObjects)
             {
                 RlGl.PushMatrix();
-                RlGl.TranslateF(gameObject.Transform.Position.X, gameObject.Transform.Position.Y, 0);
+                RlGl.TranslateF(gameObject.Transform.Position.X, gameObject.Transform.Position.Y, gameObject.Transform.Position.Z);
                 RlGl.RotateF(gameObject.Transform.Rotation, 0, 0, -1);
-                RlGl.ScaleF(gameObject.Transform.Scale, gameObject.Transform.Scale, 0);
+                RlGl.ScaleF(gameObject.Transform.Scale.X, gameObject.Transform.Scale.Y, 0);
 
                 gameObject.UpdateComponents(component);
 

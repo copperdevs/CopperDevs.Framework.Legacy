@@ -45,7 +45,7 @@ public class ParticleSystem : GameComponent
             Transform = new Transform
             {
                 Position = Transform.Position,
-                Scale = Random.Range(SizeRandomRange),
+                Scale = new Vector2(Random.Range(SizeRandomRange)),
                 Rotation = Random.Range(360)
             },
         };
@@ -63,10 +63,13 @@ public class ParticleSystem : GameComponent
 
     private void RenderParticles()
     {
-        var scale = MathF.Abs(Transform.Scale);
+        var scale = new Vector2(MathF.Abs(Transform.Scale.X), MathF.Abs(Transform.Scale.Y));
         foreach (var particle in particles)
         {
-            rlGraphics.DrawCircleV((particle.Transform.Position - Transform.Position) / scale, particle.Transform.Scale / scale, particle.Color);
+            var scale1 = particle.Transform.Scale / scale;
+            var scale2 = (scale1.X + scale1.Y) / 2;
+
+            rlGraphics.DrawCircleV((particle.Transform.Position - Transform.Position) / scale, scale2, particle.Color);
         }
     }
 

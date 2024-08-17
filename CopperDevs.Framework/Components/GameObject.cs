@@ -38,8 +38,8 @@ public class GameObject : IEnumerable<GameComponent>
 
             if (Transform.Position != component.Transform.Position) 
                 component.Transform.PositionUpdated?.Invoke(component.Transform.Position);
-
-            if ((int)(Transform.Scale * 100) != (int)(component.Transform.Scale * 100)) 
+            
+            if ( Transform.Scale == component.Transform.Scale) 
                 component.Transform.ScaleUpdated?.Invoke(component.Transform.Scale);
 
             if ((int)(Transform.Rotation * 100) != (int)(component.Transform.Rotation * 100)) 

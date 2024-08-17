@@ -10,7 +10,7 @@ public class MouseDrawer : GameComponent
 
     public override void Start()
     {
-        Transform.Scale = 8;
+        Transform.Scale = new Vector2(8);
     }
 
     public override void Update()
