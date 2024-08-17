@@ -88,6 +88,18 @@ public static class Program
                 new PlayerController(),
                 new PlayerWeapon()
             },
+            new GameObject("Player Trail")
+            {
+                new PlayerPositionCopier(),
+                new ParticleSystem()
+                {
+                    MaxParticles = 186,
+                    LifetimeRandomRange = new Vector2(0.010f, 0.115f),
+                    SpeedRandomRange = new Vector2(87, 237),
+                    SizeRandomRange = new Vector2(16, 41),
+                    ParticleColors = [new Color(328, 17, 17, 25), new Color(237, 108, 3, 16), new Color(216, 243, 7, 11)]
+                }
+            }
         };
 
         var enemyTestingScene = new Scene("Enemy Testing", "enemy-testing")

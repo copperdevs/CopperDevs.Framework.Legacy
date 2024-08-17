@@ -26,26 +26,9 @@ public class ColorFieldRenderer : FieldRenderer
     {
         var colorValue = new Vector4(((Color)value).R, ((Color)value).G, ((Color)value).B, ((Color)value).A) / 255;
 
-        Log.Info(colorValue);
+        CopperImGui.ColorEdit($"{value.GetType().Name.ToTitleCase()}###{id}", ref colorValue, _ => { valueChanged?.Invoke(); });
 
-        var interacted = ColorEdit($"{value.GetType().Name.ToTitleCase()}###{id}", ref colorValue, _ =>
-        {
-            valueChanged?.Invoke();
-            Log.Debug($"post interact value: {colorValue}");
-        });
-
-        Log.Info(colorValue);
-        Log.Info(interacted);
 
         value = new Color(colorValue * 255);
-    }
-
-    private static bool ColorEdit(string name, ref Vector4 color, Action<Vector4>? interacted = null)
-    {
-        if (!ImGui.ColorEdit4(name, ref color))
-            return false;
-
-        interacted?.Invoke(color);
-        return true;
     }
 }
