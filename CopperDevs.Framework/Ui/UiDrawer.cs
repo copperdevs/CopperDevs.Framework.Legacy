@@ -6,9 +6,9 @@ public static class UiDrawer
 {
     public static void DrawText(string textValue, Vector2 scaledPosition, Vector2 scaledSize, rlColor textColor, float fontSize)
     {
-        float scaleFactor = (float)rlWindow.GetScreenWidth() / 1920;
+        var scaleFactor = (float)rlWindow.GetScreenWidth() / 1920;
 
-        int scaledFontSize = (int)(fontSize * scaleFactor);
+        var scaledFontSize = (int)(fontSize * scaleFactor);
         
         rlGraphics.DrawTextEx(
             RenderingSystem.Instance.GetRenderableItems<Font>()[0],

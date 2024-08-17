@@ -11,7 +11,6 @@ public class Text : UiElement
 
     public override void DrawElement()
     {
-        // rlGraphics.DrawRectangleV(ScaledPosition, ScaledSize, BackgroundColor);
         UiDrawer.DrawText(TextValue, ScaledPosition, ScaledSize, TextColor, FontSize);
     }
 
