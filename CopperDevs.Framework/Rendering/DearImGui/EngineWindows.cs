@@ -12,7 +12,7 @@ internal static class EngineWindows
 
     private static void GameWindow()
     {
-        RlImGuiRenderer.RenderTextureFit(Engine.GameRenderTexture, false);
+        RlImGuiRenderer.RenderTextureFit(Engine.ShaderRenderTexture, false);
         Engine.GameWindowHovered = ImGui.IsWindowHovered();
 
         var drawList = ImGui.GetWindowDrawList();

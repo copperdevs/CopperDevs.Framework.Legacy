@@ -63,8 +63,17 @@ public class RenderingManagerWindow : BaseWindow
 
     private static void WindowRenderTexture()
     {
-        var renderTexture = (object)Engine.Instance.GameRenderTexture;
-        CopperImGui.RenderObjectValues(ref renderTexture);
+        CopperImGui.CollapsingHeader("Game Render Texture", () =>
+        {
+            var renderTexture = (object)Engine.Instance.GameRenderTexture;
+            CopperImGui.RenderObjectValues(ref renderTexture);
+        });
+        
+        CopperImGui.CollapsingHeader("Shader Render Texture", () =>
+        {
+            var renderTexture = (object)Engine.Instance.ShaderRenderTexture;
+            CopperImGui.RenderObjectValues(ref renderTexture, 1);
+        });
     }
 
     private static void FontInfo()

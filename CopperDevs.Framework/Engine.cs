@@ -15,6 +15,7 @@ using CopperDevs.Framework.Scenes;
 using CopperDevs.Framework.Ui;
 using CopperDevs.Framework.Utility;
 using ImGuiNET;
+using Raylib_CSharp.Collision;
 using Raylib_CSharp.Interact;
 using Raylib_CSharp.Transformations;
 using ColorFieldRenderer = CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers.ColorFieldRenderer;
@@ -39,6 +40,7 @@ public class Engine : Singleton<Engine>
     // rendering
     internal EngineCamera Camera;
     public rlRenderTexture GameRenderTexture { get; private set; }
+    public rlRenderTexture ShaderRenderTexture { get; private set; }
     public Shader? ScreenShader { get; private set; }
     public bool ScreenShaderEnabled = true;
     public Color BackgroundColor { get; private set; } = Color.RayWhite;
@@ -47,6 +49,11 @@ public class Engine : Singleton<Engine>
     // fixed update
     private float fixedDeltaTime;
     private const float FixedFrameTime = 1f / 60;
+
+    private static Shader bloomShader = Shader.Load(Shader.IncludedShaders.Bloom);
+    private static Shader pixelShader = Shader.Load(Shader.IncludedShaders.Pixelizer);
+    private static Shader sobelShader = Shader.Load(Shader.IncludedShaders.Sobel);
+    private static List<Shader> screenShaders = [sobelShader, bloomShader];
 
     public Engine() : this(EngineSettings.DefaultSettings)
     {
@@ -100,6 +107,7 @@ public class Engine : Singleton<Engine>
         };
 
         GameRenderTexture = rlRenderTexture.Load(settings.WindowSize.X, settings.WindowSize.Y);
+        ShaderRenderTexture = rlRenderTexture.Load(settings.WindowSize.X, settings.WindowSize.Y);
 
         var handle = rlWindow.GetHandle();
 
@@ -170,15 +178,26 @@ public class Engine : Singleton<Engine>
 
         rlGraphics.EndTextureMode();
 
+        for (var index = 0; index < screenShaders.Count; index++)
+        {
+            var shader = screenShaders[index];
+
+            rlGraphics.BeginTextureMode(ShaderRenderTexture);
+
+            rlGraphics.BeginShaderMode(shader);
+
+            var targetTexture = index == 0 ? GameRenderTexture.Texture : ShaderRenderTexture.Texture;
+            rlGraphics.DrawTextureRec(targetTexture, new Rectangle(0, 0, targetTexture.Width, -targetTexture.Height), Vector2.Zero, Color.White);
+
+            rlGraphics.EndShaderMode();
+
+            rlGraphics.EndTextureMode();
+        }
+        
         if (DebugEnabled)
-        {
             rlGraphics.ClearBackground(editorBackgroundColor);
-        }
         else
-        {
-            using (new ShaderScope(ScreenShader!, ScreenShader is not null && ScreenShaderEnabled))
-                rlGraphics.DrawTextureRec(GameRenderTexture.Texture, new Rectangle(0, 0, GameRenderTexture.Texture.Width, -GameRenderTexture.Texture.Height), Vector2.Zero, Color.White);
-        }
+            rlGraphics.DrawTextureRec(ShaderRenderTexture.Texture, new Rectangle(0, 0, ShaderRenderTexture.Texture.Width, -ShaderRenderTexture.Texture.Height), Vector2.Zero, Color.White);
 
         UiRenderUpdate();
 
@@ -218,7 +237,7 @@ public class Engine : Singleton<Engine>
     {
         if (!DebugEnabled)
             return;
-        
+
         EngineWindows.RenderGameWindow();
         EngineWindows.RenderMenuBar();
     }
@@ -242,8 +261,18 @@ public class Engine : Singleton<Engine>
 
     private void OnWindowsApiWindowResize(Vector2Int newSize)
     {
+        RaylibLogger.HideLogs = true;
+
         GameRenderTexture.Unload();
         GameRenderTexture = rlRenderTexture.Load(newSize.X, newSize.Y);
+
+        ShaderRenderTexture.Unload();
+        ShaderRenderTexture = rlRenderTexture.Load(newSize.X, newSize.Y);
+
+        RaylibLogger.HideLogs = false;
+
+        Log.Debug($"Reloading render textures. New size: <{newSize.X},{newSize.Y}>");
+
         Update();
     }
 

@@ -6,6 +6,8 @@ namespace CopperDevs.Framework.Utility;
 
 public static class RaylibLogger
 {
+    internal static bool HideLogs = false;
+    
     public static void Initialize()
     {
         Logger.Init();
@@ -15,6 +17,9 @@ public static class RaylibLogger
 
     private static bool RayLibLog(TraceLogLevel level, string message)
     {
+        if (HideLogs)
+            return true;
+        
         switch (level)
         {
             case TraceLogLevel.All:
