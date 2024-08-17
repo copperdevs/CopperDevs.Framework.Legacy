@@ -42,7 +42,7 @@ public static class Program
                         Position = new Vector2(.170f, .670f),
                         ClickAction = () => engine.ShouldRun = false,
                         TextValue = "Quit",
-                        TextColor = Color.White,
+                        TextColor = Color.Red,
                         FontSize = 220
                     },
                     new Button("Play Button")
@@ -70,23 +70,18 @@ public static class Program
 
         var gameScene = new Scene("Game Scene", "game-scene")
         {
+            new EnemyManager(),
+            new MouseDrawer(),
             new GameObject("Player Object")
             {
                 new PlayerController(),
                 new PlayerWeapon()
             },
-            new GameObject("Mouse Manager")
-            {
-                new MouseDrawer()
-            }
         };
 
         var enemyTestingScene = new Scene("Enemy Testing", "enemy-testing")
         {
-            new GameObject("Enemy Spawner")
-            {
-                new EnemyManager()
-            }
+            new EnemyManager()
         };
 
         // engine.SetWindowColor(new Color(0, 0, 0, 0));
