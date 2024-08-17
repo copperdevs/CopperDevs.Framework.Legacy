@@ -76,11 +76,11 @@ public static class Program
                 new MouseDrawer(),
                 new ParticleSystem()
                 {
-                    maxParticles = 300,
-                    lifetimeRandomRange = new Vector2(0.010f, 0.115f),
-                    speedRandomRange = new Vector2(130, 240),
-                    sizeRandomRange = new Vector2(8, 14),
-                    particleColors = [new Color(243, 243, 243, 50)]
+                    MaxParticles = 300,
+                    LifetimeRandomRange = new Vector2(0.010f, 0.115f),
+                    SpeedRandomRange = new Vector2(130, 240),
+                    SizeRandomRange = new Vector2(8, 14),
+                    ParticleColors = [new Color(243, 243, 243, 50)]
                 }
             },
             new GameObject("Player Object")

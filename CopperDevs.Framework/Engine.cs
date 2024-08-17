@@ -174,7 +174,7 @@ public class Engine : Singleton<Engine>
 
         rlGraphics.EndTextureMode();
 
-        if (ScreenShaders.Count > 0)
+        if (ScreenShaders.Count > 0 && ScreenShaderEnabled)
         {
             for (var index = 0; index < ScreenShaders.Count; index++)
             {
