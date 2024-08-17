@@ -19,7 +19,7 @@ public static class Program
 
         var engine = new Engine(engineSettings);
         engine.SetBackgroundColor(Color.Black);
-        engine.SetScreenShader(Shader.IncludedShaders.Bloom);
+        engine.AddScreenShader(Shader.IncludedShaders.Bloom);
 
 
         var mainMenu = new Scene("Main Menu", "main-menu")
@@ -71,7 +71,18 @@ public static class Program
         var gameScene = new Scene("Game Scene", "game-scene")
         {
             new EnemyManager(),
-            new MouseDrawer(),
+            new GameObject("Mouse Controller")
+            {
+                new MouseDrawer(),
+                new ParticleSystem()
+                {
+                    maxParticles = 300,
+                    lifetimeRandomRange = new Vector2(0.010f, 0.115f),
+                    speedRandomRange = new Vector2(130, 240),
+                    sizeRandomRange = new Vector2(8, 14),
+                    particleColors = [new Color(243, 243, 243, 50)]
+                }
+            },
             new GameObject("Player Object")
             {
                 new PlayerController(),

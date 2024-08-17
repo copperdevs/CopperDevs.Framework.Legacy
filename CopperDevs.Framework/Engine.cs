@@ -41,7 +41,6 @@ public class Engine : Singleton<Engine>
     internal EngineCamera Camera;
     public rlRenderTexture GameRenderTexture { get; private set; }
     public rlRenderTexture ShaderRenderTexture { get; private set; }
-    public Shader? ScreenShader { get; private set; }
     public bool ScreenShaderEnabled = true;
     public Color BackgroundColor { get; private set; } = Color.RayWhite;
     private Color editorBackgroundColor = new(0, 0, 0, 0);
@@ -50,10 +49,7 @@ public class Engine : Singleton<Engine>
     private float fixedDeltaTime;
     private const float FixedFrameTime = 1f / 60;
 
-    private static Shader bloomShader = Shader.Load(Shader.IncludedShaders.Bloom);
-    private static Shader pixelShader = Shader.Load(Shader.IncludedShaders.Pixelizer);
-    private static Shader sobelShader = Shader.Load(Shader.IncludedShaders.Sobel);
-    private static List<Shader> screenShaders = [sobelShader, bloomShader];
+    internal List<Shader> ScreenShaders = [];
 
     public Engine() : this(EngineSettings.DefaultSettings)
     {
@@ -178,22 +174,31 @@ public class Engine : Singleton<Engine>
 
         rlGraphics.EndTextureMode();
 
-        for (var index = 0; index < screenShaders.Count; index++)
+        if (ScreenShaders.Count > 0)
         {
-            var shader = screenShaders[index];
+            for (var index = 0; index < ScreenShaders.Count; index++)
+            {
+                var shader = ScreenShaders[index];
 
+                rlGraphics.BeginTextureMode(ShaderRenderTexture);
+
+                rlGraphics.BeginShaderMode(shader);
+
+                var targetTexture = index == 0 ? GameRenderTexture.Texture : ShaderRenderTexture.Texture;
+                rlGraphics.DrawTextureRec(targetTexture, new Rectangle(0, 0, targetTexture.Width, -targetTexture.Height), Vector2.Zero, Color.White);
+
+                rlGraphics.EndShaderMode();
+
+                rlGraphics.EndTextureMode();
+            }
+        }
+        else
+        {
             rlGraphics.BeginTextureMode(ShaderRenderTexture);
-
-            rlGraphics.BeginShaderMode(shader);
-
-            var targetTexture = index == 0 ? GameRenderTexture.Texture : ShaderRenderTexture.Texture;
-            rlGraphics.DrawTextureRec(targetTexture, new Rectangle(0, 0, targetTexture.Width, -targetTexture.Height), Vector2.Zero, Color.White);
-
-            rlGraphics.EndShaderMode();
-
+            rlGraphics.DrawTextureRec(GameRenderTexture.Texture, new Rectangle(0, 0, GameRenderTexture.Texture.Width, -GameRenderTexture.Texture.Height), Vector2.Zero, Color.White);
             rlGraphics.EndTextureMode();
         }
-        
+
         if (DebugEnabled)
             rlGraphics.ClearBackground(editorBackgroundColor);
         else
@@ -277,6 +282,7 @@ public class Engine : Singleton<Engine>
     }
 
     public void SetBackgroundColor(Color color) => BackgroundColor = color;
-    public void SetScreenShader(Shader shader) => ScreenShader = shader;
-    public void SetScreenShader(Shader.IncludedShaders includedShader) => Shader.Load(includedShader);
+    public void AddScreenShader(Shader.IncludedShaders includedShader) => AddScreenShader(Shader.Load(includedShader));
+    public void AddScreenShader(Shader targetShader) => ScreenShaders.Add(targetShader);
+    public void RemoveScreenShader(Shader targetShader) => ScreenShaders.Remove(targetShader);
 }

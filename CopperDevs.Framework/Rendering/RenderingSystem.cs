@@ -16,6 +16,9 @@ public class RenderingSystem : Singleton<RenderingSystem>
 
     public List<T> GetRenderableItems<T>() where T : BaseRenderable
     {
+        if (LoadedRenderableItems.ContainsKey(typeof(T)))
+            return LoadedRenderableItems[typeof(T)].Cast<T>().ToList();
+        LoadedRenderableItems.Add(typeof(T), []);
         return LoadedRenderableItems[typeof(T)].Cast<T>().ToList();
     }
 
@@ -38,7 +41,7 @@ public class RenderingSystem : Singleton<RenderingSystem>
 
     internal void Stop()
     {
-        foreach (var renderable in LoadedRenderableItems.Values.SelectMany(renderables => renderables).ToList()) 
+        foreach (var renderable in LoadedRenderableItems.Values.SelectMany(renderables => renderables).ToList())
             renderable.UnLoadRenderable();
     }
 }

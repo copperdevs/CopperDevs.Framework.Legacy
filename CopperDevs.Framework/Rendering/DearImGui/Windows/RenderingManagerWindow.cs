@@ -1,5 +1,8 @@
-﻿using CopperDevs.DearImGui;
+﻿using CopperDevs.Core;
+using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Attributes;
+using CopperDevs.DearImGui.Utility;
+using CopperDevs.Framework.Utility;
 using ImGuiNET;
 
 namespace CopperDevs.Framework.Rendering.DearImGui.Windows;
@@ -36,6 +39,29 @@ public class RenderingManagerWindow : BaseWindow
     {
         CopperImGui.Checkbox("Engine Window Screen Shader Enabled", ref Engine.Instance.ScreenShaderEnabled);
 
+        CopperImGui.CollapsingHeader("Engine Window Screen Shaders", () =>
+        {
+            var tempList = Engine.Instance.ScreenShaders.ToList();
+
+            for (var index = 0; index < Engine.Instance.ScreenShaders.Count; index++)
+            {
+                var shader = Engine.Instance.ScreenShaders[index];
+
+                CopperImGui.CollapsingHeader($"{shader.Name}", () =>
+                {
+                    using (new DisabledScope(index == 0))
+                        CopperImGui.Button($"Move Up###u{shader.Name}{index}", () => tempList = Util.Swap(Engine.Instance.ScreenShaders, index, index - 1).ToList());
+
+                    using (new DisabledScope(Engine.Instance.ScreenShaders.Count - 1 == index))
+                        CopperImGui.Button($"Move Down###d{shader.Name}{index}", () => tempList = Util.Swap(Engine.Instance.ScreenShaders, index, index + 1).ToList());
+
+                    CopperImGui.Button($"Remove###{shader.Name}{index}", () => tempList.RemoveAt(index));
+                });
+            }
+
+            Engine.Instance.ScreenShaders = tempList;
+        });
+
         CopperImGui.Separator();
 
         CopperImGui.ForceRenderPopup("BuiltInShaderPopup");
@@ -45,11 +71,15 @@ public class RenderingManagerWindow : BaseWindow
 
         CopperImGui.CollapsingHeader("Loaded Shaders", () =>
         {
-            foreach (var shader in RenderingSystem.Instance.GetRenderableItems<Shader>())
+            var shaders = RenderingSystem.Instance.GetRenderableItems<Shader>();
+            foreach (var shader in shaders)
             {
-                CopperImGui.CollapsingHeader(shader.Name, () =>
+                CopperImGui.CollapsingHeader($"{shader.Name}###{shaders.IndexOf(shader)}", () =>
                 {
-                    CopperImGui.Selectable($"Set to engine screen shader###button{shader.Name}", () => Engine.Instance.SetScreenShader(shader));
+                    CopperImGui.HorizontalGroup(() => { CopperImGui.Button($"Add to screen shaders###a{shader.Name}{shaders.IndexOf(shader)}", () => { Engine.Instance.AddScreenShader(shader); }); },
+                        () => { CopperImGui.Button($"Remove from screen shaders###r{shader.Name}{shaders.IndexOf(shader)}", () => { Engine.Instance.RemoveScreenShader(shader); }); });
+
+                    CopperImGui.Button($"Unload Shader###{shader.Name}{shaders.IndexOf(shader)}", () => { shader.UnLoadRenderable(); });
 
                     if (!string.IsNullOrEmpty(shader.VertexShaderData))
                         CopperImGui.CollapsingHeader($"Vertex Shader Data###vertex{shader.Name}", () => { CopperImGui.Text(shader.VertexShaderData); });
@@ -68,7 +98,7 @@ public class RenderingManagerWindow : BaseWindow
             var renderTexture = (object)Engine.Instance.GameRenderTexture;
             CopperImGui.RenderObjectValues(ref renderTexture);
         });
-        
+
         CopperImGui.CollapsingHeader("Shader Render Texture", () =>
         {
             var renderTexture = (object)Engine.Instance.ShaderRenderTexture;
