@@ -1,4 +1,5 @@
-﻿using CopperDevs.Framework.Physics;
+﻿using CopperDevs.Framework.Components;
+using CopperDevs.Framework.Physics;
 using CopperDevs.Framework.Scenes;
 
 namespace CopperDevs.Framework.Testing;
@@ -13,14 +14,27 @@ public static class Program
 
         engine.Run();
     }
-    
+
     public static void EngineLoad()
     {
         var emptyScene = new Scene("Empty");
 
+        var uiTesting = new Scene("Ui")
+        {
+            new UiRenderer(new UiScreen("Testing Screen", "testing-screen")
+            {
+                new Box("Background")
+                {
+                    Position = new Vector2(0.005f),
+                    Size = new Vector2(0.990f),
+                    Color = Color.Black
+                }
+            })
+        };
+
         var physicsTesting = new Scene("Physics")
         {
-            new("Dynamic Rigidbody", new Transform { Scale = 100, Position = new Vector2(0, -50) })
+            new GameObject("Dynamic Rigidbody", new Transform { Scale = 100, Position = new Vector2(0, -50) })
             {
                 new BoxCollider(),
                 new Rigidbody
@@ -32,7 +46,7 @@ public static class Program
                 //     SquareColor = Color.Red
                 // }
             },
-            new("Ground Rigidbody", new Transform { Scale = 200, Position = new Vector2(0, 400) })
+            new GameObject("Ground Rigidbody", new Transform { Scale = 200, Position = new Vector2(0, 400) })
             {
                 new BoxCollider(),
                 new Rigidbody
@@ -46,6 +60,7 @@ public static class Program
             }
         };
 
-        emptyScene.Load();
+        // emptyScene.Load();
+        uiTesting.Load();
     }
 }

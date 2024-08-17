@@ -6,6 +6,7 @@ namespace CopperDevs.Framework.Ui;
 
 public abstract class UiElement
 {
+    [Seperator($"Base {nameof(UiElement)} Settings")]
     public string Name;
 
     [Range(0, 1, TargetRangeType = RangeType.Drag, Speed = 0.005f)]

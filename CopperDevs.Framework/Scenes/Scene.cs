@@ -44,6 +44,20 @@ public class Scene : IEnumerable<GameObject>
         gameObject.UpdateComponents(component => component.Start());
     }
 
+    public void Add(GameComponent component)
+    {
+        var gameObject = new GameObject();
+
+        SceneObjects.Add(gameObject);
+
+        gameObject.Scene = this;
+        gameObject.GameObjectName = component.GetType().Name;
+
+        gameObject.Add(component);
+
+        gameObject.UpdateComponents(createdComponent => createdComponent.Start());
+    }
+
     public void Remove(GameObject gameObject)
     {
         gameObject.UpdateComponents(component => component.Stop());

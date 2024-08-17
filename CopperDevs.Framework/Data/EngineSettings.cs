@@ -8,7 +8,7 @@ namespace CopperDevs.Framework.Data;
 public class EngineSettings
 {
     public ConfigFlags WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow;
-    public Vector2Int WindowSize = new(650, 400);
+    public Vector2Int WindowSize = new(1080, 670);
     public int TargetFps = 60;
     public string WindowTitle = "Window";
     public bool DisableDevTools = true;
@@ -18,7 +18,7 @@ public class EngineSettings
     public static EngineSettings DefaultSettings => new()
     {
         WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.VSyncHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
-        WindowSize = new Vector2Int(650, 400),
+        WindowSize = new Vector2Int(1080, 670),
         TargetFps = 60,
         WindowTitle = "CopperFramework - Default",
         DisableDevTools = true,
@@ -29,7 +29,7 @@ public class EngineSettings
     public static EngineSettings UncappedFps => new()
     {
         WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
-        WindowSize = new Vector2Int(650, 400),
+        WindowSize = new Vector2Int(1080, 670),
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Uncapped Fps",
         DisableDevTools = true,
@@ -40,7 +40,7 @@ public class EngineSettings
     public static EngineSettings Development => new()
     {
         WindowFlags = ConfigFlags.Msaa4XHint | ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow,
-        WindowSize = new Vector2Int(650, 400),
+        WindowSize = new Vector2Int(1080, 670),
         TargetFps = 10000,
         WindowTitle = "CopperFramework - Development",
         DisableDevTools = false,

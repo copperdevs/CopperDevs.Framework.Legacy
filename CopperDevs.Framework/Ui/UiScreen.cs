@@ -1,23 +1,18 @@
 ﻿namespace CopperDevs.Framework.Ui;
 
-public class UiScreen : IEnumerable<UiElement>
+public class UiScreen(string displayName, string screenId) : IEnumerable<UiElement>
 {
-    public string DisplayName;
-    public string ScreenId;
+    public readonly string DisplayName = displayName;
+    public readonly string ScreenId = screenId;
 
     public readonly List<UiElement> UiElements = [];
 
-    public UiScreen(string screenId, string displayName)
+    public void Add(UiElement? element)
     {
-        ScreenId = screenId;
-        DisplayName = displayName;
+        if (element is not null)
+            UiElements.Add(element);
     }
 
-    public void Add(UiElement element)
-    {
-        UiElements.Add(element);
-    }
-    
     public IEnumerator<UiElement> GetEnumerator() => UiElements.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

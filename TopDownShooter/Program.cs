@@ -1,4 +1,5 @@
-﻿using CopperDevs.Framework.Scenes;
+﻿using CopperDevs.Framework.Components;
+using CopperDevs.Framework.Scenes;
 using Raylib_CSharp.Windowing;
 using TopDownShooter.Components;
 
@@ -23,7 +24,7 @@ public static class Program
 
         var mainMenu = new Scene("Main Menu", "main-menu")
         {
-            new("Ui")
+            new GameObject("Ui")
             {
                 new UiRenderer(new UiScreen("main-menu-screen", "Main Menu Screen")
                 {
@@ -69,12 +70,12 @@ public static class Program
 
         var gameScene = new Scene("Game Scene", "game-scene")
         {
-            new("Player Object")
+            new GameObject("Player Object")
             {
                 new PlayerController(),
                 new PlayerWeapon()
             },
-            new("Mouse Manager")
+            new GameObject("Mouse Manager")
             {
                 new MouseDrawer()
             }
@@ -82,7 +83,7 @@ public static class Program
 
         var enemyTestingScene = new Scene("Enemy Testing", "enemy-testing")
         {
-            new("Enemy Spawner")
+            new GameObject("Enemy Spawner")
             {
                 new EnemyManager()
             }
