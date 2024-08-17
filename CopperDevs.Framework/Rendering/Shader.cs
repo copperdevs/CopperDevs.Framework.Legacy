@@ -1,32 +1,12 @@
-﻿using CopperDevs.Core.Utility;
-using CopperDevs.Framework.Utility;
-
-namespace CopperDevs.Framework.Rendering;
+﻿namespace CopperDevs.Framework.Rendering;
 
 public sealed class Shader : BaseRenderable
 {
     public readonly string Name;
     public readonly string? VertexShaderData;
     public readonly string? FragmentShaderData;
-    
-    private rlShader rlShader;
 
-    public enum IncludedShaders
-    {
-        Bloom,
-        Blur,
-        CrossStitching,
-        DreamVision,
-        Fisheye,
-        Grayscale,
-        // ReSharper disable once IdentifierTypo
-        Pixelizer,
-        Posterization,
-        Predator,
-        // ReSharper disable once IdentifierTypo
-        Scanlines,
-        Sobel
-    }
+    private rlShader rlShader;
 
 
     public static Shader Load(string shaderName, string? newVertexShaderData = null, string? newFragmentShaderData = null)
@@ -36,7 +16,7 @@ public sealed class Shader : BaseRenderable
 
     public static Shader Load(IncludedShaders includedShaders)
     {
-        return Load(includedShaders.ToString(), null, ResourceLoader.LoadTextResource($"CopperDevs.Framework.Resources.Shaders.{includedShaders.ToString()}.frag"));
+        return Load(includedShaders.ToString(), null, includedShaders.GetShaderContentsFromRegistry());
     }
 
 

@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CopperDevs.Core" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CopperDevs.Framework.Resources.Core\CopperDevs.Framework.Resources.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Inter\static\Inter-Black.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-Black.ttf" />
+      <None Remove="Resources\Inter\static\Inter-Bold.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-Bold.ttf" />
+      <None Remove="Resources\Inter\static\Inter-ExtraBold.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-ExtraBold.ttf" />
+      <None Remove="Resources\Inter\static\Inter-ExtraLight.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-ExtraLight.ttf" />
+      <None Remove="Resources\Inter\static\Inter-Light.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-Light.ttf" />
+      <None Remove="Resources\Inter\static\Inter-Medium.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-Medium.ttf" />
+      <None Remove="Resources\Inter\static\Inter-Regular.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-Regular.ttf" />
+      <None Remove="Resources\Inter\static\Inter-SemiBold.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-SemiBold.ttf" />
+      <None Remove="Resources\Inter\static\Inter-Thin.ttf" />
+      <EmbeddedResource Include="Resources\Inter\static\Inter-Thin.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-Black.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-Black.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-BlackItalic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-BlackItalic.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-Bold.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-Bold.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-BoldItalic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-BoldItalic.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-ExtraBold.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-ExtraBold.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-ExtraBoldItalic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-ExtraBoldItalic.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-Italic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-Italic.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-Light.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-Light.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-LightItalic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-LightItalic.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-Medium.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-Medium.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-MediumItalic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-MediumItalic.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-Regular.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-Regular.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-SemiBold.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-SemiBold.ttf" />
+      <None Remove="Resources\Figtree\static\Figtree-SemiBoldItalic.ttf" />
+      <EmbeddedResource Include="Resources\Figtree\static\Figtree-SemiBoldItalic.ttf" />
+    </ItemGroup>
+
+</Project>

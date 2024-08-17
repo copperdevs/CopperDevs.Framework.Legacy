@@ -1,4 +1,6 @@
-﻿using CopperDevs.Framework.Utility;
+﻿using CopperDevs.Framework.Common.Utility;
+using CopperDevs.Framework.Resources.Fonts;
+using CopperDevs.Framework.Utility;
 
 namespace CopperDevs.Framework.Rendering;
 
@@ -35,7 +37,7 @@ public class RenderingSystem : Singleton<RenderingSystem>
 
         Shader.Load("Empty");
 
-        Font.Load("Inter", ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"));
+        Font.Load("Inter", FontRegistry.Instance.Inter.Regular);
         Font.Load();
     }
 

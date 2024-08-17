@@ -129,9 +129,9 @@ public class RenderingManagerWindow : BaseWindow
 
     private static void BuiltInShaderPopup()
     {
-        foreach (var includedShader in Enum.GetValues(typeof(Shader.IncludedShaders)))
+        foreach (var includedShader in Enum.GetValues(typeof(IncludedShaders)))
         {
-            CopperImGui.Selectable(includedShader, () => { Shader.Load((Shader.IncludedShaders)includedShader); });
+            CopperImGui.Selectable(includedShader, () => Shader.Load((IncludedShaders)includedShader));
         }
     }
 

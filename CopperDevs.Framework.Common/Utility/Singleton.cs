@@ -1,6 +1,6 @@
-﻿using CopperDevs.Core;
+using CopperDevs.Core;
 
-namespace CopperDevs.Framework.Utility;
+namespace CopperDevs.Framework.Common.Utility;
 
 public class Singleton<T> : ISingleton where T : class, new()
 {
@@ -12,7 +12,7 @@ public class Singleton<T> : ISingleton where T : class, new()
         return instance ??= new T();
     }
 
-    protected void SetInstance(T newInstance)
+    public void SetInstance(T newInstance)
     {
         if (instance is not null)
         {

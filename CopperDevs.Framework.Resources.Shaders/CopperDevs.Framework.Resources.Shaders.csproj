@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CopperDevs.Core" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CopperDevs.Framework.Resources.Core\CopperDevs.Framework.Resources.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\Screen\Bloom.frag" />
+      <EmbeddedResource Include="Resources\Screen\Blur.frag" />
+      <EmbeddedResource Include="Resources\Screen\CrossStitching.frag" />
+      <EmbeddedResource Include="Resources\Screen\DreamVision.frag" />
+      <EmbeddedResource Include="Resources\Screen\Fisheye.frag" />
+      <EmbeddedResource Include="Resources\Screen\Grayscale.frag" />
+      <EmbeddedResource Include="Resources\Screen\Pixelizer.frag" />
+      <EmbeddedResource Include="Resources\Screen\Posterization.frag" />
+      <EmbeddedResource Include="Resources\Screen\Predator.frag" />
+      <EmbeddedResource Include="Resources\Screen\Scanlines.frag" />
+      <EmbeddedResource Include="Resources\Screen\Sobel.frag" />
+    </ItemGroup>
+
+</Project>

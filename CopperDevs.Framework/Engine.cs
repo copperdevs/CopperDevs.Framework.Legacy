@@ -5,12 +5,14 @@ using CopperDevs.Core.Data;
 using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Renderer.Raylib;
+using CopperDevs.Framework.Common.Utility;
 using CopperDevs.Framework.Components;
 using CopperDevs.Framework.Content;
 using CopperDevs.Framework.Physics;
 using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Rendering.DearImGui;
 using CopperDevs.Framework.Rendering.DearImGui.ReflectionRenderers;
+using CopperDevs.Framework.Resources.Fonts;
 using CopperDevs.Framework.Scenes;
 using CopperDevs.Framework.Ui;
 using CopperDevs.Framework.Utility;
@@ -124,10 +126,10 @@ public class Engine : Singleton<Engine>
             {
                 unsafe
                 {
-                    fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Inter.static.Inter-Regular.ttf"))
+                    fixed (byte* p = FontRegistry.Instance.Inter.Regular)
                         ptr.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
 
-                    fixed (byte* p = ResourceLoader.LoadEmbeddedResourceBytes("CopperDevs.Framework.Resources.Fonts.Figtree.static.Figtree-Regular.ttf"))
+                    fixed (byte* p = FontRegistry.Instance.Figtree.Regular)
                         ptr.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
                 }
             }
@@ -282,7 +284,7 @@ public class Engine : Singleton<Engine>
     }
 
     public void SetBackgroundColor(Color color) => BackgroundColor = color;
-    public void AddScreenShader(Shader.IncludedShaders includedShader) => AddScreenShader(Shader.Load(includedShader));
+    public void AddScreenShader(IncludedShaders includedShader) => AddScreenShader(Shader.Load(includedShader));
     public void AddScreenShader(Shader targetShader) => ScreenShaders.Add(targetShader);
     public void RemoveScreenShader(Shader targetShader) => ScreenShaders.Remove(targetShader);
 }

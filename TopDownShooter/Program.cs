@@ -1,4 +1,5 @@
 ﻿using CopperDevs.Framework.Components;
+using CopperDevs.Framework.Rendering;
 using CopperDevs.Framework.Scenes;
 using Raylib_CSharp.Windowing;
 using TopDownShooter.Components;
@@ -19,7 +20,7 @@ public static class Program
 
         var engine = new Engine(engineSettings);
         engine.SetBackgroundColor(Color.Black);
-        engine.AddScreenShader(Shader.IncludedShaders.Bloom);
+        engine.AddScreenShader(IncludedShaders.Bloom);
 
 
         var mainMenu = new Scene("Main Menu", "main-menu")
