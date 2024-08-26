@@ -1,4 +1,5 @@
 ﻿using CopperDevs.DearImGui;
+using CopperDevs.DearImGui.Enums;
 using CopperDevs.DearImGui.Renderer.Raylib;
 using ImGuiNET;
 
@@ -8,7 +9,7 @@ internal static class EngineWindows
 {
     private static Engine Engine => Engine.Instance;
 
-    internal static void RenderGameWindow() => CopperImGui.Window("Game", GameWindow, ImGuiWindowFlags.NoCollapse);
+    internal static void RenderGameWindow() => CopperImGui.Window("Game", GameWindow, WindowFlags.NoCollapse);
 
     private static void GameWindow()
     {

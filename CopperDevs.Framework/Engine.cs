@@ -120,23 +120,10 @@ public class Engine : Singleton<Engine>
         CopperImGui.RegisterFieldRenderer<Transform, TransformFieldRenderer>();
         CopperImGui.RegisterFieldRenderer<UiScreen, UiScreenFieldRenderer>();
 
-        RlImGuiRenderer.SetupUserFonts += ptr =>
+        ImGuiRenderer.LoadUserFonts += () =>
         {
-            try
-            {
-                unsafe
-                {
-                    fixed (byte* p = FontRegistry.Instance.Inter.Regular)
-                        ptr.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
-
-                    fixed (byte* p = FontRegistry.Instance.Figtree.Regular)
-                        ptr.AddFontFromMemoryTTF((IntPtr)p, 14, 14);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
+            CopperImGui.LoadFontFromMemory(FontRegistry.Instance.Inter.Regular, 14, 14);
+            CopperImGui.LoadFontFromMemory(FontRegistry.Instance.Figtree.Regular, 14, 14);
         };
         CopperImGui.Setup<RlImGuiRenderer>(true, true);
         CopperImGui.Rendered += ImGuiRender;

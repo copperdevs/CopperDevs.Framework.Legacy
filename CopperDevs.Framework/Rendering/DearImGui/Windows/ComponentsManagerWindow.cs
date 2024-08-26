@@ -1,6 +1,7 @@
 ﻿using CopperDevs.Core.Utility;
 using CopperDevs.DearImGui;
 using CopperDevs.DearImGui.Attributes;
+using CopperDevs.DearImGui.Enums;
 using CopperDevs.DearImGui.Utility;
 using CopperDevs.Framework.Components;
 using CopperDevs.Framework.Scenes;
@@ -105,7 +106,7 @@ public class ComponentsManagerWindow : BaseWindow
                     CopperImGui.Selectable("Add New Component",
                         () => CopperImGui.ShowPopup("ObjectBrowserAddComponentPopup"));
                 },
-                ImGuiChildFlags.Border);
+                ChildFlags.Border);
         }
     }
 

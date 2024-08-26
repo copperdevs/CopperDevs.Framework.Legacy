@@ -11,11 +11,11 @@
     <ItemGroup>
         <PackageReference Include="Aether.Physics2D" Version="2.1.0" />
         <PackageReference Include="CopperDevs.Core" Version="1.1.0" />
-        <PackageReference Include="CopperDevs.DearImGui" Version="1.1.1" />
-        <PackageReference Include="CopperDevs.DearImGui.Renderer.Raylib" Version="1.1.0" />
+        <PackageReference Include="CopperDevs.DearImGui" Version="1.2.0" />
+        <PackageReference Include="CopperDevs.DearImGui.Renderer.Raylib" Version="1.1.1" />
         <PackageReference Include="DeepCloner" Version="0.10.4" />
         <PackageReference Include="ImGui.NET" Version="1.91.0.1" />
-        <PackageReference Include="Raylib-CSharp" Version="4.1.8" />
+        <PackageReference Include="Raylib-CSharp" Version="4.1.9" />
     </ItemGroup>
     
     <ItemGroup>
